@@ -1,0 +1,112 @@
+﻿<div class="panel panel-default" style="">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" style="padding-top: 7.5px;">Clase</h3>
+        <div class="btn-group pull-right">
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-hdd"></span> Guardar
+            </button>
+            <a href="http://localhost:53456/ClaseImpresion/Imprimir/789" target="_blank" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label for="nombreClase" class="col-xs-2 control-label">Nombre </label>
+                <div class="col-xs-4">
+                    <input class="form-control" id="nombreClase" placeholder="Ingrese nombre de clase" ng-model="claseCabecera.titulo" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Nivel</label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="selectedNivel" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
+                </div>
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Grado</label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="selectedGrado" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Inicio</label>
+                <div class="col-xs-4">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaInicioFormato" is-open="openedFechaInicio" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openFechaInicio($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Fin</label>
+                <div class="col-xs-4">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaFinFormato" is-open="openedFechaFin" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openFechaFin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-2">
+        <div>
+            <button type="button" class="btn btn-info btn-sm" ng-click="popUpCapacidades()">1. Capacidades</button>
+            <button type="button" class="btn btn-danger btn-sm" ng-click="eliminarCapacidades()"><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <div>
+            <button type="button" class="btn btn-warning btn-sm" ng-click="popUpContenidos()">2. Contenidos</button>
+            <button type="button" class="btn btn-danger btn-sm" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-primary btn-sm" ng-click="popUpContenidos()">3. Valores</button>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">4. Metodología</button>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">4. Metodología</button>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">4. Metodología</button>
+    </div>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
+        <div id="jtClaseCapacidades"></div>
+    </div>
+    <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
+        <div id="jtClaseContenidos"></div>
+    </div>    
+    <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
+        <div id="jtClaseValores"></div>
+    </div>
+    <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
+        <div id="jtClaseMetodos"></div>
+    </div>
+    <div class="col-xs-2">
+    </div>
+    <div class="col-xs-2">
+    </div>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-8">
+        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">7. Actividades (escribir dentro de la caja, hasta 1530 cacteres)</button>
+    </div>
+    <div class="col-xs-4">
+        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">8. Archivos</button>
+    </div>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-8">
+        <text-angular ng-model="htmlVariable" ng-blur="ola()"></text-angular>
+    </div>
+    <div class="col-xs-4">
+    </div>
+</div>

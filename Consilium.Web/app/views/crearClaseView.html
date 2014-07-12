@@ -1,0 +1,47 @@
+﻿<div class="panel panel-primary" style="margin-top:60px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">Crear Clase</h3>
+    </div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label for="nombreClase" class="col-xs-2 control-label">Nombre </label>
+                <div class="col-xs-4">
+                    <input class="form-control" id="nombreClase" placeholder="Ingrese nombre de clase" ng-model="claseCabecera.nombreClase" />
+                </div>
+                <label for="nombreClase" class="col-xs-2 control-label">Area </label>
+                <div class="col-xs-4">
+                    <p class="form-control-static">{{claseCabecera.nombreArea}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Nivel</label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="selectedNivel" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
+                </div>
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Grado</label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="selectedGrado" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Inicio</label>
+                <div class="col-xs-4">
+                    <input class="form-control" id="nombreClase">
+                </div>
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Fin</label>
+                <div class="col-xs-4">
+                    <input class="form-control" id="nombreClase">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-10 col-xs-2">
+                    <button type="submit" class="btn btn-primary" ng-click="crearClase()">
+                        <span class="glyphicon glyphicon-hdd"></span> Crear
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <toaster-container toaster-options="{'time-out': 2000}"></toaster-container>
+</div>
