@@ -90,5 +90,12 @@ namespace Consilium.Logica
         }
 
         #endregion
+
+        #region matriz Evaluacion
+        public ClaseMatriz GetClaseMatrizByClase(int claseId) 
+        {
+            return claseData.GetClaseMatrizByClase(claseId);
+        }
+        #endregion 
     }
 }

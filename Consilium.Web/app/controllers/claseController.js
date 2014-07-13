@@ -6,6 +6,7 @@
         nivelId: 1,
         gradoId: 2
     };
+    $scope.matriz = {};
     $scope.claseCapacidades = [];
     $scope.niveles = [];
     $scope.grados = [];
@@ -23,6 +24,7 @@
         obtenerClaseValores();
         obtenerClaseMetodos();
         obtenerClaseActividad();
+        obtenerClaseMatriz();
     }
 
     function obtenerClaseCabecera() {
@@ -225,7 +227,12 @@
             $scope.htmlVariable = resultado.data.actividades;
         });
     }
-
+    
+    function obtenerClaseMatriz() {
+        claseDataService.claseMatriz($scope.claseCabecera.claseId).then(function (resultado) {
+            $scope.matriz = resultado.data;
+        });
+    }
 
 
     function obtenerNiveles() {

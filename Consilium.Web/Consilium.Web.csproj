@@ -129,6 +129,7 @@
     <Compile Include="Controllers\ClaseContenidoController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\ClaseImpresionController.cs" />
+    <Compile Include="Controllers\ClaseMatrizController.cs" />
     <Compile Include="Controllers\ClaseMetodoController.cs" />
     <Compile Include="Controllers\ClaseValorController.cs" />
     <Compile Include="Controllers\ContenidoController.cs" />

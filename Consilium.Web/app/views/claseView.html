@@ -2,10 +2,10 @@
     <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left" style="padding-top: 7.5px;">Clase</h3>
         <div class="btn-group pull-right">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-hdd"></span> Guardar
             </button>
-            <a href="http://localhost:53456/ClaseImpresion/Imprimir/789" target="_blank" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
+            <a href="http://localhost:53456/ClaseImpresion/Imprimir/789" target="_blank" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
         </div>
     </div>
     <div class="panel-body">
@@ -108,5 +108,46 @@
         <text-angular ng-model="htmlVariable" ng-blur="ola()"></text-angular>
     </div>
     <div class="col-xs-4">
+    </div>
+</div>
+<div class="row show-grid">
+    <button class="btn btn-info">Matriz de Evaluacion</button>
+</div>
+<div class="row show-grid">
+    <table>
+        <tr>
+            <td>Formativa <input type="checkbox" ng-model="matriz.formativa" /></td>
+            <td>Sumativa <input type="checkbox" ng-model="matriz.sumativa" /></td>
+            <td>AutoEvaluativa <input type="checkbox" ng-model="matriz.autoEvaluativa" /></td>
+            <td>Coevaluativa <input type="checkbox" ng-model="matriz.coevaluativa" /></td>
+            <td>HeteroEvalucion <input type="checkbox" ng-model="matriz.heteroEvalucion" /></td>
+            <td>Censal <input type="checkbox" ng-model="matriz.censal" /></td>
+        </tr>
+    </table>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-4">
+        <button class="btn btn-info">1. Indicador de logro</button>
+    </div>
+    <div class="col-xs-4">
+        <button class="btn btn-info">2. Tipo de conocimiento</button>
+    </div>
+    <div class="col-xs-4">
+        <button class="btn btn-info">3. Pruebas</button>
+    </div>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-4">
+        <textarea ng-model="matriz.indicadorLogro"></textarea>
+    </div>
+    <div class="col-xs-4">
+    </div>
+    <div class="col-xs-4">
+        <textarea ng-model="matriz.pruebaTexto"></textarea>
+    </div>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-12">
+        <textarea ng-model="matriz.observacionClase"></textarea>
     </div>
 </div>

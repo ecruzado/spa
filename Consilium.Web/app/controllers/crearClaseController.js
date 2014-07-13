@@ -1,4 +1,4 @@
-﻿app.controller('crearClaseController', function ($scope, $location, $log, $routeParams, claseDataService) {
+﻿app.controller('crearClaseController', function ($scope, $location, $log, $routeParams, claseDataService, toaster) {
     $scope.claseCabecera = {
         colegioId: 5,
         areaId: $routeParams.area,
@@ -6,7 +6,7 @@
         claseId: 4481,
         nivelId: 1,
         gradoId: 2,
-        nombreClase:''
+        titulo: ''
     };
     $scope.niveles = [];
     $scope.grados = [];
@@ -29,6 +29,24 @@
     }
 
     $scope.crearClase = function () {
-        $location.path("/clase/150");
+        claseDataService.saveClase($scope.claseCabecera).then(function (resultado) {
+            $location.path("/clase/"+resultado.data.claseId);
+        }, function (resultadoError) {
+            toaster.pop('error', "Ocurrio un error", "Ocurrido un error, no se pudo completar la operacion");
+        });
     }
+
+    $scope.openFechaInicio = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.openedFechaInicio = true;
+    };
+    $scope.openFechaFin = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.openedFechaFin = true;
+    };
+
 });

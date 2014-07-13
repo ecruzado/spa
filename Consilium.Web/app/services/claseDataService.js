@@ -52,6 +52,10 @@
         });
     };
 
+    var _saveClase = function (clase) {
+        return $http.post('/api/clase/', clase);
+    };
+
     var _claseContenidos = function (claseId) {
         return $http.get('/api/clasecontenido/', { params: { claseId: claseId } }).then(function (results) {
             return results;
@@ -78,14 +82,19 @@
             return results;
         });
     };
-
+    var _claseMatriz = function (claseId) {
+        return $http.get('/api/clasematriz/', { params: { claseId: claseId } }).then(function (results) {
+            return results;
+        });
+    };
 
     claseDataFactory.niveles = _niveles;
     claseDataFactory.grados = _grados;
 
     claseDataFactory.clases = _clases;
     claseDataFactory.clase = _clase;
-
+    claseDataFactory.saveClase = _saveClase;
+    
     claseDataFactory.claseCapacidades = _claseCapacidades;
     claseDataFactory.saveClaseCapacidad = _saveClaseCapacidad;
     claseDataFactory.deleteClaseCapacidad = _deleteClaseCapacidad;
@@ -96,6 +105,8 @@
 
     claseDataFactory.claseActividades = _claseActividades;
     claseDataFactory.claseActividadUpdate = _claseActividadUpdate;
+
+    claseDataFactory.claseMatriz = _claseMatriz;
 
     return claseDataFactory;
 });

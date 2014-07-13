@@ -439,6 +439,61 @@ namespace Consilium.DAO
 
         #endregion
 
+        #region Matriz Evaluacion
+
+        public ClaseMatriz GetClaseMatrizByClase(int claseId)
+        {
+            string spName = "clase.sp_clase_matriz_getByClase";
+            ClaseMatriz claseMatriz = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        if (dr.Read())
+                        {
+                            claseMatriz = new ClaseMatriz();
+                            claseMatriz.ClaseMatrizId = dr.GetInt32(dr.GetOrdinal("clase_matriz_id"));
+                            claseMatriz.ClaseId = dr.GetInt32(dr.GetOrdinal("clase_id"));
+                            claseMatriz.Formativa = dr.GetBoolean(dr.GetOrdinal("formativa"));
+                            claseMatriz.Sumativa = dr.GetBoolean(dr.GetOrdinal("sumativa"));
+                            claseMatriz.AutoEvaluativa = dr.GetBoolean(dr.GetOrdinal("autoevaluativa"));
+                            claseMatriz.Coevaluativa = dr.GetBoolean(dr.GetOrdinal("coevaluativa"));
+                            claseMatriz.HeteroEvalucion = dr.GetBoolean(dr.GetOrdinal("heteroevaluacion"));
+                            claseMatriz.Censal = dr.GetBoolean(dr.GetOrdinal("censal"));
+                            claseMatriz.Muestral = dr.GetBoolean(dr.GetOrdinal("muestral"));
+                            claseMatriz.IndicadorLogro = dr.GetString(dr.GetOrdinal("indicador_logro"));
+                            claseMatriz.PruebaTexto = dr.GetString(dr.GetOrdinal("pruebatxt"));
+                            claseMatriz.ObservacionClase = dr.GetString(dr.GetOrdinal("obsclase"));
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return claseMatriz;
+        }
+        
+        
+
+        #endregion
+
         /// <summary>
         /// Obtener el listado de contenidos por clase
         /// </summary>

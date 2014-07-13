@@ -43,6 +43,7 @@
     <Compile Include="ClaseActividad.cs" />
     <Compile Include="ClaseCapacidad.cs" />
     <Compile Include="ClaseContenido.cs" />
+    <Compile Include="ClaseMatriz.cs" />
     <Compile Include="ClaseMetodo.cs" />
     <Compile Include="ClaseValor.cs" />
     <Compile Include="Contenido.cs">

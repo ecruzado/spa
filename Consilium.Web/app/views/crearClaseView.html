@@ -1,4 +1,4 @@
-﻿<div class="panel panel-primary" style="margin-top:60px;">
+﻿<div class="panel panel-primary" style="">
     <div class="panel-heading">
         <h3 class="panel-title">Crear Clase</h3>
     </div>
@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label for="nombreClase" class="col-xs-2 control-label">Nombre </label>
                 <div class="col-xs-4">
-                    <input class="form-control" id="nombreClase" placeholder="Ingrese nombre de clase" ng-model="claseCabecera.nombreClase" />
+                    <input class="form-control" id="nombreClase" placeholder="Ingrese nombre de clase" ng-model="claseCabecera.titulo" />
                 </div>
                 <label for="nombreClase" class="col-xs-2 control-label">Area </label>
                 <div class="col-xs-4">
@@ -17,22 +17,33 @@
             <div class="form-group">
                 <label for="exampleInputPassword1" class="col-xs-2 control-label">Nivel</label>
                 <div class="col-xs-4">
-                    <select class="form-control" ng-model="selectedNivel" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
+                    <select class="form-control" ng-model="claseCabecera.nivelId" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
                 </div>
                 <label for="exampleInputPassword1" class="col-xs-2 control-label">Grado</label>
                 <div class="col-xs-4">
-                    <select class="form-control" ng-model="selectedGrado" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
+                    <select class="form-control" ng-model="claseCabecera.gradoId" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
                 </div>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Inicio</label>
                 <div class="col-xs-4">
-                    <input class="form-control" id="nombreClase">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaInicioFormato" is-open="openedFechaInicio" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openFechaInicio($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
                 </div>
                 <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Fin</label>
                 <div class="col-xs-4">
-                    <input class="form-control" id="nombreClase">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaFinFormato" is-open="openedFechaFin" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openFechaFin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
                 </div>
+
             </div>
             <div class="form-group">
                 <div class="col-xs-offset-10 col-xs-2">

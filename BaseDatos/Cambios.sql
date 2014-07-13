@@ -508,3 +508,31 @@ WHERE clase_id=@clase_id
 END
 
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_matriz_getByClase')
+   DROP PROCEDURE [clase].sp_clase_matriz_getByClase
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 30-06-2014
+-- Description:	Obtener matriz clase por clase
+-- =============================================
+CREATE PROCEDURE [clase].sp_clase_matriz_getByClase
+@clase_id int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT [clase_matriz_id],[formativa],[sumativa],[autoevaluativa]
+      ,[coevaluativa],[heteroevaluacion],[censal],[muestral]
+      ,[indicador_logro],[pruebatxt],[obsclase],[clase_id]
+FROM [clase_matriz]
+WHERE clase_id=@clase_id
+  
+END
+
+GO

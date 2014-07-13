@@ -24,8 +24,16 @@ namespace Consilium.Web.Controllers
         }
 
         // POST api/clase
-        public void Post([FromBody]Clase value)
+        public Clase Post([FromBody]Clase value)
         {
+            value.FechaInicio = DateTime.Now.Date;
+            value.FechaFin = DateTime.Now.Date;
+            value.FechaRegistro = DateTime.UtcNow;
+            value.Usuario = "adminsatacna";
+            value.Formato = "test";
+            var resultado = ClaseLogica.Instancia.Crear(value);
+            value.ClaseId = resultado;
+            return value;
         }
 
         // PUT api/clase/5
