@@ -107,6 +107,65 @@ namespace Consilium.DAO
 
         }
 
+        public List<Clase> ListByFiltro(Clase busqueda)
+        {
+
+            string spName = "clase.sp_clase_lstByFilto";
+            var lista = new List<Clase>();
+            Clase claseMetodo = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@colegio_id", busqueda.ColegioId, ParameterDirection.Input, DbType.Int32));
+                        if(!string.IsNullOrEmpty(busqueda.Usuario))
+                            command.Parameters.Add(ObjSqlParameter("@usuario", busqueda.Usuario, ParameterDirection.Input, DbType.String));
+                        if (busqueda.AreaId != 0)
+                            command.Parameters.Add(ObjSqlParameter("@area", busqueda.AreaId, ParameterDirection.Input, DbType.Int32));
+                        if (busqueda.NivelId != 0)
+                            command.Parameters.Add(ObjSqlParameter("@nivelId", busqueda.NivelId, ParameterDirection.Input, DbType.Int32));
+                        if (busqueda.GradoId != 0)
+                            command.Parameters.Add(ObjSqlParameter("@gradoId", busqueda.GradoId, ParameterDirection.Input, DbType.Int32));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            claseMetodo = new Clase();
+                            claseMetodo.ClaseId = dr.GetInt32(dr.GetOrdinal("clase_id"));
+                            claseMetodo.Titulo = dr.GetString(dr.GetOrdinal("clase_titulo"));
+                            claseMetodo.Area = dr.GetString(dr.GetOrdinal("area"));
+                            claseMetodo.Nivel = dr.GetString(dr.GetOrdinal("nivel"));
+                            claseMetodo.Grado = dr.GetString(dr.GetOrdinal("grado"));
+                            claseMetodo.FechaInicio = dr.GetDateTime(dr.GetOrdinal("fecha_inicio"));
+                            claseMetodo.FechaFin = dr.GetDateTime(dr.GetOrdinal("fecha_fin"));
+                            claseMetodo.FechaRegistro = dr.GetDateTime(dr.GetOrdinal("fecha_reg"));
+                            claseMetodo.Usuario = dr.GetString(dr.GetOrdinal("usuario"));
+                            lista.Add(claseMetodo);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return lista;
+
+        }
+
+
         public Clase Get(int claseId)
         {
 

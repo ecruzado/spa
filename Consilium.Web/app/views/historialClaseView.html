@@ -1,4 +1,61 @@
-﻿<div class="container">
+﻿<div class="panel panel-primary" style="">
+    <div class="panel-heading">
+        <h3 class="panel-title">Historial de Clase</h3>
+    </div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label for="nombreClase" class="col-xs-2 control-label">Usuario </label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="claseBusqueda.usuario" ng-options="usuario.codigo as usuario.codigo for usuario in usuarios"></select>
+                </div>
+                <label for="nombreClase" class="col-xs-2 control-label">Area </label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="claseBusqueda.areaId" ng-options="area.areaId as area.descripcion for area in areas"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Nivel</label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="claseBusqueda.nivelId" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
+                </div>
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Grado</label>
+                <div class="col-xs-4">
+                    <select class="form-control" ng-model="claseBusqueda.gradoId" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Inicio</label>
+                <div class="col-xs-4">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseBusqueda.fechaInicioFormato" is-open="openedFechaInicio" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openFechaInicio($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <label for="exampleInputPassword1" class="col-xs-2 control-label">Fecha Fin</label>
+                <div class="col-xs-4">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseBusqueda.fechaFinFormato" is-open="openedFechaFin" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openFechaFin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-10 col-xs-2">
+                    <button type="submit" class="btn btn-primary" ng-click="obtenerHistorialClase()">
+                        <span class="glyphicon glyphicon-search"></span> Buscar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container">
     <div class="row" style="">
         <table class="table table-striped table-hover table-condensed">
             <thead>

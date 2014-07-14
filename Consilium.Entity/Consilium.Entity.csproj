@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Area.cs" />
     <Compile Include="Clase.cs" />
     <Compile Include="ClaseActividad.cs" />
     <Compile Include="ClaseCapacidad.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Nivel.cs" />
     <Compile Include="Operativa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

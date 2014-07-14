@@ -536,3 +536,124 @@ WHERE clase_id=@clase_id
 END
 
 GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_lstByFilto')
+   DROP PROCEDURE [clase].sp_clase_lstByFilto
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 13-07-2014
+-- Description:	Lista clases por filtro
+-- =============================================
+CREATE PROCEDURE [clase].sp_clase_lstByFilto
+	@colegio_id int,
+	@usuario nvarchar(50) = null,
+	@area int = null,
+	@nivelId int = null,
+	@gradoId int = null,
+	@fechaInicio nvarchar(10) = null,
+	@fechaFin nvarchar(10) = null
+AS
+BEGIN
+SELECT c.clase_id, c.clase_titulo,a.area,n.nivel
+	,g.grado,c.fecha_inicio,c.fecha_fin,c.fecha_reg
+	,c.usuario,c.formato
+FROM [clase] as c
+	inner join area as a on c.area_id=a.area_id
+	inner join niveles as n on c.nivel_id=n.nivel_id
+	inner join grado as g on c.grado_id=g.grado_id
+where c.colegio_id=@colegio_id
+	AND CASE 
+		WHEN @usuario IS NULL THEN 1
+		WHEN c.usuario = @usuario THEN 1
+		ELSE 0
+	END = 1 
+	AND CASE
+		WHEN @area IS NULL THEN 1
+		WHEN C.area_id = @area THEN 1
+		ELSE 0
+	END = 1
+	AND CASE
+		WHEN @nivelId IS NULL THEN 1
+		WHEN c.nivel_id = @nivelId THEN 1
+		ELSE 0
+	END = 1
+	AND CASE
+		WHEN @gradoId IS NULL THEN 1
+		WHEN c.grado_id = @gradoId THEN 1
+		ELSE 0
+	END = 1
+	AND CASE
+		WHEN @fechaInicio IS NULL OR @fechaFin IS NULL THEN 1
+		ELSE 0
+	END = 1
+ORDER BY c.clase_id DESC
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_lstByColegio')
+   DROP PROCEDURE [clase].sp_usuario_lstByColegio
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 13-07-2014
+-- Description:	Lista usuario por colegio
+-- =============================================
+create PROCEDURE [clase].sp_usuario_lstByColegio
+	@colegio_id as int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT     [usuario_id]
+      ,tb1.[usuario]
+      ,tb1.[nombres]
+      ,tb1.[apematerno]
+      ,tb1.[apepaterno]
+      ,tb1.[correo]
+      ,tb2.[colegio_nombre]
+      ,tb1.[estado]
+      ,tb1.[diseno]
+      ,tb1.[historia]
+      ,tb1.[reporte]
+      ,tb1.[mantenimiento]
+      ,tb1.[administrador]
+FROM  [usuarios] as tb1
+inner join colegio as tb2 on tb1.colegio_id=tb2.colegio_id
+where tb1.colegio_id=@colegio_id  
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_area_lst')
+   DROP PROCEDURE [clase].sp_area_lst
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 13-07-2014
+-- Description:	Lista areas
+-- =============================================
+create PROCEDURE [clase].sp_area_lst
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT a.area_id, a.area
+FROM area a
+END
+

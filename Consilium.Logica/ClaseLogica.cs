@@ -32,6 +32,13 @@ namespace Consilium.Logica
             }
             return lista;
         }
+        
+        public List<Clase> ListByFiltro(Clase busqueda)
+        {
+            return claseData.ListByFiltro(busqueda);
+        }
+
+
         public Clase Get(int claseId)
         {
             Clase entidad = claseData.Get(claseId);

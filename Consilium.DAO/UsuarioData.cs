@@ -13,9 +13,60 @@ using System.Configuration;
 namespace Consilium.DAO
 {
 
-	public class UsuarioDAO
+	public class UsuarioData:BaseData
 	{
+        public List<Usuario> List(int colegioId)
+        {
 
+            string spName = "clase.sp_usuario_lstByColegio";
+            var lista = new List<Usuario>();
+            Usuario usuario = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@colegio_id", colegioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            usuario = new Usuario();
+                            usuario.UsuarioId = dr.GetInt32(dr.GetOrdinal("usuario_id"));
+                            usuario.Codigo = dr.GetString(dr.GetOrdinal("usuario"));
+                            //usuario.Area = dr.GetString(dr.GetOrdinal("area"));
+                            //usuario.Nivel = dr.GetString(dr.GetOrdinal("nivel"));
+                            //usuario.Grado = dr.GetString(dr.GetOrdinal("grado"));
+                            //usuario.FechaInicio = dr.GetDateTime(dr.GetOrdinal("fecha_inicio"));
+                            //usuario.FechaFin = dr.GetDateTime(dr.GetOrdinal("fecha_fin"));
+                            //usuario.FechaRegistro = dr.GetDateTime(dr.GetOrdinal("fecha_reg"));
+                            //usuario.Usuario = dr.GetString(dr.GetOrdinal("usuario"));
+                            lista.Add(usuario);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return lista;
+
+        }
+
+
+        /*
 		private SqlParameter ObjSqlParameter(string pParameterName, object pValue, System.Data.ParameterDirection pDirection, DbType pDbType)
 		{
 
@@ -253,6 +304,7 @@ namespace Consilium.DAO
 			}
 
 		}
+        */ 
 
 	}
 }

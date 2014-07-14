@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaData.cs" />
     <Compile Include="BaseData.cs" />
     <Compile Include="ClaseData.cs" />
     <Compile Include="GradoData.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="ContenidoData.cs" />
     <Compile Include="DeAreaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuarioData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Consilium.Entity\Consilium.Entity.csproj">

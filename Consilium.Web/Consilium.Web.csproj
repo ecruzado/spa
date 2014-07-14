@@ -123,8 +123,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActividadController.cs" />
+    <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\CapacidadController.cs" />
     <Compile Include="Controllers\ClaseActividadController.cs" />
+    <Compile Include="Controllers\ClaseBusquedaController.cs" />
     <Compile Include="Controllers\ClaseCapacidadController.cs" />
     <Compile Include="Controllers\ClaseContenidoController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Controllers\GradoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NivelController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -86,7 +86,18 @@ sp_clase_lst
 sp_clase_filtro_fecha
 sp_clase_mod
 sp_clase_actividad_lst
+sp_usuario_listar
 SELECT ca.actividades_hora, ca.actividades FROM clase_actividad ca where ca.clase_id = 4481
 SELECT * FROM clase_matriz cm where cm.clase_id = 5718
 SELECT * FROM clase c where c.clase_id = 5718
-SELECT * FROM clase c where c
+go
+
+select * from area
+select * from usuarios
+SELECT c.area_id, case when c.area_id = 1 then 'a' else 'b' end case as test  FROM clase c
+
+select * from clase c
+where case 
+	when c.clase_id = 1 then 1
+	else 0 
+	end = 1

@@ -41,8 +41,8 @@
             }
         );
     };
-    var _clases = function (colegioId) {
-        return $http.get('/api/clase/', { params: { colegioId: colegioId } }).then(function (results) {
+    var _clases = function (busqueda) {
+        return $http.post('/api/clasebusqueda/', busqueda).then(function (results) {
             return results;
         });
     };
@@ -87,6 +87,17 @@
             return results;
         });
     };
+    
+    var _areas = function () {
+        return $http.get('/api/area/').then(function (results) {
+            return results;
+        });
+    };
+    var _usuarios = function (colegioId) {
+        return $http.get('/api/usuario/', { params: { colegioId: colegioId } }).then(function (results) {
+            return results;
+        });
+    };
 
     claseDataFactory.niveles = _niveles;
     claseDataFactory.grados = _grados;
@@ -107,6 +118,9 @@
     claseDataFactory.claseActividadUpdate = _claseActividadUpdate;
 
     claseDataFactory.claseMatriz = _claseMatriz;
+
+    claseDataFactory.areas = _areas;
+    claseDataFactory.usuarios = _usuarios;
 
     return claseDataFactory;
 });
