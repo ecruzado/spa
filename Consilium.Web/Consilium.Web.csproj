@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\columnaController.js" />
     <Content Include="app\controllers\contenidoPopUpController.js" />
     <Content Include="app\controllers\capacidadPopUpController.js" />
     <Content Include="app\controllers\claseController.js" />
@@ -155,6 +156,7 @@
     <Content Include="app\services\contenidoDataService.js" />
     <Content Include="app\services\capacidadDataService.js" />
     <Content Include="app\services\claseDataService.js" />
+    <Content Include="app\views\columnaView.html" />
     <Content Include="app\views\crearClaseView.html" />
     <Content Include="app\views\contenidoPopUpView.html" />
     <Content Include="app\views\capacidadPopUpView.html" />

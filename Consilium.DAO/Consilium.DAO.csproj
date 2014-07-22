@@ -43,6 +43,7 @@
     <Compile Include="AreaData.cs" />
     <Compile Include="BaseData.cs" />
     <Compile Include="ClaseData.cs" />
+    <Compile Include="ConfColumnaColegioData.cs" />
     <Compile Include="GradoData.cs" />
     <Compile Include="NivelData.cs" />
     <Compile Include="ContenidoData.cs" />

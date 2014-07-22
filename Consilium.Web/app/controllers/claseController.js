@@ -7,6 +7,7 @@
         gradoId: 2
     };
     $scope.matriz = {};
+    $scope.actividad = {};
     $scope.claseCapacidades = [];
     $scope.niveles = [];
     $scope.grados = [];
@@ -224,7 +225,7 @@
 
     function obtenerClaseActividad() {
         claseDataService.claseActividades($scope.claseCabecera.claseId).then(function (resultado) {
-            $scope.htmlVariable = resultado.data.actividades;
+            $scope.actividad = resultado.data;
         });
     }
     

@@ -657,3 +657,161 @@ SELECT a.area_id, a.area
 FROM area a
 END
 
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'conf_col_colegio_insert')
+   DROP PROCEDURE [clase].conf_col_colegio_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	insertar fila
+-- =============================================
+CREATE PROCEDURE [clase].conf_col_colegio_insert
+	@columna_id int,
+	@colegio_id int,
+	@area_id int = NULL,
+	@nivel_id int = NULL,
+	@grado_id int = NULL,
+	@valor nvarchar(500),
+	@orden int = 1,
+	@estado bit = 1,
+	@confcolcolegio_padre_id int = NULL,
+	@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+
+INSERT INTO [dbo].[conf_col_colegio] 
+	([columna_id],[colegio_id],[area_id],[nivel_id]
+	,[grado_id],[valor],[orden],[estado]
+    ,[confcolcolegio_padre_id])
+     VALUES
+	(@columna_id,@colegio_id,@area_id,@nivel_id,
+	@grado_id,@valor,@orden,@estado,
+	@confcolcolegio_padre_id);
+
+SET @new_identity = SCOPE_IDENTITY();
+  
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'conf_col_colegio_update')
+   DROP PROCEDURE [clase].conf_col_colegio_update
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	actualizar fila
+-- =============================================
+CREATE PROCEDURE [clase].conf_col_colegio_update
+	@confcolcolegio_id int,
+	@columna_id int,
+	@colegio_id int,
+	@area_id int = NULL,
+	@nivel_id int = NULL,
+	@grado_id int = NULL,
+	@valor nvarchar(500),
+	@orden int = 1,
+	@estado bit = 1,
+	@confcolcolegio_padre_id int = NULL
+AS
+BEGIN
+
+UPDATE [dbo].[conf_col_colegio]
+   SET [columna_id] = @columna_id
+      ,[colegio_id] = @colegio_id
+      ,[area_id] = @area_id
+      ,[nivel_id] = @nivel_id
+      ,[grado_id] = @grado_id
+      ,[valor] = @valor
+      ,[orden] = @orden
+      ,[estado] = @estado
+      ,[confcolcolegio_padre_id] = @confcolcolegio_padre_id
+ WHERE confcolcolegio_id = @confcolcolegio_id
+  
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'conf_col_colegio_lstById')
+   DROP PROCEDURE [clase].conf_col_colegio_lstById
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	obtener por id
+-- =============================================
+CREATE PROCEDURE [clase].conf_col_colegio_lstById
+	@confcolcolegio_id int
+AS
+BEGIN
+
+SELECT [confcolcolegio_id]
+      ,[columna_id]
+      ,[colegio_id]
+      ,[area_id]
+      ,[nivel_id]
+      ,[grado_id]
+      ,[valor]
+      ,[orden]
+      ,[estado]
+      ,[confcolcolegio_padre_id]
+FROM [dbo].[conf_col_colegio] 
+WHERE confcolcolegio_id = @confcolcolegio_id
+  
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'conf_col_colegio_lstByColumnaCole')
+   DROP PROCEDURE [clase].conf_col_colegio_lstByColumnaCole
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar by columna y colegio
+-- =============================================
+CREATE PROCEDURE [clase].conf_col_colegio_lstByColumnaCole
+	@columna_id int,
+	@colegio_id int,
+	@confcolcolegio_padre_id int = NULL
+AS
+BEGIN
+
+SELECT [confcolcolegio_id]
+      ,[columna_id]
+      ,[colegio_id]
+      ,[area_id]
+      ,[nivel_id]
+      ,[grado_id]
+      ,[valor]
+      ,[orden]
+      ,[estado]
+      ,[confcolcolegio_padre_id]
+FROM [dbo].[conf_col_colegio] 
+WHERE columna_id = @columna_id
+	AND colegio_id = @colegio_id
+	AND confcolcolegio_padre_id = @confcolcolegio_padre_id
+  
+END
+
+GO
+

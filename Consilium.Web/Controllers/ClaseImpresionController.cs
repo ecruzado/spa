@@ -401,8 +401,13 @@ namespace Consilium.Web.Controllers
             celdaTituloActividad.Border = Rectangle.BOTTOM_BORDER;
             tablaActividad.AddCell(celdaTituloActividad);
 
-            PdfPCell celdaActividad = new PdfPCell(new Phrase(claseActividad.Actividades));
-            celdaActividad.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell celdaActividad = new PdfPCell();
+            StyleSheet styles = new StyleSheet();
+            var lista = HTMLWorker.ParseToList(new StringReader(claseActividad.Actividades), styles);
+            foreach (var item in lista)
+            {
+                celdaActividad.AddElement((IElement)item);
+            }
             celdaActividad.Border = Rectangle.NO_BORDER;
             tablaActividad.AddCell(celdaActividad);
 

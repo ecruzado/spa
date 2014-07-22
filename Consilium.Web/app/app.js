@@ -2,6 +2,11 @@
 
 app.config(function ($routeProvider) {
 
+    $routeProvider.when("/columna/:nombre", {
+        controller: "columnaController",
+        templateUrl: "/app/views/columnaView.html?v=01"
+    });
+
     $routeProvider.when("/crearClase/:nombreArea/:area", {
         controller: "crearClaseController",
         templateUrl: "/app/views/crearClaseView.html?v=01"

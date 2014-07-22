@@ -99,15 +99,21 @@
     <div class="col-xs-8">
         <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">7. Actividades (escribir dentro de la caja, hasta 1530 cacteres)</button>
     </div>
-    <div class="col-xs-4">
-        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">8. Archivos</button>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">8. Horas</button>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">9. Archivos</button>
     </div>
 </div>
 <div class="row show-grid">
-    <div class="col-xs-8">
-        <text-angular ng-model="htmlVariable" ng-blur="ola()"></text-angular>
+    <div class="col-xs-8" style="height:400px">
+        <text-angular ng-model="actividad.actividades" ng-blur="ola()" ta-toolbar="[['bold','italics','underline','ul','ol'],['justifyLeft','justifyCenter','justifyRight']]"></text-angular>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-2" style="height:400px">
+        <textarea ng-model="actividad.horas"></textarea>
+    </div>
+    <div class="col-xs-2">
     </div>
 </div>
 <div class="row show-grid">
