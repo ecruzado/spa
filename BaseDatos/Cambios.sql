@@ -792,6 +792,7 @@ GO
 CREATE PROCEDURE [clase].conf_col_colegio_lstByColumnaCole
 	@columna_id int,
 	@colegio_id int,
+	@area_id int,
 	@confcolcolegio_padre_id int = NULL
 AS
 BEGIN
@@ -809,7 +810,12 @@ SELECT [confcolcolegio_id]
 FROM [dbo].[conf_col_colegio] 
 WHERE columna_id = @columna_id
 	AND colegio_id = @colegio_id
-	AND confcolcolegio_padre_id = @confcolcolegio_padre_id
+	AND area_id = @area_id
+	AND CASE 
+		WHEN (@confcolcolegio_padre_id IS NULL) AND (confcolcolegio_padre_id IS NULL) THEN 1 
+		WHEN confcolcolegio_padre_id = @confcolcolegio_padre_id THEN 1
+		ELSE 0
+	END = 1
   
 END
 

@@ -162,8 +162,9 @@ namespace Consilium.DAO
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.Add(ObjSqlParameter("@columna_id", busqueda.ColumnaId, ParameterDirection.Input, DbType.Int32));
-                        command.Parameters.Add(ObjSqlParameter("@colegio_id", busqueda.ColegioId, ParameterDirection.Input, DbType.String));
-                        if (busqueda.GradoId != 0)
+                        command.Parameters.Add(ObjSqlParameter("@colegio_id", busqueda.ColegioId, ParameterDirection.Input, DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@area_id ", busqueda.AreaId, ParameterDirection.Input, DbType.Int32));
+                        if (busqueda.ConfColumnaColegioPadreId != 0)
                             command.Parameters.Add(ObjSqlParameter("@confcolcolegio_padre_id", busqueda.ConfColumnaColegioPadreId, ParameterDirection.Input, DbType.Int32));
                         conn.Open();
 

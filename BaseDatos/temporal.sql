@@ -96,8 +96,6 @@ select * from area
 select * from usuarios
 SELECT c.area_id, case when c.area_id = 1 then 'a' else 'b' end case as test  FROM clase c
 
-select * from clase c
-where case 
-	when c.clase_id = 1 then 1
-	else 0 
-	end = 1
+go
+
+select * from conf_col_colegio where confcolcolegio_padre_id is null

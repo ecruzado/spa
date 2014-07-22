@@ -134,6 +134,7 @@
     <Compile Include="Controllers\ClaseMatrizController.cs" />
     <Compile Include="Controllers\ClaseMetodoController.cs" />
     <Compile Include="Controllers\ClaseValorController.cs" />
+    <Compile Include="Controllers\ColumnaController.cs" />
     <Compile Include="Controllers\ContenidoController.cs" />
     <Compile Include="Controllers\GradoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -153,6 +154,7 @@
     <Content Include="app\controllers\crearClaseController.js" />
     <Content Include="app\controllers\historialClaseController.js" />
     <Content Include="app\controllers\navigationController.js" />
+    <Content Include="app\services\columnaDataService.js" />
     <Content Include="app\services\contenidoDataService.js" />
     <Content Include="app\services\capacidadDataService.js" />
     <Content Include="app\services\claseDataService.js" />
