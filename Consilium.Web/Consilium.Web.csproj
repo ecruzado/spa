@@ -128,6 +128,7 @@
     <Compile Include="Controllers\ClaseActividadController.cs" />
     <Compile Include="Controllers\ClaseBusquedaController.cs" />
     <Compile Include="Controllers\ClaseCapacidadController.cs" />
+    <Compile Include="Controllers\ClaseColumnaController.cs" />
     <Compile Include="Controllers\ClaseContenidoController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\ClaseImpresionController.cs" />

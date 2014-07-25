@@ -26,6 +26,7 @@
         obtenerClaseMetodos();
         obtenerClaseActividad();
         obtenerClaseMatriz();
+        obtenerClaseColumna1();
     }
 
     function obtenerClaseCabecera() {
@@ -223,6 +224,58 @@
         });
     }
 
+    function obtenerClaseColumna1() {
+        claseDataService.claseColumnas($scope.claseCabecera.claseId).then(function (resultado) {
+            var arr = resultado.data;
+            var listaTree = [],
+                nodo1Intex = -1,
+                nodo2Intex = -1,
+                nodo3Intex = -1,
+                nodo1IdAnt = 0,
+                nodo2IdAnt = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].nodo1Id != nodo1IdAnt) {
+                    nodo1Intex++;
+                    listaTree[nodo1Intex] = {};
+                    listaTree[nodo1Intex].id = 'N1-' + arr[i].nodo1Id;
+                    listaTree[nodo1Intex].text = arr[i].nodo1Valor;
+                    listaTree[nodo1Intex].state = { opened: false };
+                    listaTree[nodo1Intex].children = [];
+                    nodo1IdAnt = arr[i].nodo1Id;
+                    nodo2Intex = -1;
+                }
+                if (arr[i].nodo2Ant != nodo2IdAnt) {
+                    nodo2Intex++;
+                    listaTree[nodo1Intex].children[nodo2Intex] = {};
+                    listaTree[nodo1Intex].children[nodo2Intex]
+                        .id = 'N2-' + arr[i].nodo2Id;
+                    listaTree[nodo1Intex].children[nodo2Intex]
+                        .text = arr[i].nodo2Valor;
+                    listaTree[nodo1Intex].children[nodo2Intex]
+                        .state = { opened: false };
+                    listaTree[nodo1Intex].children[nodo2Intex]
+                        .children = [];
+                    nodo2IdAnt = arr[i].nodo2Id;
+                    nodo3Intex = -1;
+                }
+                nodo3Intex++;
+                listaTree[nodo1Intex].children[nodo2Intex]
+                    .children[nodo3Intex] = {};
+                listaTree[nodo1Intex].children[nodo2Intex]
+                    .children[nodo3Intex].id = 'N3-' + arr[i].nodoId;
+                listaTree[nodo1Intex].children[nodo2Intex]
+                    .children[nodo3Intex].text = arr[i].nodo3Valor;
+            }
+
+            $('#jtClaseColumna1').jstree('destroy');
+            $('#jtClaseColumna1').jstree({
+                'plugins': ["checkbox"],
+                'core': { 'data': listaTree, 'themes': { 'icons': false } }
+            });
+
+        });
+    }
+
     function obtenerClaseActividad() {
         claseDataService.claseActividades($scope.claseCabecera.claseId).then(function (resultado) {
             $scope.actividad = resultado.data;
@@ -354,7 +407,6 @@
             size: 'sm',
             resolve: {
                 claseCabecera: function () {
-                    /*return $scope.claseCabecera;*/
                     return {
                         columnaId: columnaId,
                         colegioId: $scope.claseCabecera.colegioId,
@@ -368,15 +420,26 @@
         modalInstance.result.then(function (seleccion) {
             for (i = 0; i < seleccion.length; i++) {
                 var auxSeparacion = seleccion[i].split('-');
-                if (auxSeparacion[0] == 'O') {
-                    var claseCapacidad = {};
-                    claseCapacidad.operativaId = auxSeparacion[1];
-                    claseCapacidad.claseId = $scope.claseCabecera.claseId;
-                    claseDataService.saveClaseCapacidad(claseCapacidad).then(function () {
+                if (auxSeparacion[0] == 'N3') {
+                    var claseColumna = {};
+                    claseColumna.confColumnaColegioId = auxSeparacion[1];
+                    claseColumna.claseId = $scope.claseCabecera.claseId;
+                    claseDataService.saveClaseColumna(claseColumna).then(function () {
                         init();
                     });
                 }
             }
         });
+    };
+    $scope.eliminarClaseColumna = function (columnaId) {
+        var arr = $("#jtClaseColumna1").jstree('get_selected');
+        for (i = 0; i < arr.length; i++) {
+            var auxSeparacion = arr[i].split('-');
+            if (auxSeparacion[0] == 'N3') {
+                claseDataService.deleteClaseColumna(auxSeparacion[1]).then(function () {
+                    init();
+                });
+            }
+        }
     };
 });

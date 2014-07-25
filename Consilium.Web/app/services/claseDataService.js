@@ -99,6 +99,32 @@
         });
     };
 
+    var _claseColumnas = function (claseId) {
+        return $http.get('/api/clasecolumna/', { params: { claseId: claseId } }).then(function (results) {
+            return results;
+        });
+    };
+    var _saveClaseColumna = function (claseColumna) {
+        return $http.post('/api/clasecolumna/', claseColumna).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Columna agregada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+    var _deleteClaseColumna = function (id) {
+        return $http.delete('/api/clasecolumna/' + id).then(
+            function (results) {
+                toaster.pop('success', "Eliminada Satisfactoriamente", "Columna eliminada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+
     claseDataFactory.niveles = _niveles;
     claseDataFactory.grados = _grados;
 
@@ -121,6 +147,10 @@
 
     claseDataFactory.areas = _areas;
     claseDataFactory.usuarios = _usuarios;
+
+    claseDataFactory.claseColumnas = _claseColumnas;
+    claseDataFactory.saveClaseColumna = _saveClaseColumna;
+    claseDataFactory.deleteClaseColumna = _deleteClaseColumna;
 
     return claseDataFactory;
 });

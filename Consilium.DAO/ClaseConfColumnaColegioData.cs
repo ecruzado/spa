@@ -44,10 +44,10 @@ namespace Consilium.DAO
             }
         }
 
-        public List<ItemNodo> ListNodosByColumnaAndColegioAndArea(ConfColumnaColegio busqueda)
+        public List<ItemNodo> ListByClase(ClaseColColumnaColegio busqueda)
         {
 
-            string spName = "clase.conf_col_colegio_lst3Nodos";
+            string spName = "clase.clase_conf_col_colegio_lstByClase3Nodos";
             var lista = new List<ItemNodo>();
             ItemNodo entidad = null;
 
@@ -58,9 +58,7 @@ namespace Consilium.DAO
                     using (SqlCommand command = new SqlCommand(spName, conn))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add(ObjSqlParameter("@columna_id", busqueda.ColumnaId, ParameterDirection.Input, DbType.Int32));
-                        command.Parameters.Add(ObjSqlParameter("@colegio_id", busqueda.ColegioId, ParameterDirection.Input, DbType.Int32));
-                        command.Parameters.Add(ObjSqlParameter("@area_id ", busqueda.AreaId, ParameterDirection.Input, DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", busqueda.ClaseId, ParameterDirection.Input, DbType.Int32));
                         conn.Open();
 
                         IDataReader dr = command.ExecuteReader();
@@ -71,9 +69,12 @@ namespace Consilium.DAO
                             entidad.Nodo1Id = dr.GetInt32(dr.GetOrdinal("n1_id"));
                             entidad.Nodo1Valor = dr.GetString(dr.GetOrdinal("n1_valor"));
                             entidad.Nodo2Id = dr.GetInt32(dr.GetOrdinal("n2_id"));
-                            entidad.Nodo2Valor = dr.GetString(dr.GetOrdinal("n2_valor"));                            entidad.Nodo1Id = dr.GetInt32(dr.GetOrdinal("n1_id"));
+                            entidad.Nodo2Valor = dr.GetString(dr.GetOrdinal("n2_valor"));                            
                             entidad.Nodo3Id = dr.GetInt32(dr.GetOrdinal("n3_id"));
-                            entidad.Nodo3Valor = dr.GetString(dr.GetOrdinal("n3_valor"));                            
+                            entidad.Nodo3Valor = dr.GetString(dr.GetOrdinal("n3_valor"));
+                            entidad.NodoId = dr.GetInt32(dr.GetOrdinal("clase_confcolcolegio_id"));
+                            entidad.NombreColumna = dr.GetString(dr.GetOrdinal("nombre"));        
+                    
                             lista.Add(entidad);
                         }
 
@@ -90,6 +91,39 @@ namespace Consilium.DAO
 
             }
             return lista;
+
+        }
+
+        public int Eliminar(ClaseColColumnaColegio claseColColumnaColegio)
+        {
+
+            string spName = "clase.clase_conf_col_colegio_delete";
+            int retVal = 0;
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@clase_confcolcolegio_id", claseColColumnaColegio.ClaseColColumnaColegioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+            return retVal;
 
         }
 

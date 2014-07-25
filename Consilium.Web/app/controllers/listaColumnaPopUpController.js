@@ -18,7 +18,7 @@
                     if (arr[i].nodo1Id != nodo1IdAnt) {
                         nodo1Intex++;
                         listaTree[nodo1Intex] = {};
-                        listaTree[nodo1Intex].id = 'A-' + arr[i].nodo1Id;
+                        listaTree[nodo1Intex].id = 'N1-' + arr[i].nodo1Id;
                         listaTree[nodo1Intex].text = arr[i].nodo1Valor;
                         listaTree[nodo1Intex].state = { opened: false };
                         listaTree[nodo1Intex].children = [];
@@ -29,7 +29,7 @@
                         nodo2Intex++;
                         listaTree[nodo1Intex].children[nodo2Intex] = {};
                         listaTree[nodo1Intex].children[nodo2Intex]
-                            .id = 'E-' + arr[i].nodo2Id;
+                            .id = 'N2-' + arr[i].nodo2Id;
                         listaTree[nodo1Intex].children[nodo2Intex]
                             .text = arr[i].nodo2Valor;
                         listaTree[nodo1Intex].children[nodo2Intex]
@@ -43,7 +43,7 @@
                     listaTree[nodo1Intex].children[nodo2Intex]
                         .children[nodo3Intex] = {};
                     listaTree[nodo1Intex].children[nodo2Intex]
-                        .children[nodo3Intex].id = 'O-' + arr[i].nodo3Id;
+                        .children[nodo3Intex].id = 'N3-' + arr[i].nodo3Id;
                     listaTree[nodo1Intex].children[nodo2Intex]
                         .children[nodo3Intex].text = arr[i].nodo3Valor;
                 }
@@ -60,7 +60,7 @@
     };
 
     $scope.guardarSeleccion = function () {
-        var seleccion = $("#jsTreeCapacidades").jstree('get_selected');
+        var seleccion = $("#jsTreeListaColumna").jstree('get_selected');
         $modalInstance.close(seleccion);
     };
 });

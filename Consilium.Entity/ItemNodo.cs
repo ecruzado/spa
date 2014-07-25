@@ -8,6 +8,7 @@ namespace Consilium.Entity
     public class ItemNodo
     {
         public int NodoId { get; set; }
+        public string NombreColumna { get; set; }
         public int Nodo1Id { get; set; }
         public string Nodo1Valor { get; set; }
         public int Nodo2Id { get; set; }

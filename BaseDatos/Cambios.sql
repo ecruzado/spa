@@ -849,6 +849,7 @@ WHERE n1.columna_id = @columna_id
 	AND n1.colegio_id = @colegio_id
 	AND n1.area_id = @area_id
 	AND n1.confcolcolegio_padre_id IS NULL
+ORDER BY n1.confcolcolegio_id, n2.confcolcolegio_id, n3.confcolcolegio_id
 
 END
 
@@ -906,6 +907,38 @@ BEGIN
 DELETE FROM [dbo].clase_conf_col_colegio 
 WHERE clase_confcolcolegio_id = @clase_confcolcolegio_id
   
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_conf_col_colegio_lstByClase3Nodos')
+   DROP PROCEDURE [clase].clase_conf_col_colegio_lstByClase3Nodos
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar hasta 3 nodos 
+-- =============================================
+CREATE PROCEDURE [clase].clase_conf_col_colegio_lstByClase3Nodos
+	@clase_id int
+AS
+BEGIN
+
+SELECT n1.confcolcolegio_id n1_id, n1.valor n1_valor, n2.confcolcolegio_id n2_id, n2.valor n2_valor, 
+	n3.confcolcolegio_id n3_id, n3.valor n3_valor, c.clase_confcolcolegio_id, cc.nombre
+FROM dbo.clase_conf_col_colegio c
+	INNER JOIN dbo.conf_col_colegio n3 ON c.confcolcolegio_id = n3.confcolcolegio_id
+	INNER JOIN dbo.conf_col_colegio n2 ON n3.confcolcolegio_padre_id = n2.confcolcolegio_id
+	INNER JOIN dbo.conf_col_colegio n1 ON n2.confcolcolegio_padre_id = n1.confcolcolegio_id
+	INNER JOIN dbo.col_colegio cc ON n1.colegio_id = cc.colegio_id AND n1.columna_id = cc.columna_id
+WHERE c.clase_id = @clase_id
+	AND n1.confcolcolegio_padre_id IS NULL
+ORDER BY n1.confcolcolegio_id, n2.confcolcolegio_id, n3.confcolcolegio_id
+
 END
 
 GO

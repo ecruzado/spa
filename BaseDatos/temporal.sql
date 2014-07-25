@@ -103,3 +103,21 @@ select * from conf_col_colegio where confcolcolegio_padre_id is null
 go
 
 exec clase.conf_col_colegio_lst3Nodos 1,5,1
+
+go
+
+select * from clase_conf_col_colegio
+select * from clase c where c.clase_id = 5719
+
+
+GO
+
+SELECT * --n1.confcolcolegio_id n1_id, n1.valor n1_valor, n2.confcolcolegio_id n2_id, n2.valor n2_valor, 
+	--n3.confcolcolegio_id n3_id, n3.valor n3_valor, c.clase_confcolcolegio_id, cc.nombre
+FROM dbo.clase_conf_col_colegio c
+	INNER JOIN dbo.conf_col_colegio n3 ON c.confcolcolegio_id = n3.confcolcolegio_id
+	INNER JOIN dbo.conf_col_colegio n2 ON n3.confcolcolegio_padre_id = n2.confcolcolegio_id
+	INNER JOIN dbo.conf_col_colegio n3 ON n2.confcolcolegio_id = n3.confcolcolegio_padre_id
+	--INNER JOIN dbo.col_colegio cc ON n1.colegio_id = cc.colegio_id AND n1.columna_id = cc.columna_id
+WHERE c.clase_id = 5719
+--ORDER BY n1.confcolcolegio_id, n2.confcolcolegio_id, n3.confcolcolegio_id
