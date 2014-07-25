@@ -99,3 +99,7 @@ SELECT c.area_id, case when c.area_id = 1 then 'a' else 'b' end case as test  FR
 go
 
 select * from conf_col_colegio where confcolcolegio_padre_id is null
+
+go
+
+exec clase.conf_col_colegio_lst3Nodos 1,5,1

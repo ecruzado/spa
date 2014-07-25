@@ -43,6 +43,7 @@
     <Compile Include="Clase.cs" />
     <Compile Include="ClaseActividad.cs" />
     <Compile Include="ClaseCapacidad.cs" />
+    <Compile Include="ClaseColColumnaColegio.cs" />
     <Compile Include="ClaseContenido.cs" />
     <Compile Include="ClaseMatriz.cs" />
     <Compile Include="ClaseMetodo.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Especifica.cs" />
     <Compile Include="Generics\Singleton.cs" />
     <Compile Include="Grado.cs" />
+    <Compile Include="ItemNodo.cs" />
     <Compile Include="Nivel.cs" />
     <Compile Include="Operativa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

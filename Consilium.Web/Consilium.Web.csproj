@@ -138,6 +138,7 @@
     <Compile Include="Controllers\ContenidoController.cs" />
     <Compile Include="Controllers\GradoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListaColumnaController.cs" />
     <Compile Include="Controllers\NivelController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\listaColumnaPopUpController.js" />
     <Content Include="app\controllers\columnaController.js" />
     <Content Include="app\controllers\contenidoPopUpController.js" />
     <Content Include="app\controllers\capacidadPopUpController.js" />
@@ -154,10 +156,12 @@
     <Content Include="app\controllers\crearClaseController.js" />
     <Content Include="app\controllers\historialClaseController.js" />
     <Content Include="app\controllers\navigationController.js" />
+    <Content Include="app\services\listaColumnaDataService.js" />
     <Content Include="app\services\columnaDataService.js" />
     <Content Include="app\services\contenidoDataService.js" />
     <Content Include="app\services\capacidadDataService.js" />
     <Content Include="app\services\claseDataService.js" />
+    <Content Include="app\views\listaColumnaPopUpView.html" />
     <Content Include="app\views\columnaView.html" />
     <Content Include="app\views\crearClaseView.html" />
     <Content Include="app\views\contenidoPopUpView.html" />

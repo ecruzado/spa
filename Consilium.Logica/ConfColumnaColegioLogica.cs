@@ -28,5 +28,9 @@ namespace Consilium.Logica
         {
             return confColumnaColegioData.ListByColumnaAndColegio(busqueda);
         }
+        public List<ItemNodo> ListNodosByColumnaAndColegioAndArea(ConfColumnaColegio busqueda)
+        {
+            return confColumnaColegioData.ListNodosByColumnaAndColegioAndArea(busqueda);
+        }
     }
 }

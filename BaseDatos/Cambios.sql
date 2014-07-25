@@ -821,3 +821,91 @@ END
 
 GO
 
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'conf_col_colegio_lst3Nodos')
+   DROP PROCEDURE [clase].conf_col_colegio_lst3Nodos
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar hasta 3 nodos 
+-- =============================================
+CREATE PROCEDURE [clase].conf_col_colegio_lst3Nodos
+	@columna_id int,
+	@colegio_id int,
+	@area_id int
+AS
+BEGIN
+
+SELECT n1.confcolcolegio_id n1_id, n1.valor n1_valor, n2.confcolcolegio_id n2_id, n2.valor n2_valor, 
+	n3.confcolcolegio_id n3_id, n3.valor n3_valor
+FROM dbo.conf_col_colegio n1
+	INNER JOIN dbo.conf_col_colegio n2 ON n1.confcolcolegio_id = n2.confcolcolegio_padre_id
+	INNER JOIN dbo.conf_col_colegio n3 ON n2.confcolcolegio_id = n3.confcolcolegio_padre_id
+WHERE n1.columna_id = @columna_id
+	AND n1.colegio_id = @colegio_id
+	AND n1.area_id = @area_id
+	AND n1.confcolcolegio_padre_id IS NULL
+
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_conf_col_colegio_insert')
+   DROP PROCEDURE [clase].clase_conf_col_colegio_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	insertar fila
+-- =============================================
+CREATE PROCEDURE [clase].clase_conf_col_colegio_insert
+	@clase_id int,
+	@confcolcolegio_id int,
+	@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+
+INSERT INTO [dbo].clase_conf_col_colegio 
+	(clase_id,confcolcolegio_id)
+     VALUES
+	(@clase_id,@confcolcolegio_id)
+
+SET @new_identity = SCOPE_IDENTITY();
+  
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_conf_col_colegio_delete')
+   DROP PROCEDURE [clase].clase_conf_col_colegio_delete
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	eliminar fila
+-- =============================================
+CREATE PROCEDURE [clase].clase_conf_col_colegio_delete
+	@clase_confcolcolegio_id int
+AS
+BEGIN
+
+DELETE FROM [dbo].clase_conf_col_colegio 
+WHERE clase_confcolcolegio_id = @clase_confcolcolegio_id
+  
+END
+
+GO

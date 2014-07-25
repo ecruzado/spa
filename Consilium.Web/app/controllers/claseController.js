@@ -346,4 +346,37 @@
         claseActividadTemp.actividades = $scope.htmlVariable
         claseDataService.claseActividadUpdate(claseActividadTemp);
     }
+
+    $scope.popUpListaColumna = function (columnaId) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/listaColumnaPopUpView.html?v=4',
+            controller: 'listaColumnaPopUpController',
+            size: 'sm',
+            resolve: {
+                claseCabecera: function () {
+                    /*return $scope.claseCabecera;*/
+                    return {
+                        columnaId: columnaId,
+                        colegioId: $scope.claseCabecera.colegioId,
+                        areaId: $scope.claseCabecera.areaId,
+                        nivelId: $scope.selectedNivel,
+                        gradoId: $scope.selectedGrado
+                    };
+                }
+            }
+        });
+        modalInstance.result.then(function (seleccion) {
+            for (i = 0; i < seleccion.length; i++) {
+                var auxSeparacion = seleccion[i].split('-');
+                if (auxSeparacion[0] == 'O') {
+                    var claseCapacidad = {};
+                    claseCapacidad.operativaId = auxSeparacion[1];
+                    claseCapacidad.claseId = $scope.claseCabecera.claseId;
+                    claseDataService.saveClaseCapacidad(claseCapacidad).then(function () {
+                        init();
+                    });
+                }
+            }
+        });
+    };
 });
