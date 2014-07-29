@@ -316,7 +316,7 @@
 
     $scope.popUpCapacidades = function () {
         var modalInstance = $modal.open({
-            templateUrl: '/app/views/capacidadPopUpView.html?v=4',
+            templateUrl: '/app/views/capacidadPopUpView.html?v=2',
             controller: 'capacidadPopUpController',
             size: 'sm',
             resolve: {
