@@ -1,4 +1,6 @@
-﻿app.controller('columnaController', function ($scope, $location, $log, $routeParams, claseDataService,columnaDataService, toaster) {
+﻿app.controller('columnaController', function ($scope, $location, $log, $routeParams,
+    claseDataService, columnaDataService, columnaColegioDataService, toaster) {
+    $scope.nombre = '';
     $scope.areas = [];
     $scope.nodo1 = [];
     $scope.nodo2 = [];
@@ -17,6 +19,7 @@
 
     function init() {
         obtenerAreas();
+        obtenerColumnaColegio();
     }
 
     function obtenerAreas() {
@@ -26,19 +29,29 @@
 
     }
 
+    function obtenerColumnaColegio() {
+        columnaColegioDataService.get(1,5).then(function (resultado) {
+            $scope.nombre = resultado.data.nombre;
+        });
+
+    }
+
+
+    $scope.saveColumnaColegio = function () {
+        var item = { colegioId: 5, columnaId: 1, nombre: $scope.nombre }
+        columnaColegioDataService.saveColumnaColegio(item);
+    }
+
     $scope.obtenerNodo1 = function () {
+        $scope.nodo1 = [];
+        $scope.nodo2 = [];
+        $scope.nodo3 = [];
+        $scope.nodo2Botones = false;
+        $scope.nodo2Form = false;
+        $scope.nodo3Botones = false;
+        $scope.nodo3Form = false;
         columnaDataService.columnas(5,1,$scope.selectedArea,0).then(function (resultado) {
             $scope.nodo1 = resultado.data;
-        });
-    }
-    $scope.obtenerNodo2 = function (idPadre) {
-        columnaDataService.columnas(5, 1, $scope.selectedArea, idPadre).then(function (resultado) {
-            $scope.nodo2 = resultado.data;
-        });
-    }
-    $scope.obtenerNodo3 = function (idPadre) {
-        columnaDataService.columnas(5, 1, $scope.selectedArea, idPadre).then(function (resultado) {
-            $scope.nodo3 = resultado.data;
         });
     }
 
@@ -62,7 +75,16 @@
             $scope.obtenerNodo1();
         });
     }
-    $scope.editarNodo1 = function (id,valor) {
+
+    $scope.cancelarNodo1 = function () {
+        $scope.nodo1Botones = true;
+        $scope.nodo1Form = false;
+        $scope.actualId = 0;
+        $scope.actual = '';
+        $scope.actualPadreId = 0;
+    }
+
+    $scope.editarNodo1 = function (id, valor) {
         $scope.nodo1Botones = false;
         $scope.nodo1Form = true;
         $scope.actual = valor;
@@ -74,6 +96,17 @@
         $scope.nodo2Form = false;
         $scope.obtenerNodo2(id);
         $scope.actualPadreId = id;
+    }
+
+    $scope.obtenerNodo2 = function (idPadre) {
+        $scope.nodo3 = [];
+        $scope.nodo2Botones = true;
+        $scope.nodo2Form = false;
+        $scope.nodo3Botones = false;
+        $scope.nodo3Form = false;
+        columnaDataService.columnas(5, 1, $scope.selectedArea, idPadre).then(function (resultado) {
+            $scope.nodo2 = resultado.data;
+        });
     }
 
     $scope.agregarNodo2 = function () {
@@ -97,17 +130,33 @@
             $scope.obtenerNodo2($scope.actualPadreId);
         });
     }
+
+    $scope.cancelarNodo2 = function () {
+        $scope.nodo2Botones = true;
+        $scope.nodo2Form = false;
+        $scope.actualId = 0;
+        $scope.actual = '';
+        $scope.actualPadreId = 0;
+    }
+
     $scope.editarNodo2 = function (id, valor) {
         $scope.nodo2Botones = false;
         $scope.nodo2Form = true;
         $scope.actual = valor;
         $scope.actualId = id;
     }
+
     $scope.seleccionarNodo2 = function (id) {
         $scope.nodo3Botones = true;
         $scope.nodo3Form = false;
         $scope.obtenerNodo3(id);
         $scope.actualPadreId = id;
+    }
+
+    $scope.obtenerNodo3 = function (idPadre) {
+        columnaDataService.columnas(5, 1, $scope.selectedArea, idPadre).then(function (resultado) {
+            $scope.nodo3 = resultado.data;
+        });
     }
 
     $scope.agregarNodo3 = function () {
@@ -131,12 +180,20 @@
             $scope.obtenerNodo3($scope.actualPadreId);
         });
     }
+
+    $scope.cancelarNodo3 = function () {
+        $scope.nodo3Botones = true;
+        $scope.nodo3Form = false;
+        $scope.actualId = 0;
+        $scope.actual = '';
+        $scope.actualPadreId = 0;
+    }
+
     $scope.editarNodo3 = function (id, valor) {
         $scope.nodo3Botones = false;
         $scope.nodo3Form = true;
         $scope.actual = valor;
         $scope.actualId = id;
     }
-
 
 });

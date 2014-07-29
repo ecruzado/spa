@@ -787,9 +787,10 @@ h1[id] {
   margin-bottom: 2px;
 }
 .show-grid [class^="col-"] {
-  padding-top: 10px;
+  padding:0px;    
+  /*padding-top: 10px;
   padding-bottom: 10px;
-  /*background-color: #eee;
+  background-color: #eee;
   background-color: rgba(86,61,124,.15);*/
   border: 1px solid #ddd;
   border: 1px solid rgba(86,61,124,.2);
@@ -1417,4 +1418,17 @@ h1[id] {
   outline: thin dotted \9; /* IE6-9 */
   -moz-box-shadow: 0 0 8px rgba(82,168,236,.6);
        box-shadow: 0 0 8px rgba(82,168,236,.6);
+}
+
+
+/*for display of class*/
+
+.btn-clase{
+    border-radius:0px;
+}
+
+/*for display of options on columns*/
+
+.col-options a {
+    margin-left:10px;
 }

@@ -942,3 +942,90 @@ ORDER BY n1.confcolcolegio_id, n2.confcolcolegio_id, n3.confcolcolegio_id
 END
 
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'col_colegio_insert')
+   DROP PROCEDURE [clase].col_colegio_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	insertar fila
+-- =============================================
+CREATE PROCEDURE [clase].col_colegio_insert
+	@columna_id int,
+	@colegio_id int,
+	@nombre nvarchar(100),
+	@estado bit = 1
+AS
+BEGIN
+
+INSERT INTO [dbo].col_colegio 
+	([columna_id],[colegio_id],[nombre],[estado])
+     VALUES
+	(@columna_id,@colegio_id,@nombre,@estado);
+  
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'col_colegio_update')
+   DROP PROCEDURE [clase].col_colegio_update
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	actualizar fila
+-- =============================================
+CREATE PROCEDURE [clase].col_colegio_update
+	@columna_id int,
+	@colegio_id int,
+	@nombre nvarchar(100),
+	@estado bit = 1
+AS
+BEGIN
+
+UPDATE [dbo].col_colegio
+   SET [nombre] = @nombre
+      ,[estado] = @estado
+ WHERE [columna_id] = @columna_id
+	AND[colegio_id] = @colegio_id
+  
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'col_colegio_lstByColuAndCole')
+   DROP PROCEDURE [clase].col_colegio_lstByColuAndCole
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar 
+-- =============================================
+CREATE PROCEDURE [clase].col_colegio_lstByColuAndCole
+	@columna_id int,
+	@colegio_id int
+AS
+BEGIN
+
+SELECT columna_id, colegio_id, nombre, estado
+FROM dbo.col_colegio
+WHERE columna_id = @columna_id
+	AND colegio_id = @colegio_id
+
+END
+
+GO

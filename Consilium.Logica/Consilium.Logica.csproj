@@ -47,6 +47,7 @@
     <Compile Include="ClaseLogica.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ColumnaColegioLogica.cs" />
     <Compile Include="ConfColumnaColegioLogica.cs" />
     <Compile Include="ContenidoLogica.cs">
       <SubType>Code</SubType>

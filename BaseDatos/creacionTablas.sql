@@ -1,14 +1,3 @@
-CREATE TABLE dbo.tabla_general
-(
-	tabla varchar(10),
-	codigo varchar(10),
-	descripcion varchar(200),
-	estado char(1),
-	CONSTRAINT [PK_tabla_general] PRIMARY KEY (tabla,codigo)
-)
-
-GO
-
 CREATE TABLE dbo.columna
 (
 	columna_id int identity(1,1),

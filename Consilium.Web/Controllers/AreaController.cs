@@ -14,7 +14,10 @@ namespace Consilium.Web.Controllers
         // GET api/area
         public IEnumerable<Area> Get()
         {
-            return AreaLogica.Instancia.List();
+            var lista = AreaLogica.Instancia.List();
+            if (lista != null)
+                lista.Insert(0, new Area { AreaId = 0, Descripcion = "Seleccionar Area" });
+            return lista;
         }
 
         // GET api/area/5

@@ -48,7 +48,9 @@
     <Compile Include="ClaseMatriz.cs" />
     <Compile Include="ClaseMetodo.cs" />
     <Compile Include="ClaseValor.cs" />
+    <Compile Include="ColumnaColegio.cs" />
     <Compile Include="ConfColumnaColegio.cs" />
+    <Compile Include="Constantes\Constantes.cs" />
     <Compile Include="Contenido.cs">
       <SubType>Code</SubType>
     </Compile>
