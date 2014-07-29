@@ -2,7 +2,7 @@
 
 app.config(function ($routeProvider) {
 
-    $routeProvider.when("/columna/:nombre", {
+    $routeProvider.when("/columna/:nombre/:columnaId", {
         controller: "columnaController",
         templateUrl: "/app/views/columnaView.html?v=01"
     });

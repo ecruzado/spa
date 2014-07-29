@@ -55,6 +55,7 @@
     <Compile Include="DeAreaLogica.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Exceptions\BusinessException.cs" />
     <Compile Include="GradoLogica.cs" />
     <Compile Include="NivelLogica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

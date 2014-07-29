@@ -14,7 +14,10 @@ namespace Consilium.Web.Controllers
         // GET api/grado
         public IEnumerable<Grado> Get(int nivelId)
         {
-            return GradoLogica.Instancia.ListByNivel(nivelId);
+            var lista = GradoLogica.Instancia.ListByNivel(nivelId);
+            if(lista != null)
+                lista.Insert(0,new Grado{GradoId=0,GradoDesc="--Seleccionar Grado--"});
+            return lista;
         }
 
         // POST api/grado

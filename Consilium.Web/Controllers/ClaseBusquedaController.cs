@@ -26,6 +26,8 @@ namespace Consilium.Web.Controllers
         // POST api/clasebusqueda
         public List<Clase> Post([FromBody]Clase busqueda)
         {
+            if(busqueda.Usuario.Equals("--Seleccionar Usuario--"))
+                busqueda.Usuario = "";
             return ClaseLogica.Instancia.ListByFiltro(busqueda);
         }
 

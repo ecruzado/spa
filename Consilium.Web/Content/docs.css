@@ -1432,3 +1432,16 @@ h1[id] {
 .col-options a {
     margin-left:10px;
 }
+
+/*for display matriz evaluacion*/
+
+table.table-matriz{
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgba(86,61,124,.2);
+}
+table.table-matriz td{
+    padding:5px;
+    border: 1px solid rgba(86,61,124,.2);
+}

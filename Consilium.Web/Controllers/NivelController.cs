@@ -14,7 +14,10 @@ namespace Consilium.Web.Controllers
         // GET api/nivel
         public IEnumerable<Nivel> Get()
         {
-            return NivelLogica.Instancia.List();
+            var lista = NivelLogica.Instancia.List();
+            if(lista != null)
+                lista.Insert(0,new Nivel{NivelId=0,NivelDesc="--Seleccionar Nivel--"});
+            return lista;
         }
 
         // GET api/nivel/5

@@ -109,7 +109,8 @@ go
 select * from clase_conf_col_colegio
 select * from clase c where c.clase_id = 5719
 
-
+SELECT * from colegio
+SELECT * from usuarios
 GO
 
 SELECT * --n1.confcolcolegio_id n1_id, n1.valor n1_valor, n2.confcolcolegio_id n2_id, n2.valor n2_valor, 
@@ -121,3 +122,7 @@ FROM dbo.clase_conf_col_colegio c
 	INNER JOIN dbo.col_colegio cc ON n1.colegio_id = cc.colegio_id AND n1.columna_id = cc.columna_id
 WHERE c.clase_id = 5719
 --ORDER BY n1.confcolcolegio_id, n2.confcolcolegio_id, n3.confcolcolegio_id
+
+select * from columna
+
+SELECT CONVERT(Datetime, '14/12/2012', 103)

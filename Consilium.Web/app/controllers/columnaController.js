@@ -1,6 +1,9 @@
 ﻿app.controller('columnaController', function ($scope, $location, $log, $routeParams,
-    claseDataService, columnaDataService, columnaColegioDataService, toaster) {
+    usuarioSesion, claseDataService, columnaDataService, columnaColegioDataService, toaster) {
+    $scope.titulo = $routeParams.nombre;
     $scope.nombre = '';
+    $scope.columnaId = $routeParams.columnaId;
+    $scope.colegioId = usuarioSesion.getUsuario().colegioId;
     $scope.areas = [];
     $scope.nodo1 = [];
     $scope.nodo2 = [];
@@ -30,7 +33,7 @@
     }
 
     function obtenerColumnaColegio() {
-        columnaColegioDataService.get(1,5).then(function (resultado) {
+        columnaColegioDataService.get($scope.columnaId, $scope.colegioId).then(function (resultado) {
             $scope.nombre = resultado.data.nombre;
         });
 
@@ -38,7 +41,7 @@
 
 
     $scope.saveColumnaColegio = function () {
-        var item = { colegioId: 5, columnaId: 1, nombre: $scope.nombre }
+        var item = { colegioId: $scope.colegioId, columnaId: $scope.columnaId, nombre: $scope.nombre }
         columnaColegioDataService.saveColumnaColegio(item);
     }
 
@@ -50,7 +53,7 @@
         $scope.nodo2Form = false;
         $scope.nodo3Botones = false;
         $scope.nodo3Form = false;
-        columnaDataService.columnas(5,1,$scope.selectedArea,0).then(function (resultado) {
+        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, 0).then(function (resultado) {
             $scope.nodo1 = resultado.data;
         });
     }
@@ -66,7 +69,8 @@
     $scope.guardarNodo1 = function () {
         $scope.nodo1Botones = true;
         $scope.nodo1Form = false;
-        var item = { colegioId: 5, columnaId: 1, 
+        var item = {
+            colegioId: $scope.colegioId, columnaId: $scope.columnaId,
             areaId: $scope.selectedArea,
             valor:$scope.actual,
             confColumnaColegioId: $scope.actualId
@@ -104,7 +108,7 @@
         $scope.nodo2Form = false;
         $scope.nodo3Botones = false;
         $scope.nodo3Form = false;
-        columnaDataService.columnas(5, 1, $scope.selectedArea, idPadre).then(function (resultado) {
+        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, idPadre).then(function (resultado) {
             $scope.nodo2 = resultado.data;
         });
     }
@@ -120,7 +124,7 @@
         $scope.nodo2Botones = true;
         $scope.nodo2Form = false;
         var item = {
-            colegioId: 5, columnaId: 1,
+            colegioId: $scope.colegioId, columnaId: $scope.columnaId,
             areaId: $scope.selectedArea,
             valor: $scope.actual,
             confColumnaColegioId: $scope.actualId,
@@ -154,7 +158,7 @@
     }
 
     $scope.obtenerNodo3 = function (idPadre) {
-        columnaDataService.columnas(5, 1, $scope.selectedArea, idPadre).then(function (resultado) {
+        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, idPadre).then(function (resultado) {
             $scope.nodo3 = resultado.data;
         });
     }
@@ -170,7 +174,7 @@
         $scope.nodo3Botones = true;
         $scope.nodo3Form = false;
         var item = {
-            colegioId: 5, columnaId: 1,
+            colegioId: $scope.colegioId, columnaId: $scope.columnaId,
             areaId: $scope.selectedArea,
             valor: $scope.actual,
             confColumnaColegioId: $scope.actualId,

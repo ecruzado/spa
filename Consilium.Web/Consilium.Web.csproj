@@ -122,6 +122,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\CapacidadController.cs" />
@@ -164,6 +165,7 @@
     <Content Include="app\services\contenidoDataService.js" />
     <Content Include="app\services\capacidadDataService.js" />
     <Content Include="app\services\claseDataService.js" />
+    <Content Include="app\services\usuarioSesion.js" />
     <Content Include="app\views\listaColumnaPopUpView.html" />
     <Content Include="app\views\columnaView.html" />
     <Content Include="app\views\crearClaseView.html" />

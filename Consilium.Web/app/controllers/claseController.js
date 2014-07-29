@@ -402,7 +402,7 @@
 
     $scope.popUpListaColumna = function (columnaId) {
         var modalInstance = $modal.open({
-            templateUrl: '/app/views/listaColumnaPopUpView.html?v=4',
+            templateUrl: '/app/views/listaColumnaPopUpView.html?v=5',
             controller: 'listaColumnaPopUpController',
             size: 'sm',
             resolve: {

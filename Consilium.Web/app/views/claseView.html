@@ -105,13 +105,13 @@
 </div>
 <div class="row show-grid">
     <div class="col-xs-8">
-        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">7. Actividades (escribir dentro de la caja, hasta 1530 cacteres)</button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">7. Actividades (escribir dentro de la caja, hasta 1530 cacteres)</button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">8. Horas</button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">8. Horas</button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-success btn-sm" ng-click="popUpContenidos()">9. Archivos</button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">9. Archivos</button>
     </div>
 </div>
 <div class="row show-grid">
@@ -124,40 +124,60 @@
     <div class="col-xs-2">
     </div>
 </div>
+<br/>
 <div class="row show-grid">
-    <button class="btn btn-info">Matriz de Evaluacion</button>
+    <button class="btn btn-success">Matriz de Evaluacion</button>
 </div>
 <div class="row show-grid">
-    <table>
+    <table class="table-matriz">
         <tr>
-            <td>Formativa <input type="checkbox" ng-model="matriz.formativa" /></td>
-            <td>Sumativa <input type="checkbox" ng-model="matriz.sumativa" /></td>
-            <td>AutoEvaluativa <input type="checkbox" ng-model="matriz.autoEvaluativa" /></td>
-            <td>Coevaluativa <input type="checkbox" ng-model="matriz.coevaluativa" /></td>
-            <td>HeteroEvalucion <input type="checkbox" ng-model="matriz.heteroEvalucion" /></td>
-            <td>Censal <input type="checkbox" ng-model="matriz.censal" /></td>
+            <td><input type="checkbox" ng-model="matriz.formativa" /> Formativa</td>
+            <td><input type="checkbox" ng-model="matriz.sumativa" /> Sumativa</td>
+            <td><input type="checkbox" ng-model="matriz.autoEvaluativa" /> AutoEvaluativa</td>
+            <td><input type="checkbox" ng-model="matriz.coevaluativa" /> Coevaluativa </td>
+            <td><input type="checkbox" ng-model="matriz.heteroEvalucion" /> HeteroEvalucion </td>
+            <td><input type="checkbox" ng-model="matriz.censal" /> Censal </td>
+            <td><input type="checkbox" ng-model="matriz.muestral" /> Muestral </td>
         </tr>
     </table>
 </div>
 <div class="row show-grid">
-    <div class="col-xs-4">
-        <button class="btn btn-info">1. Indicador de logro</button>
+    <div class="col-xs-2">
+        <button class="btn btn-success btn-sm btn-clase" style="width:100%" disabled="disabled">1. Indicador de logro</button>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">2. Tipo de conocimiento</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">3. Opcional 3</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">4. Opcional 4</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-4">
-        <button class="btn btn-info">2. Tipo de conocimiento</button>
-    </div>
-    <div class="col-xs-4">
-        <button class="btn btn-info">3. Pruebas</button>
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:90%" ng-click="popUpListaColumna(2)">5. Pruebas</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:10%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
 </div>
 <div class="row show-grid">
-    <div class="col-xs-4">
+    <div class="col-xs-2">
         <textarea ng-model="matriz.indicadorLogro"></textarea>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-2">
+        <div id="jtTipoConocimiento"></div>
+    </div>
+    <div class="col-xs-2">
+        <div id="jtClaseColumna3"></div>
+    </div>
+    <div class="col-xs-2">
+        <div id="jtClaseColumna4"></div>
     </div>
     <div class="col-xs-4">
         <textarea ng-model="matriz.pruebaTexto"></textarea>
+    </div>
+</div>
+<div class="row show-grid">
+    <div class="col-xs-12">
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">Ingrese algun comentario referente a la clase</button>
     </div>
 </div>
 <div class="row show-grid">

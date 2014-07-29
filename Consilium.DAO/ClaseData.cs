@@ -130,6 +130,10 @@ namespace Consilium.DAO
                             command.Parameters.Add(ObjSqlParameter("@nivelId", busqueda.NivelId, ParameterDirection.Input, DbType.Int32));
                         if (busqueda.GradoId != 0)
                             command.Parameters.Add(ObjSqlParameter("@gradoId", busqueda.GradoId, ParameterDirection.Input, DbType.Int32));
+                        if (!string.IsNullOrEmpty(busqueda.FechaInicioFormato))
+                            command.Parameters.Add(ObjSqlParameter("@fechaInicio", busqueda.FechaInicioFormato, ParameterDirection.Input, DbType.String));
+                        if (!string.IsNullOrEmpty(busqueda.FechaFinFormato))
+                            command.Parameters.Add(ObjSqlParameter("@fechaFin", busqueda.FechaFinFormato, ParameterDirection.Input, DbType.String));
                         conn.Open();
 
                         IDataReader dr = command.ExecuteReader();
@@ -146,6 +150,11 @@ namespace Consilium.DAO
                             claseMetodo.FechaFin = dr.GetDateTime(dr.GetOrdinal("fecha_fin"));
                             claseMetodo.FechaRegistro = dr.GetDateTime(dr.GetOrdinal("fecha_reg"));
                             claseMetodo.Usuario = dr.GetString(dr.GetOrdinal("usuario"));
+
+                            //formato fechas
+                            claseMetodo.FechaInicioFormato = claseMetodo.FechaInicio.ToString("dd/MM/yyyy");
+                            claseMetodo.FechaFinFormato = claseMetodo.FechaFin.ToString("dd/MM/yyyy");
+                            claseMetodo.FechaRegistroFormato = claseMetodo.FechaRegistro.AddHours(-5).ToString("dd/MM/yyyy hh:mm:ss tt");
                             lista.Add(claseMetodo);
                         }
 

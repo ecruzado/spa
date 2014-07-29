@@ -14,7 +14,10 @@ namespace Consilium.Web.Controllers
         // GET api/usuario
         public IEnumerable<Usuario> Get(int colegioId)
         {
-            return UsuarioLogica.Instancia.List(colegioId);
+            var lista = UsuarioLogica.Instancia.List(colegioId);
+            if (lista != null)
+                lista.Insert(0,new Usuario { UsuarioId = 0, Codigo = "--Seleccionar Usuario--" });
+            return lista;
         }
 
 

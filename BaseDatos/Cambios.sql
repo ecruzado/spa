@@ -560,7 +560,7 @@ CREATE PROCEDURE [clase].sp_clase_lstByFilto
 	@fechaFin nvarchar(10) = null
 AS
 BEGIN
-SELECT c.clase_id, c.clase_titulo,a.area,n.nivel
+SELECT TOP 100 c.clase_id, c.clase_titulo,a.area,n.nivel
 	,g.grado,c.fecha_inicio,c.fecha_fin,c.fecha_reg
 	,c.usuario,c.formato
 FROM [clase] as c
@@ -590,6 +590,7 @@ where c.colegio_id=@colegio_id
 	END = 1
 	AND CASE
 		WHEN @fechaInicio IS NULL OR @fechaFin IS NULL THEN 1
+		WHEN c.fecha_reg BETWEEN  CONVERT(Datetime, @fechaInicio, 103) AND  CONVERT(Datetime, @fechaFin, 103) THEN 1
 		ELSE 0
 	END = 1
 ORDER BY c.clase_id DESC
