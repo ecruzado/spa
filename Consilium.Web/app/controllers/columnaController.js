@@ -18,11 +18,25 @@
     $scope.nodo3Form = false;
     $scope.actualId = 0;
     $scope.actualPadreId = 0;
+    $scope.actualPadreNodo3Id = 0;
+
+    $scope.nodo2NivelArea = false;
+    $scope.altoNivel2 = 40;
+    $scope.niveles = [];
+    $scope.grados = [{ gradoId: 0, gradoDesc: '--Seleccionar Grado--' }];
+    $scope.nivelId = 0;
+    $scope.gradoId = 0;
+
     init();
 
     function init() {
         obtenerAreas();
         obtenerColumnaColegio();
+        if ($scope.columnaId == 3 || $scope.columnaId == 4) {
+            $scope.nodo2NivelArea = true;
+            $scope.altoNivel2 = 65;
+            obtenerNiveles();
+        }
     }
 
     function obtenerAreas() {
@@ -31,6 +45,11 @@
         });
 
     }
+    function obtenerNiveles() {
+        claseDataService.niveles().then(function (resultado) {
+            $scope.niveles = resultado.data;
+        });
+    }
 
     function obtenerColumnaColegio() {
         columnaColegioDataService.get($scope.columnaId, $scope.colegioId).then(function (resultado) {
@@ -38,7 +57,6 @@
         });
 
     }
-
 
     $scope.saveColumnaColegio = function () {
         var item = { colegioId: $scope.colegioId, columnaId: $scope.columnaId, nombre: $scope.nombre }
@@ -53,7 +71,9 @@
         $scope.nodo2Form = false;
         $scope.nodo3Botones = false;
         $scope.nodo3Form = false;
-        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, 0).then(function (resultado) {
+        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, 0,
+            0, 0)
+            .then(function (resultado) {
             $scope.nodo1 = resultado.data;
         });
     }
@@ -108,7 +128,17 @@
         $scope.nodo2Form = false;
         $scope.nodo3Botones = false;
         $scope.nodo3Form = false;
-        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, idPadre).then(function (resultado) {
+        var auxNivelId = $scope.nivelId;
+        var auxGradoId = $scope.gradoId;
+        if ($scope.columnaId == 3 || $scope.columnaId == 4) {
+            if (auxNivelId == 0)
+                auxNivelId = -1;
+            if (auxGradoId == 0)
+                auxGradoId = -1;
+        }
+        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, idPadre,
+            auxNivelId, auxGradoId)
+            .then(function (resultado) {
             $scope.nodo2 = resultado.data;
         });
     }
@@ -124,11 +154,14 @@
         $scope.nodo2Botones = true;
         $scope.nodo2Form = false;
         var item = {
-            colegioId: $scope.colegioId, columnaId: $scope.columnaId,
+            colegioId: $scope.colegioId,
+            columnaId: $scope.columnaId,
             areaId: $scope.selectedArea,
             valor: $scope.actual,
             confColumnaColegioId: $scope.actualId,
-            ConfColumnaColegioPadreId: $scope.actualPadreId
+            ConfColumnaColegioPadreId: $scope.actualPadreId,
+            nivelId: $scope.nivelId,
+            gradoId: $scope.gradoId
         };
         columnaDataService.saveColumna(item).then(function () {
             $scope.obtenerNodo2($scope.actualPadreId);
@@ -154,11 +187,13 @@
         $scope.nodo3Botones = true;
         $scope.nodo3Form = false;
         $scope.obtenerNodo3(id);
-        $scope.actualPadreId = id;
+        $scope.actualPadreNodo3Id = id;
     }
 
     $scope.obtenerNodo3 = function (idPadre) {
-        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, idPadre).then(function (resultado) {
+        columnaDataService.columnas($scope.colegioId, $scope.columnaId, $scope.selectedArea, idPadre,
+            0, 0)
+            .then(function (resultado) {
             $scope.nodo3 = resultado.data;
         });
     }
@@ -178,10 +213,10 @@
             areaId: $scope.selectedArea,
             valor: $scope.actual,
             confColumnaColegioId: $scope.actualId,
-            ConfColumnaColegioPadreId: $scope.actualPadreId
+            ConfColumnaColegioPadreId: $scope.actualPadreNodo3Id
         };
         columnaDataService.saveColumna(item).then(function () {
-            $scope.obtenerNodo3($scope.actualPadreId);
+            $scope.obtenerNodo3($scope.actualPadreNodo3Id);
         });
     }
 
@@ -199,5 +234,14 @@
         $scope.actual = valor;
         $scope.actualId = id;
     }
+
+    $scope.obtenerGrados = function () {
+        claseDataService.grados($scope.nivelId).then(function (resultado) {
+            $scope.gradoId = 0;
+            $scope.grados = resultado.data;
+            $scope.nodo2 = [];
+        });
+    }
+
 
 });

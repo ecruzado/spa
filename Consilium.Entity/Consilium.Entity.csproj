@@ -50,6 +50,7 @@
     <Compile Include="ClaseValor.cs" />
     <Compile Include="ColumnaColegio.cs" />
     <Compile Include="ConfColumnaColegio.cs" />
+    <Compile Include="Conocimiento.cs" />
     <Compile Include="Constantes\Constantes.cs" />
     <Compile Include="Contenido.cs">
       <SubType>Code</SubType>
@@ -62,6 +63,7 @@
     <Compile Include="Nivel.cs" />
     <Compile Include="Operativa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoConocimiento.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

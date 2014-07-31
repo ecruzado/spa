@@ -99,8 +99,8 @@
         });
     };
 
-    var _claseColumnas = function (claseId) {
-        return $http.get('/api/clasecolumna/', { params: { claseId: claseId } }).then(function (results) {
+    var _claseColumnas = function (claseId,columnaId) {
+        return $http.get('/api/clasecolumna/', { params: { claseId: claseId , columnaId:columnaId} }).then(function (results) {
             return results;
         });
     };

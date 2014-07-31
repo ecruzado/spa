@@ -11,21 +11,21 @@
             <div class="form-group form-group-sm">
                 <label for="usuario" class="col-xs-1 control-label">Usuario</label>
                 <div class="col-xs-5">
-                    <input class="form-control" id="usuario" />
+                    <input class="form-control" id="usuario" ng-model="claseCabecera.usuario" />
                 </div>
                 <label for="area" class="col-xs-1 control-label">Area</label>
                 <div class="col-xs-5">
-                    <input class="form-control" id="area" />
+                    <input class="form-control" id="area" ng-model="claseCabecera.area" />
                 </div>
             </div>
             <div class="form-group form-group-sm">
                 <label for="exampleInputPassword1" class="col-xs-1 control-label">Nivel</label>
                 <div class="col-xs-2">
-                    <select class="form-control" ng-model="selectedNivel" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
+                    <select class="form-control" ng-model="claseCabecera.nivelId" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
                 </div>
                 <label for="exampleInputPassword1" class="col-xs-1 control-label">Grado</label>
                 <div class="col-xs-2">
-                    <select class="form-control" ng-model="selectedGrado" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
+                    <select class="form-control" ng-model="claseCabecera.gradoId" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
                 </div>
                 <label for="exampleInputPassword1" class="col-xs-1 control-label">Fecha Inicio</label>
                 <div class="col-xs-2">
@@ -146,33 +146,37 @@
         <button class="btn btn-success btn-sm btn-clase" style="width:100%" disabled="disabled">1. Indicador de logro</button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">2. Tipo de conocimiento</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpConocimientos()">2. Tipo de conocimiento</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarConocimientos()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">3. Opcional 3</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(3)">3. Opcional 3</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">4. Opcional 4</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(4)">4. Opcional 4</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-4">
-        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:90%" ng-click="popUpListaColumna(2)">5. Pruebas</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:10%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:90%" ng-click="popUpPruebas()">5. Pruebas</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:10%" ng-click="eliminarPruebas()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
 </div>
 <div class="row show-grid">
     <div class="col-xs-2">
-        <textarea ng-model="matriz.indicadorLogro"></textarea>
+        <textarea ng-model="matriz.indicadorLogro" style="height:300px;width:100%;resize:none"></textarea>
     </div>
     <div class="col-xs-2">
-        <div id="jtTipoConocimiento"></div>
+        <div id="jtTipoConocimiento" style="height:300px"></div>
     </div>
     <div class="col-xs-2">
-        <div id="jtClaseColumna3"></div>
+        <div id="jtClaseColumna3" style="height:300px"></div>
     </div>
     <div class="col-xs-2">
-        <div id="jtClaseColumna4"></div>
+        <div id="jtClaseColumna4" style="height:300px"></div>
     </div>
     <div class="col-xs-4">
-        <textarea ng-model="matriz.pruebaTexto"></textarea>
+        <div style="width:100%;height:300px">
+            <div id="jsExamen" style="height:100px"></div>
+            <div><button class="btn btn-success btn-sm btn-clase" style="width:100%" disabled="disabled">Ingrese algun comentario referente a la prueba</button></div>
+            <textarea ng-model="matriz.pruebaTexto" style="height:168px;width:100%;resize:none"></textarea>
+        </div>
     </div>
 </div>
 <div class="row show-grid">
@@ -182,6 +186,6 @@
 </div>
 <div class="row show-grid">
     <div class="col-xs-12">
-        <textarea ng-model="matriz.observacionClase"></textarea>
+        <textarea ng-model="matriz.observacionClase" style="width:100%;height:100px;resize:none"></textarea>
     </div>
 </div>

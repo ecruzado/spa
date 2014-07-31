@@ -25,7 +25,7 @@
                         nodo1IdAnt = arr[i].nodo1Id;
                         nodo2Intex = -1;
                     }
-                    if (arr[i].nodo2Ant != nodo2IdAnt) {
+                    if (arr[i].nodo2Id != nodo2IdAnt) {
                         nodo2Intex++;
                         listaTree[nodo1Intex].children[nodo2Intex] = {};
                         listaTree[nodo1Intex].children[nodo2Intex]

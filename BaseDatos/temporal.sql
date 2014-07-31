@@ -126,3 +126,24 @@ WHERE c.clase_id = 5719
 select * from columna
 
 SELECT CONVERT(Datetime, '14/12/2012', 103)
+
+
+select * FROM dbo.conf_col_colegio c
+
+SELECT o.organi_id, o.organi, o2.organi2_id, o2.organi2,
+	o3.[organi3_id], o3.[organi3], cc.clase_cono_id
+FROM clase_contenido cc
+	INNER JOIN clase c ON cc.clase_id = c.clase_id  
+	INNER JOIN [organizador3] o3 ON cc.organi3_id = o3.organi3_id
+	INNER JOIN [organizador2] o2 ON o3.organi2_id = o2.organi2_id AND o2.nivel_id = c.nivel_id AND o2.grado_id = c.grado_id
+	INNER JOIN [organizador] o ON o2.organi_id = o.organi_id
+WHERE cc.clase_id = 4352
+ORDER BY o.organi, o.organi_id, o2.organi2, o2.organi2_id,
+	o3.organi3, o3.organi3_id
+
+
+sp_conocimiento_lst
+sp_tipo_conocimiento_lst
+
+sp_prueba_lst
+sp_item_registro_reactivo_lst

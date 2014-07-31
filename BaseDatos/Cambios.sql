@@ -381,7 +381,8 @@ BEGIN
 
 SELECT c.clase_id, c.clase_titulo, a.area, n.nivel, 
 	g.grado, c.fecha_inicio, c.fecha_fin, c.fecha_reg,
-	c.usuario, c.formato, c.nivel_id, c.grado_id
+	c.usuario, c.formato, c.nivel_id, c.grado_id,
+	c.area_id, c.colegio_id
 FROM [clase] as c 
 	inner join area as a on c.area_id=a.area_id
 	inner join niveles as n on c.nivel_id=n.nivel_id
@@ -794,7 +795,9 @@ CREATE PROCEDURE [clase].conf_col_colegio_lstByColumnaCole
 	@columna_id int,
 	@colegio_id int,
 	@area_id int,
-	@confcolcolegio_padre_id int = NULL
+	@confcolcolegio_padre_id int = NULL,
+	@nivel_id int = NULL,
+	@grado_id int = NULL
 AS
 BEGIN
 
@@ -817,6 +820,16 @@ WHERE columna_id = @columna_id
 		WHEN confcolcolegio_padre_id = @confcolcolegio_padre_id THEN 1
 		ELSE 0
 	END = 1
+	AND CASE
+		WHEN @nivel_id IS NULL THEN 1
+		WHEN nivel_id = @nivel_id THEN 1
+		ELSE 0
+	END = 1
+	AND CASE
+		WHEN @grado_id IS NULL THEN 1
+		WHEN grado_id = @grado_id THEN 1
+		ELSE 0
+	END = 1 
   
 END
 
@@ -925,7 +938,8 @@ GO
 -- Description:	listar hasta 3 nodos 
 -- =============================================
 CREATE PROCEDURE [clase].clase_conf_col_colegio_lstByClase3Nodos
-	@clase_id int
+	@clase_id int,
+	@columna_id int
 AS
 BEGIN
 
@@ -937,6 +951,7 @@ FROM dbo.clase_conf_col_colegio c
 	INNER JOIN dbo.conf_col_colegio n1 ON n2.confcolcolegio_padre_id = n1.confcolcolegio_id
 	INNER JOIN dbo.col_colegio cc ON n1.colegio_id = cc.colegio_id AND n1.columna_id = cc.columna_id
 WHERE c.clase_id = @clase_id
+	AND n1.columna_id = @columna_id
 	AND n1.confcolcolegio_padre_id IS NULL
 ORDER BY n1.confcolcolegio_id, n2.confcolcolegio_id, n3.confcolcolegio_id
 
@@ -1026,6 +1041,56 @@ SELECT columna_id, colegio_id, nombre, estado
 FROM dbo.col_colegio
 WHERE columna_id = @columna_id
 	AND colegio_id = @colegio_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'conocimiento_lst2Nodos')
+   DROP PROCEDURE [clase].conocimiento_lst2Nodos
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 31-07-2014
+-- Description:	listar hasta 3 nodos 
+-- =============================================
+CREATE PROCEDURE [clase].conocimiento_lst2Nodos
+AS
+BEGIN
+
+SELECT c.conocimiento_id n1_id, c.conocimiento n1_valor, tc.tipo_conocimiento_id n2_id, tc.tipo_conocimiento n2_valor
+FROM dbo.conocimiento c
+	INNER JOIN dbo.tipo_conocimiento tc ON c.conocimiento_id = tc.conocimiento_id
+ORDER BY c.conocimiento_id, tc.tipo_conocimiento_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'prueba_lst2Nodos')
+   DROP PROCEDURE [clase].prueba_lst2Nodos
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 31-07-2014
+-- Description:	listar hasta 3 nodos 
+-- =============================================
+CREATE PROCEDURE [clase].prueba_lst2Nodos
+AS
+BEGIN
+
+SELECT p.prueba_id n1_id, p.prueba n1_valor, i.item_reg_act_id n2_id, i.item_reg_act n2_valor
+FROM dbo.prueba p
+	INNER JOIN dbo.item_registro_reactivo i ON p.prueba_id = i.prueba_id
+ORDER BY p.prueba_id, i.item_reg_act_id
 
 END
 

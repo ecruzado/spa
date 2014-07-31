@@ -166,6 +166,10 @@ namespace Consilium.DAO
                         command.Parameters.Add(ObjSqlParameter("@area_id ", busqueda.AreaId, ParameterDirection.Input, DbType.Int32));
                         if (busqueda.ConfColumnaColegioPadreId != 0)
                             command.Parameters.Add(ObjSqlParameter("@confcolcolegio_padre_id", busqueda.ConfColumnaColegioPadreId, ParameterDirection.Input, DbType.Int32));
+                        if (busqueda.NivelId != 0)
+                            command.Parameters.Add(ObjSqlParameter("@nivel_id", busqueda.NivelId, ParameterDirection.Input, DbType.Int32));
+                        if (busqueda.GradoId != 0)
+                            command.Parameters.Add(ObjSqlParameter("@grado_id", busqueda.GradoId, ParameterDirection.Input, DbType.Int32));
                         conn.Open();
 
                         IDataReader dr = command.ExecuteReader();
@@ -228,7 +232,7 @@ namespace Consilium.DAO
                             entidad.Nodo1Id = dr.GetInt32(dr.GetOrdinal("n1_id"));
                             entidad.Nodo1Valor = dr.GetString(dr.GetOrdinal("n1_valor"));
                             entidad.Nodo2Id = dr.GetInt32(dr.GetOrdinal("n2_id"));
-                            entidad.Nodo2Valor = dr.GetString(dr.GetOrdinal("n2_valor"));                            entidad.Nodo1Id = dr.GetInt32(dr.GetOrdinal("n1_id"));
+                            entidad.Nodo2Valor = dr.GetString(dr.GetOrdinal("n2_valor"));                            
                             entidad.Nodo3Id = dr.GetInt32(dr.GetOrdinal("n3_id"));
                             entidad.Nodo3Valor = dr.GetString(dr.GetOrdinal("n3_valor"));                            
                             lista.Add(entidad);

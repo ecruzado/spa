@@ -15,7 +15,8 @@ namespace Consilium.Web.Controllers
         public IEnumerable<ItemNodo> Get(int columnaId, int colegioId, int areaId)
         {
             var busqueda = new ConfColumnaColegio{ColumnaId = columnaId, ColegioId = colegioId, AreaId = areaId};
-            return ConfColumnaColegioLogica.Instancia.ListNodosByColumnaAndColegioAndArea(busqueda);
+            var lista = ConfColumnaColegioLogica.Instancia.ListNodosByColumnaAndColegioAndArea(busqueda);
+            return lista;
         }
 
         // GET api/listacolumna/5

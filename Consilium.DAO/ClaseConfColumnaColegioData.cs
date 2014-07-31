@@ -59,6 +59,7 @@ namespace Consilium.DAO
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.Add(ObjSqlParameter("@clase_id", busqueda.ClaseId, ParameterDirection.Input, DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@columna_id", busqueda.ColumnaId, ParameterDirection.Input, DbType.Int32));
                         conn.Open();
 
                         IDataReader dr = command.ExecuteReader();

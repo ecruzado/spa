@@ -7,6 +7,8 @@ GO
 
 INSERT INTO dbo.columna(columna_id,nombre,colegio,area,nivel,grado,estado) values (1,'Columna 1',1,1,0,0,1)
 INSERT INTO dbo.columna(columna_id,nombre,colegio,area,nivel,grado,estado) values (2,'Columna 2',1,1,0,0,1)
+INSERT INTO dbo.columna(columna_id,nombre,colegio,area,nivel,grado,estado) values (3,'Columna 3',1,1,1,1,1)
+INSERT INTO dbo.columna(columna_id,nombre,colegio,area,nivel,grado,estado) values (4,'Columna 4',1,1,1,1,1)
 
 GO
 
@@ -18,6 +20,8 @@ GO
 
 INSERT INTO dbo.col_colegio(columna_id,colegio_id,nombre,estado) values (1,5,'Columna 1',1)
 INSERT INTO dbo.col_colegio(columna_id,colegio_id,nombre,estado) values (2,5,'Columna 2',1)
+INSERT INTO dbo.col_colegio(columna_id,colegio_id,nombre,estado) values (3,5,'Columna 3',1)
+INSERT INTO dbo.col_colegio(columna_id,colegio_id,nombre,estado) values (4,5,'Columna 4',1)
 GO
 
 --insercion conf_col_colegio

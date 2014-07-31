@@ -207,6 +207,8 @@ namespace Consilium.DAO
                             clase.Usuario = dr.GetString(dr.GetOrdinal("usuario"));
                             clase.NivelId = dr.GetInt32(dr.GetOrdinal("nivel_id"));
                             clase.GradoId = dr.GetInt32(dr.GetOrdinal("grado_id"));
+                            clase.AreaId = dr.GetInt32(dr.GetOrdinal("area_id"));
+                            clase.ColegioId = dr.GetInt32(dr.GetOrdinal("colegio_id"));
                         }
 
                     }
@@ -594,7 +596,7 @@ namespace Consilium.DAO
                             claseContenido.Conocimiento = dr.GetString(dr.GetOrdinal("organi"));
                             claseContenido.DetalleId = dr.GetInt32(dr.GetOrdinal("organi2_id"));
                             claseContenido.Detalle = dr.GetString(dr.GetOrdinal("organi2"));
-                            claseContenido.ConocimientoId = dr.GetInt32(dr.GetOrdinal("organi3_id"));
+                            claseContenido.ContenidoId = dr.GetInt32(dr.GetOrdinal("organi3_id"));
                             claseContenido.ContenidoDesc = dr.GetString(dr.GetOrdinal("organi3"));
                             claseContenido.ClaseContenidoId = dr.GetInt32(dr.GetOrdinal("clase_cono_id"));
                             lista.Add(claseContenido);

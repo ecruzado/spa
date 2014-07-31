@@ -10,5 +10,6 @@ namespace Consilium.Entity
         public int ClaseColColumnaColegioId { get; set; }
         public int ClaseId { get; set; }
         public int ConfColumnaColegioId { get; set; }
+        public int ColumnaId { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace Consilium.Web.Controllers
     public class ClaseColumnaController : ApiController
     {
         // GET api/clasecolumna
-        public IEnumerable<ItemNodo> Get(int claseId)
+        public IEnumerable<ItemNodo> Get(int claseId, int columnaId)
         {
-            return ClaseConfColumnaColegioLogica.Instancia.ListByClase(new ClaseColColumnaColegio {ClaseId = claseId });
+            return ClaseConfColumnaColegioLogica.Instancia.ListByClase(new ClaseColColumnaColegio {ClaseId = claseId,ColumnaId = columnaId });
         }
 
         // POST api/clasecolumna

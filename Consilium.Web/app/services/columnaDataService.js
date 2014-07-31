@@ -3,13 +3,15 @@
     var serviceBase = '/api/columna/';
     var columnaDataFactory = {};
 
-    var _columnas = function (colegioId, columnaId,areaId, padreId) {
+    var _columnas = function (colegioId, columnaId, areaId, padreId, nivelId, gradoId) {
         return $http.get(serviceBase, {
             params: {
                 colegioId: colegioId,
                 columnaId: columnaId,
                 areaId: areaId,
-                padreId: padreId
+                padreId: padreId,
+                nivelId: nivelId,
+                gradoId: gradoId,
             }
         }).then(function (results) {
             return results;
