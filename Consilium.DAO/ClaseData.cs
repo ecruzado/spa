@@ -723,6 +723,272 @@ namespace Consilium.DAO
         }
 
 
+        #region Conocimiento
+        /// <summary>
+        /// Obtener el listado de conocimientos por clase
+        /// </summary>
+        /// <param name="claseId"></param>
+        /// <returns></returns>
+        public List<ItemNodo> ListClaseConocimientoByClase(int claseId)
+        {
 
+            string spName = "clase.clase_tipo_conocimiento_lst";
+            var lista = new List<ItemNodo>();
+            ItemNodo itemNodo = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseId, ParameterDirection.Input, System.Data.DbType.Int32));
+
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            itemNodo = new ItemNodo();
+                            itemNodo.Nodo1Id = dr.GetInt32(dr.GetOrdinal("n1_id"));
+                            itemNodo.Nodo1Valor = dr.GetString(dr.GetOrdinal("n1_valor"));
+                            itemNodo.Nodo2Id = dr.GetInt32(dr.GetOrdinal("n2_id"));
+                            itemNodo.Nodo2Valor = dr.GetString(dr.GetOrdinal("n2_valor"));
+                            itemNodo.NodoId = dr.GetInt32(dr.GetOrdinal("clase_tipo_cono_id"));
+                            lista.Add(itemNodo);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return lista;
+
+        }
+
+        /// <summary>
+        /// Crear una conocimiento para una clase
+        /// </summary>
+        /// <param name="itemNodo"></param>
+        /// <returns></returns>
+        public int CrearClaseConocimiento(ItemNodo itemNodo)
+        {
+
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+                string spName = "clase.clase_tipo_conocimiento_insert";
+                int retVal = 0;
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@tipo_conocimiento_id", itemNodo.Nodo2Id, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@clase_id", itemNodo.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    return retVal;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+
+        /// <summary>
+        /// Elimina clase capacidad por identificador
+        /// </summary>
+        /// <param name="itemNodo"></param>
+        /// <returns></returns>
+        public int DeleteClaseConocimiento(ItemNodo itemNodo)
+        {
+
+            string spName = "clase.clase_tipo_conocimiento_delete";
+            int retVal = 0;
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@clase_tipo_cono_id", itemNodo.NodoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+            return retVal;
+
+        }        
+        
+        #endregion
+
+        #region prueba
+        /// <summary>
+        /// Obtener el listado de conocimientos por clase
+        /// </summary>
+        /// <param name="claseId"></param>
+        /// <returns></returns>
+        public List<ItemNodo> ListClasePruebaByClase(int claseId)
+        {
+
+            string spName = "clase.clase_item_registro_reactivo_lst";
+            var lista = new List<ItemNodo>();
+            ItemNodo itemNodo = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseId, ParameterDirection.Input, System.Data.DbType.Int32));
+
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            itemNodo = new ItemNodo();
+                            itemNodo.Nodo1Id = dr.GetInt32(dr.GetOrdinal("n1_id"));
+                            itemNodo.Nodo1Valor = dr.GetString(dr.GetOrdinal("n1_valor"));
+                            itemNodo.Nodo2Id = dr.GetInt32(dr.GetOrdinal("n2_id"));
+                            itemNodo.Nodo2Valor = dr.GetString(dr.GetOrdinal("n2_valor"));
+                            itemNodo.NodoId = dr.GetInt32(dr.GetOrdinal("clase_item_reg_act_id"));
+                            lista.Add(itemNodo);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return lista;
+
+        }
+
+        /// <summary>
+        /// Crear una conocimiento para una clase
+        /// </summary>
+        /// <param name="itemNodo"></param>
+        /// <returns></returns>
+        public int CrearClasePrueba(ItemNodo itemNodo)
+        {
+
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+                string spName = "clase.clase_item_registro_reactivo_insert";
+                int retVal = 0;
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@item_reg_act_id", itemNodo.Nodo2Id, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@clase_id", itemNodo.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    return retVal;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+
+        /// <summary>
+        /// Elimina clase capacidad por identificador
+        /// </summary>
+        /// <param name="itemNodo"></param>
+        /// <returns></returns>
+        public int DeleteClasePrueba(ItemNodo itemNodo)
+        {
+
+            string spName = "clase.clase_item_registro_reactivo_delete";
+            int retVal = 0;
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@clase_item_reg_act_id", itemNodo.NodoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+            return retVal;
+
+        }
+
+        #endregion
     }
 }

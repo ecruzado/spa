@@ -1095,3 +1095,169 @@ ORDER BY p.prueba_id, i.item_reg_act_id
 END
 
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_tipo_conocimiento_insert')
+   DROP PROCEDURE [clase].clase_tipo_conocimiento_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar 
+-- =============================================
+CREATE PROCEDURE [clase].clase_tipo_conocimiento_insert
+	@tipo_conocimiento_id int,
+	@clase_id int,
+	@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+
+INSERT INTO [dbo].[clase_tipo_conocimiento]
+           ([tipo_conocimiento_id]
+           ,[clase_id])
+     VALUES
+           (@tipo_conocimiento_id
+           ,@clase_id)
+SET @new_identity = SCOPE_IDENTITY();
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_tipo_conocimiento_delete')
+   DROP PROCEDURE [clase].clase_tipo_conocimiento_delete
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	eliminar clase tipo conocimiento 
+-- =============================================
+CREATE PROCEDURE [clase].clase_tipo_conocimiento_delete
+	@clase_tipo_cono_id int
+AS
+BEGIN
+
+DELETE dbo.clase_tipo_conocimiento 
+where clase_tipo_cono_id = @clase_tipo_cono_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_item_registro_reactivo_insert')
+   DROP PROCEDURE [clase].clase_item_registro_reactivo_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	insert 
+-- =============================================
+CREATE PROCEDURE [clase].clase_item_registro_reactivo_insert
+	@item_reg_act_id int,
+	@clase_id int,
+	@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+
+INSERT INTO [dbo].[clase_item_registro_reactivo]
+           (item_reg_act_id
+           ,[clase_id])
+     VALUES
+           (@item_reg_act_id
+           ,@clase_id)
+SET @new_identity = SCOPE_IDENTITY();
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_item_registro_reactivo_delete')
+   DROP PROCEDURE [clase].clase_item_registro_reactivo_delete
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	eliminar clase examen
+-- =============================================
+CREATE PROCEDURE [clase].clase_item_registro_reactivo_delete
+	@clase_item_reg_act_id int
+AS
+BEGIN
+
+DELETE dbo.clase_item_registro_reactivo 
+where clase_item_reg_act_id = @clase_item_reg_act_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_tipo_conocimiento_lst')
+   DROP PROCEDURE [clase].clase_tipo_conocimiento_lst
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar tipo conocimiento por clase
+-- =============================================
+CREATE PROCEDURE [clase].clase_tipo_conocimiento_lst
+	@clase_id int
+AS
+BEGIN
+
+SELECT c.conocimiento_id n1_id, c.conocimiento n1_valor, tc.tipo_conocimiento_id n2_id, tc.tipo_conocimiento n2_valor, 
+	ctc.clase_tipo_cono_id
+FROM dbo.clase_tipo_conocimiento ctc
+	INNER JOIN dbo.tipo_conocimiento tc ON ctc.tipo_conocimiento_id = tc.tipo_conocimiento_id
+	INNER JOIN dbo.conocimiento c ON tc.conocimiento_id = c.conocimiento_id
+WHERE ctc.clase_id = @clase_id
+ORDER BY c.conocimiento_id, tc.tipo_conocimiento_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_item_registro_reactivo_lst')
+   DROP PROCEDURE [clase].clase_item_registro_reactivo_lst
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar prueba por clase
+-- =============================================
+CREATE PROCEDURE [clase].clase_item_registro_reactivo_lst
+	@clase_id int
+AS
+BEGIN
+
+SELECT p.prueba_id n1_id, p.prueba n1_valor, ir.item_reg_act_id n2_id, ir.item_reg_act n2_valor, 
+	cir.clase_item_reg_act_id
+FROM dbo.clase_item_registro_reactivo cir
+	INNER JOIN dbo.item_registro_reactivo ir ON cir.item_reg_act_id = ir.item_reg_act_id
+	INNER JOIN dbo.prueba p ON ir.prueba_id = p.prueba_id
+WHERE cir.clase_id = @clase_id
+ORDER BY p.prueba_id, ir.item_reg_act_id
+
+END
+
+GO

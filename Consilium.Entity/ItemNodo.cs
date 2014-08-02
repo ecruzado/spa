@@ -15,5 +15,6 @@ namespace Consilium.Entity
         public string Nodo2Valor { get; set; }
         public int Nodo3Id { get; set; }
         public string Nodo3Valor { get; set; }
+        public int ClaseId { get; set; }
     }
 }

@@ -30,6 +30,8 @@
         obtenerClaseColumna(2);
         obtenerClaseColumna(3);
         obtenerClaseColumna(4);
+        obtenerClaseConocimientos();
+        obtenerClasePruebas();
     }
 
     function obtenerClaseCabecera() {
@@ -298,12 +300,87 @@
         });
     }
 
-
     function obtenerNiveles() {
         claseDataService.niveles().then(function (resultado) {
             $scope.niveles = resultado.data;
         });
     }
+
+    function obtenerClaseConocimientos() {
+        var nombrejsTree = 'jtClaseTipoConocimiento';
+
+        claseDataService.claseConocimientos($scope.claseCabecera.claseId).then(function (resultado) {
+            var arr = resultado.data;
+            var listaTree = [],
+                nodo1Intex = -1,
+                nodo2Intex = -1,
+                nodo1IdAnt = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].nodo1Id != nodo1IdAnt) {
+                    nodo1Intex++;
+                    listaTree[nodo1Intex] = {};
+                    listaTree[nodo1Intex].id = 'N1-' + arr[i].nodo1Id;
+                    listaTree[nodo1Intex].text = arr[i].nodo1Valor;
+                    listaTree[nodo1Intex].state = { opened: true };
+                    listaTree[nodo1Intex].children = [];
+                    nodo1IdAnt = arr[i].nodo1Id;
+                    nodo2Intex = -1;
+                }
+                nodo2Intex++;
+                listaTree[nodo1Intex].children[nodo2Intex] = {};
+                listaTree[nodo1Intex].children[nodo2Intex]
+                    .id = 'N2-' + arr[i].nodoId;
+                listaTree[nodo1Intex].children[nodo2Intex]
+                    .text = arr[i].nodo2Valor;
+            }
+
+            $('#' + nombrejsTree).jstree('destroy');
+            $('#' + nombrejsTree).jstree({
+                'plugins': ["checkbox"],
+                'core': { 'data': listaTree, 'themes': { 'icons': false } }
+            });
+
+        });
+    }
+
+    function obtenerClasePruebas() {
+        var nombrejsTree = 'jsClasePrueba';
+
+        claseDataService.clasePruebas($scope.claseCabecera.claseId).then(function (resultado) {
+            var arr = resultado.data;
+            var listaTree = [],
+                nodo1Intex = -1,
+                nodo2Intex = -1,
+                nodo1IdAnt = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].nodo1Id != nodo1IdAnt) {
+                    nodo1Intex++;
+                    listaTree[nodo1Intex] = {};
+                    listaTree[nodo1Intex].id = 'N1-' + arr[i].nodo1Id;
+                    listaTree[nodo1Intex].text = arr[i].nodo1Valor;
+                    listaTree[nodo1Intex].state = { opened: true };
+                    listaTree[nodo1Intex].children = [];
+                    nodo1IdAnt = arr[i].nodo1Id;
+                    nodo2Intex = -1;
+                }
+                nodo2Intex++;
+                listaTree[nodo1Intex].children[nodo2Intex] = {};
+                listaTree[nodo1Intex].children[nodo2Intex]
+                    .id = 'N2-' + arr[i].nodoId;
+                listaTree[nodo1Intex].children[nodo2Intex]
+                    .text = arr[i].nodo2Valor;
+            }
+
+            $('#' + nombrejsTree).jstree('destroy');
+            $('#' + nombrejsTree).jstree({
+                'plugins': ["checkbox"],
+                'core': { 'data': listaTree, 'themes': { 'icons': false } }
+            });
+
+        });
+    }
+
+
 
     $scope.openFechaInicio = function ($event) {
         $event.preventDefault();
@@ -452,6 +529,7 @@
             }
         }
     };
+
     $scope.popUpConocimientos = function () {
         var modalInstance = $modal.open({
             templateUrl: '/app/views/conocimientoPopUpView.html?v=1',
@@ -466,12 +544,12 @@
         modalInstance.result.then(function (seleccion) {
             for (i = 0; i < seleccion.length; i++) {
                 var auxSeparacion = seleccion[i].split('-');
-                if (auxSeparacion[0] == 'N3') {
-                    var claseColumna = {};
-                    claseColumna.confColumnaColegioId = auxSeparacion[1];
-                    claseColumna.claseId = $scope.claseCabecera.claseId;
-                    claseDataService.saveClaseColumna(claseColumna).then(function () {
-                        init();
+                if (auxSeparacion[0] == 'N2') {
+                    var claseConocimiento = {};
+                    claseConocimiento.Nodo2Id = auxSeparacion[1];
+                    claseConocimiento.claseId = $scope.claseCabecera.claseId;
+                    claseDataService.saveClaseConocimiento(claseConocimiento).then(function () {
+                        obtenerClaseConocimientos();
                     });
                 }
             }
@@ -479,16 +557,17 @@
         });
     };
     $scope.eliminarConocimientos = function () {
-        var arr = $("#jtClaseConocimiento").jstree('get_selected');
+        var arr = $("#jtClaseTipoConocimiento").jstree('get_selected');
         for (i = 0; i < arr.length; i++) {
             var auxSeparacion = arr[i].split('-');
-            if (auxSeparacion[0] == 'O') {
-                claseDataService.deleteClaseCapacidad(auxSeparacion[1]).then(function () {
-                    obtenerClaseCapacidades();
+            if (auxSeparacion[0] == 'N2') {
+                claseDataService.deleteClaseConocimiento(auxSeparacion[1]).then(function () {
+                    obtenerClaseConocimientos();
                 });
             }
         }
     };
+
     $scope.popUpPruebas = function () {
         var modalInstance = $modal.open({
             templateUrl: '/app/views/pruebaPopUpView.html?v=2',
@@ -503,12 +582,12 @@
         modalInstance.result.then(function (seleccion) {
             for (i = 0; i < seleccion.length; i++) {
                 var auxSeparacion = seleccion[i].split('-');
-                if (auxSeparacion[0] == 'N3') {
-                    var claseColumna = {};
-                    claseColumna.confColumnaColegioId = auxSeparacion[1];
-                    claseColumna.claseId = $scope.claseCabecera.claseId;
-                    claseDataService.saveClaseColumna(claseColumna).then(function () {
-                        init();
+                if (auxSeparacion[0] == 'N2') {
+                    var clasePrueba = {};
+                    clasePrueba.nodo2Id = auxSeparacion[1];
+                    clasePrueba.claseId = $scope.claseCabecera.claseId;
+                    claseDataService.saveClasePrueba(clasePrueba).then(function () {
+                        obtenerClasePruebas();
                     });
                 }
             }
@@ -516,12 +595,12 @@
         });
     };
     $scope.eliminarPruebas = function () {
-        var arr = $("#jtClasePrueba").jstree('get_selected');
+        var arr = $("#jsClasePrueba").jstree('get_selected');
         for (i = 0; i < arr.length; i++) {
             var auxSeparacion = arr[i].split('-');
-            if (auxSeparacion[0] == 'O') {
-                claseDataService.deleteClaseCapacidad(auxSeparacion[1]).then(function () {
-                    obtenerClaseCapacidades();
+            if (auxSeparacion[0] == 'N2') {
+                claseDataService.deleteClasePrueba(auxSeparacion[1]).then(function () {
+                    obtenerClasePruebas();
                 });
             }
         }

@@ -103,6 +103,40 @@ namespace Consilium.Logica
         {
             return claseData.GetClaseMatrizByClase(claseId);
         }
+
+
         #endregion 
+
+        #region Conocimiento
+        public List<ItemNodo> ListClaseConocimientoByClase(int claseId)
+        {
+            return claseData.ListClaseConocimientoByClase(claseId);
+        }
+        public int CrearClaseConocimiento(ItemNodo itemNodo)
+        {
+            return claseData.CrearClaseConocimiento(itemNodo);
+        }
+        public int DeleteClaseConocimiento(ItemNodo itemNodo)
+        {
+            return claseData.DeleteClaseConocimiento(itemNodo);
+        } 
+        #endregion
+
+        #region Prueba
+        public List<ItemNodo> ListClasePruebaByClase(int claseId)
+        {
+            return claseData.ListClasePruebaByClase(claseId);
+        }
+        public int CrearClasePrueba(ItemNodo itemNodo)
+        {
+            return claseData.CrearClasePrueba(itemNodo);
+        }
+        public int DeleteClasePrueba(ItemNodo itemNodo)
+        {
+            return claseData.DeleteClasePrueba(itemNodo);
+        }
+
+        #endregion
+
     }
 }

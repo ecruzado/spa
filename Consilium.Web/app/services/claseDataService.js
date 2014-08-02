@@ -125,6 +125,59 @@
         );
     };
 
+    var _claseConocimientos = function (claseId) {
+        return $http.get('/api/claseconocimiento/', { params: { claseId: claseId } }).then(function (results) {
+            return results;
+        });
+    };
+    var _saveClaseConocimiento = function (claseConocimiento) {
+        return $http.post('/api/claseconocimiento/', claseConocimiento).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Conocimiento agregada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+    var _deleteClaseConocimiento = function (id) {
+        return $http.delete('/api/claseconocimiento/' + id).then(
+            function (results) {
+                toaster.pop('success', "Eliminada Satisfactoriamente", "Conocimiento eliminada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+
+
+    var _clasePruebas = function (claseId) {
+        return $http.get('/api/claseprueba/', { params: { claseId: claseId } }).then(function (results) {
+            return results;
+        });
+    };
+    var _saveClasePrueba = function (clasePrueba) {
+        return $http.post('/api/claseprueba/', clasePrueba).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Prueba agregada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+    var _deleteClasePrueba = function (id) {
+        return $http.delete('/api/claseprueba/' + id).then(
+            function (results) {
+                toaster.pop('success', "Eliminada Satisfactoriamente", "Prueba eliminada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+
     claseDataFactory.niveles = _niveles;
     claseDataFactory.grados = _grados;
 
@@ -151,6 +204,14 @@
     claseDataFactory.claseColumnas = _claseColumnas;
     claseDataFactory.saveClaseColumna = _saveClaseColumna;
     claseDataFactory.deleteClaseColumna = _deleteClaseColumna;
+
+    claseDataFactory.claseConocimientos = _claseConocimientos;
+    claseDataFactory.saveClaseConocimiento = _saveClaseConocimiento;
+    claseDataFactory.deleteClaseConocimiento = _deleteClaseConocimiento;
+
+    claseDataFactory.clasePruebas = _clasePruebas;
+    claseDataFactory.saveClasePrueba = _saveClasePrueba;
+    claseDataFactory.deleteClasePrueba = _deleteClasePrueba;
 
     return claseDataFactory;
 });

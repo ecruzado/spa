@@ -130,11 +130,13 @@
     <Compile Include="Controllers\ClaseBusquedaController.cs" />
     <Compile Include="Controllers\ClaseCapacidadController.cs" />
     <Compile Include="Controllers\ClaseColumnaController.cs" />
+    <Compile Include="Controllers\ClaseConocimientoController.cs" />
     <Compile Include="Controllers\ClaseContenidoController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
     <Compile Include="Controllers\ClaseImpresionController.cs" />
     <Compile Include="Controllers\ClaseMatrizController.cs" />
     <Compile Include="Controllers\ClaseMetodoController.cs" />
+    <Compile Include="Controllers\ClasePruebaController.cs" />
     <Compile Include="Controllers\ClaseValorController.cs" />
     <Compile Include="Controllers\ColumnaColegioController.cs" />
     <Compile Include="Controllers\ColumnaController.cs" />
