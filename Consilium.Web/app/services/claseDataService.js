@@ -203,7 +203,16 @@
             }
         );
     };
-
+    var _deleteClaseArchivo = function (ids) {
+        return $http.delete('/api/clasearchivo/', { params: { ids: ids } }).then(
+            function (results) {
+                toaster.pop('success', "Eliminado Satisfactoriamente", "Archivo eliminado(s) satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
     claseDataFactory.niveles = _niveles;
     claseDataFactory.grados = _grados;
 
@@ -242,6 +251,7 @@
 
     claseDataFactory.claseArchivos = _claseArchivos;
     claseDataFactory.saveClaseArchivo = _saveClaseArchivo;
+    claseDataFactory.deleteClaseArchivo = _deleteClaseArchivo;
     
 
     return claseDataFactory;

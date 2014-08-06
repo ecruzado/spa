@@ -1374,6 +1374,7 @@ BEGIN
 SELECT ca.clase_archivo_id, ca.archivo, ca.nombre, ca.clase_id, ca.estado
 FROM clase_archivo ca
 WHERE ca.clase_id = @clase_id
+	AND ca.estado = 'A'
 order by ca.nombre
 
 END

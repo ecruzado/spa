@@ -652,11 +652,15 @@
     };
     $scope.eliminarClaseArchivo = function () {
         var arr = $scope.archivos;
+        var arrEliminar = [];
         for (i = 0; i < arr.length; i++) {
             if (arr[i].seleccion) {
-                console.log(arr[i].claseArchivoId);
+                arrEliminar.push(arr[i].claseArchivoId);
             }
         }
+        claseDataService.deleteClaseArchivo(arrEliminar).then(function () {
+            obtenerClaseArchivos();
+        });
     };
 
 

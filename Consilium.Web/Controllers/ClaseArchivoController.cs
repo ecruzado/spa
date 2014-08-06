@@ -35,6 +35,12 @@ namespace Consilium.Web.Controllers
         // DELETE api/clasearchivo/5
         public void Delete([FromUri]int[] ids = null)
         {
+            foreach (var id in ids)
+            {
+                var claseArchivo = ClaseLogica.Instancia.GetClaseArchivoById(id);
+                claseArchivo.Estado = "I";
+                ClaseLogica.Instancia.ActualizarClaseArchivo(claseArchivo);
+            }
         }
     }
 }
