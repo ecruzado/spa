@@ -87,7 +87,17 @@
             return results;
         });
     };
-    
+    var _saveClaseMatriz = function (claseMatriz) {
+        return $http.post('/api/clasematriz/', claseMatriz).then(
+            function (results) {
+                toaster.pop('success', "Guardado Satisfactoriamente", "Matriz guardada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+
     var _areas = function () {
         return $http.get('/api/area/').then(function (results) {
             return results;
@@ -178,6 +188,22 @@
         );
     };
 
+    var _claseArchivos = function (claseId) {
+        return $http.get('/api/clasearchivo/', { params: { claseId: claseId } }).then(function (results) {
+            return results;
+        });
+    };
+    var _saveClaseArchivo = function (claseArchivo) {
+        return $http.post('/api/clasearchivo/', claseArchivo).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Archivo agregado satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+
     claseDataFactory.niveles = _niveles;
     claseDataFactory.grados = _grados;
 
@@ -197,6 +223,7 @@
     claseDataFactory.claseActividadUpdate = _claseActividadUpdate;
 
     claseDataFactory.claseMatriz = _claseMatriz;
+    claseDataFactory.saveClaseMatriz = _saveClaseMatriz;
 
     claseDataFactory.areas = _areas;
     claseDataFactory.usuarios = _usuarios;
@@ -212,6 +239,10 @@
     claseDataFactory.clasePruebas = _clasePruebas;
     claseDataFactory.saveClasePrueba = _saveClasePrueba;
     claseDataFactory.deleteClasePrueba = _deleteClasePrueba;
+
+    claseDataFactory.claseArchivos = _claseArchivos;
+    claseDataFactory.saveClaseArchivo = _saveClaseArchivo;
+    
 
     return claseDataFactory;
 });

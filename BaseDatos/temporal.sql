@@ -147,3 +147,9 @@ sp_tipo_conocimiento_lst
 
 sp_prueba_lst
 sp_item_registro_reactivo_lst
+
+go
+
+select * from dbo.clase_matriz cm inner join clase c on cm.clase_id = c.clase_id where c.colegio_id = 5 and c.area_id = 1 order by cm.clase_id desc
+select * from dbo.clase_actividad where actividades_id = 4316
+select * from dbo.clase_archivo

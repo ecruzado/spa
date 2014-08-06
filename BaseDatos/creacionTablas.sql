@@ -70,3 +70,20 @@ GO
 ALTER TABLE dbo.clase_conf_col_colegio ADD  CONSTRAINT [FK_clase_conf_col_colegio_conf] FOREIGN KEY(confcolcolegio_id)
 REFERENCES dbo.conf_col_colegio (confcolcolegio_id)
 GO
+
+
+CREATE TABLE clase_archivo
+(
+	clase_archivo_id int  identity(1,1),
+	clase_id int not null,
+	nombre	nvarchar(250) not null,
+	archivo uniqueidentifier not null,
+	estado char(1) not null,
+	CONSTRAINT [PK_clase_archivo] PRIMARY KEY (clase_archivo_id)
+)
+
+GO
+
+ALTER TABLE dbo.clase_archivo ADD CONSTRAINT [FK_clase_clase_archivo] FOREIGN KEY(clase_id)
+REFERENCES dbo.clase (clase_id)
+GO

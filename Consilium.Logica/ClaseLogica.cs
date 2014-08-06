@@ -83,17 +83,13 @@ namespace Consilium.Logica
         {
             return claseData.GetClaseActividadByClase(claseId);
         }
-        public int InsertClaseActividad(ClaseActividad claseActividad)
+        public int CrearClaseActividad(ClaseActividad claseActividad)
         {
-            return claseData.InsertClaseActividad(claseActividad);
+            return claseData.CrearClaseActividad(claseActividad);
         }
-        public int UpdateClaseActvidadSetActividad(ClaseActividad claseActividad)
+        public int ActualizarClaseActvidad(ClaseActividad claseActividad)
         {
-            return claseData.UpdateClaseActvidadSetActividad(claseActividad);
-        }
-        public int UpdateClaseActvidadSetHora(ClaseActividad claseActividad)
-        {
-            return claseData.UpdateClaseActvidadSetHora(claseActividad);
+            return claseData.ActualizarClaseActvidad(claseActividad);
         }
 
         #endregion
@@ -103,7 +99,14 @@ namespace Consilium.Logica
         {
             return claseData.GetClaseMatrizByClase(claseId);
         }
-
+        public int CrearClaseMatriz(ClaseMatriz claseMatriz)
+        {
+            return claseData.CrearClaseMatriz(claseMatriz);
+        }
+        public int ActualizarClaseMatriz(ClaseMatriz claseMatriz)
+        {
+            return claseData.ActualizarClaseMatriz(claseMatriz);
+        }
 
         #endregion 
 
@@ -138,5 +141,24 @@ namespace Consilium.Logica
 
         #endregion
 
+        #region Archivo
+        public List<ClaseArchivo> ListClaseArchivoByClase(int claseId)
+        {
+            return claseData.ListClaseArchivoByClase(claseId);
+        }
+        public ClaseArchivo GetClaseArchivoById(int claseArchivoId)
+        {
+            return claseData.GetClaseArchivoById(claseArchivoId);
+        }
+        public int CrearClaseArchivo(ClaseArchivo claseArchivo)
+        {
+            return claseData.CrearClaseArchivo(claseArchivo);
+        }
+        public int ActualizarClaseArchivo(ClaseArchivo claseArchivo)
+        {
+            return claseData.ActualizarClaseArchivo(claseArchivo);
+        }
+
+        #endregion
     }
 }

@@ -460,8 +460,8 @@ GO
 IF EXISTS (
 	SELECT * FROM sys.objects o
 		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
-		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_actividad_update_actividades')
-   DROP PROCEDURE [clase].sp_clase_actividad_update_actividades
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_actividad_update')
+   DROP PROCEDURE [clase].sp_clase_actividad_update
 GO
 
 -- =============================================
@@ -469,15 +469,18 @@ GO
 -- Create date: 30-06-2014
 -- Description:	Obtener actividades de clase
 -- =============================================
-CREATE PROCEDURE [clase].sp_clase_actividad_update_actividades
-	@actividades as nvarchar(max)
+CREATE PROCEDURE [clase].sp_clase_actividad_update
+	@actividades_id int
+	,@actividades as nvarchar(max)
+	,@actividades_hora as nvarchar(max)
 	,@clase_id int
 AS
 BEGIN
 
 UPDATE clase_actividad
-SET    actividades = @actividades
-WHERE clase_id=@clase_id
+SET actividades = @actividades,
+	actividades_hora = @actividades_hora
+WHERE actividades_id = @actividades_id
   
 END
 
@@ -534,6 +537,94 @@ SELECT [clase_matriz_id],[formativa],[sumativa],[autoevaluativa]
 FROM [clase_matriz]
 WHERE clase_id=@clase_id
   
+END
+
+GO
+
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_matriz_insert')
+   DROP PROCEDURE [clase].sp_clase_matriz_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 30-06-2014
+-- Description:	Insertar matriz clase
+-- =============================================
+CREATE PROCEDURE [clase].sp_clase_matriz_insert
+	@formativa as bit
+	,@sumativa as bit
+	,@autoevaluativa as bit
+	,@coevaluativa as bit
+	,@heteroevaluacion as bit
+	,@censal as bit
+	,@muestral as bit
+	,@indicador_logro as nvarchar(500)
+	,@clase_id int
+	,@pruebatxt as nvarchar(500)
+	,@obsclase as nvarchar(500)
+	,@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+
+INSERT INTO [dbo].[clase_matriz]([formativa],[sumativa],[autoevaluativa],[coevaluativa]
+	,[heteroevaluacion],[censal],[muestral],[indicador_logro]
+	,[clase_id],[pruebatxt],[obsclase])
+VALUES(@formativa,@sumativa,@autoevaluativa,@coevaluativa,
+	 @heteroevaluacion,@censal,@muestral, @indicador_logro,
+	 @clase_id,@pruebatxt,@obsclase)
+
+     SET @new_identity = SCOPE_IDENTITY();
+  
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_matriz_update')
+   DROP PROCEDURE [clase].sp_clase_matriz_update
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 30-06-2014
+-- Description:	Actializar matriz clase
+-- =============================================
+CREATE PROCEDURE [clase].sp_clase_matriz_update
+	@clase_matriz_id as int
+	,@formativa as bit
+	,@sumativa as bit
+	,@autoevaluativa as bit
+	,@coevaluativa as bit
+	,@heteroevaluacion as bit
+	,@censal as bit
+	,@muestral as bit
+	,@indicador_logro as nvarchar(500)
+	,@clase_id int
+	,@pruebatxt as nvarchar(500)
+	,@obsclase as nvarchar(500)
+AS
+BEGIN
+
+UPDATE dbo.clase_matriz
+set formativa = @formativa, 
+	sumativa = @sumativa, 
+	autoevaluativa = @autoevaluativa,
+	coevaluativa = @coevaluativa,
+	heteroevaluacion = @heteroevaluacion,
+	censal = @censal,
+	muestral = @muestral,
+	indicador_logro = @indicador_logro,
+	pruebatxt = @pruebatxt,
+	obsclase = @obsclase
+ where @clase_matriz_id = @clase_matriz_id
+
 END
 
 GO
@@ -1261,3 +1352,121 @@ ORDER BY p.prueba_id, ir.item_reg_act_id
 END
 
 GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_archivo_lstByClase')
+   DROP PROCEDURE [clase].clase_archivo_lstByClase
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar archivos de clase
+-- =============================================
+CREATE PROCEDURE [clase].clase_archivo_lstByClase
+	@clase_id int
+AS
+BEGIN
+
+SELECT ca.clase_archivo_id, ca.archivo, ca.nombre, ca.clase_id, ca.estado
+FROM clase_archivo ca
+WHERE ca.clase_id = @clase_id
+order by ca.nombre
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_archivo_getById')
+   DROP PROCEDURE [clase].clase_archivo_getById
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar archivos de clase
+-- =============================================
+CREATE PROCEDURE [clase].clase_archivo_getById
+	@clase_archivo_id int
+AS
+BEGIN
+
+SELECT ca.clase_archivo_id, ca.archivo, ca.nombre, ca.clase_id, ca.estado
+FROM clase_archivo ca
+WHERE ca.clase_archivo_id = @clase_archivo_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_archivo_insert')
+   DROP PROCEDURE [clase].clase_archivo_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar archivos de clase
+-- =============================================
+CREATE PROCEDURE [clase].clase_archivo_insert
+	@clase_id int,
+	@nombre nvarchar(250),
+	@archivo uniqueidentifier,
+	@estado char(1) = 'A',
+	@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+
+INSERT INTO [dbo].[clase_archivo](clase_id, nombre, archivo, estado)
+VALUES (@clase_id,@nombre,@archivo,@estado)
+
+SET @new_identity = SCOPE_IDENTITY();
+
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'clase_archivo_update')
+   DROP PROCEDURE [clase].clase_archivo_update
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	actualizar archivos de clase
+-- =============================================
+CREATE PROCEDURE [clase].clase_archivo_update
+	@clase_archivo_id int,
+	@clase_id int,
+	@nombre nvarchar(250),
+	@archivo uniqueidentifier,
+	@estado char(1) = 'A'
+AS
+BEGIN
+
+update [dbo].[clase_archivo]
+set nombre = @nombre,
+	archivo = @archivo,
+	estado = @estado
+where clase_archivo_id = @clase_archivo_id
+
+END
+
+GO
+
+
+
+

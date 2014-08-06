@@ -42,6 +42,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="Clase.cs" />
     <Compile Include="ClaseActividad.cs" />
+    <Compile Include="ClaseArchivo.cs" />
     <Compile Include="ClaseCapacidad.cs" />
     <Compile Include="ClaseColColumnaColegio.cs" />
     <Compile Include="ClaseContenido.cs" />

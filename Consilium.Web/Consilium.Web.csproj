@@ -124,9 +124,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\ActividadController.cs" />
+    <Compile Include="Controllers\ArchivoController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\CapacidadController.cs" />
     <Compile Include="Controllers\ClaseActividadController.cs" />
+    <Compile Include="Controllers\ClaseArchivoController.cs" />
     <Compile Include="Controllers\ClaseBusquedaController.cs" />
     <Compile Include="Controllers\ClaseCapacidadController.cs" />
     <Compile Include="Controllers\ClaseColumnaController.cs" />
@@ -204,6 +206,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="index.html" />
+    <Content Include="Scripts\angular-file-upload-html5-shim.min.js" />
+    <Content Include="Scripts\angular-file-upload.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />

@@ -407,7 +407,7 @@ namespace Consilium.DAO
             return claseActividad;
         }
         
-        public int InsertClaseActividad(ClaseActividad claseActividad)
+        public int CrearClaseActividad(ClaseActividad claseActividad)
         {
             string spName = "clase.sp_clase_actividad_insert";
             int retVal = 0;
@@ -442,9 +442,9 @@ namespace Consilium.DAO
             }
         }
 
-        public int UpdateClaseActvidadSetActividad(ClaseActividad claseActividad)
+        public int ActualizarClaseActvidad(ClaseActividad claseActividad)
         {
-            string spName = "clase.sp_clase_actividad_update_actividades";
+            string spName = "clase.sp_clase_actividad_update";
             int retVal = 0;
 
             using (SqlConnection conn = new SqlConnection(CadenaConexion))
@@ -454,38 +454,8 @@ namespace Consilium.DAO
                 {
                     SqlCommand command = new SqlCommand(spName, conn);
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@actividades_id", claseActividad.ClaseActividadId, ParameterDirection.Input, System.Data.DbType.Int32));
                     command.Parameters.Add(ObjSqlParameter("@actividades", claseActividad.Actividades, ParameterDirection.Input, System.Data.DbType.String));
-                    command.Parameters.Add(ObjSqlParameter("@clase_id", claseActividad.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
-                    command.CommandType = CommandType.StoredProcedure;
-                    conn.Open();
-                    retVal = command.ExecuteNonQuery();
-                    return retVal;
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    conn.Close();
-                }
-
-            }
-        }
-
-        public int UpdateClaseActvidadSetHora(ClaseActividad claseActividad)
-        {
-            string spName = "clase.sp_clase_actividad_update_actividades_hora";
-            int retVal = 0;
-
-            using (SqlConnection conn = new SqlConnection(CadenaConexion))
-            {
-
-                try
-                {
-                    SqlCommand command = new SqlCommand(spName, conn);
-                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(ObjSqlParameter("@actividades_hora", claseActividad.Horas, ParameterDirection.Input, System.Data.DbType.String));
                     command.Parameters.Add(ObjSqlParameter("@clase_id", claseActividad.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
                     command.CommandType = CommandType.StoredProcedure;
@@ -559,8 +529,91 @@ namespace Consilium.DAO
             }
             return claseMatriz;
         }
+
+        public int CrearClaseMatriz(ClaseMatriz claseMatriz)
+        {
+            string spName = "clase.sp_clase_matriz_insert";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@formativa", claseMatriz.Formativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@sumativa", claseMatriz.Sumativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@autoevaluativa", claseMatriz.AutoEvaluativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@coevaluativa", claseMatriz.Coevaluativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@heteroevaluacion", claseMatriz.HeteroEvalucion, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@censal", claseMatriz.Censal, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@muestral", claseMatriz.Muestral, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@indicador_logro", claseMatriz.IndicadorLogro, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseMatriz.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@pruebatxt", claseMatriz.PruebaTexto, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@obsclase", claseMatriz.ObservacionClase, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
         
-        
+        public int ActualizarClaseMatriz(ClaseMatriz claseMatriz)
+        {
+            string spName = "clase.sp_clase_matriz_update";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@clase_matriz_id", claseMatriz.ClaseMatrizId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@formativa", claseMatriz.Formativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@sumativa", claseMatriz.Sumativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@autoevaluativa", claseMatriz.AutoEvaluativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@coevaluativa", claseMatriz.Coevaluativa, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@heteroevaluacion", claseMatriz.HeteroEvalucion, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@censal", claseMatriz.Censal, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@muestral", claseMatriz.Muestral, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add(ObjSqlParameter("@indicador_logro", claseMatriz.IndicadorLogro, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseMatriz.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@pruebatxt", claseMatriz.PruebaTexto, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@obsclase", claseMatriz.ObservacionClase, ParameterDirection.Input, System.Data.DbType.String));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         #endregion
 
@@ -990,5 +1043,167 @@ namespace Consilium.DAO
         }
 
         #endregion
+
+        #region Archivo
+
+        public List<ClaseArchivo> ListClaseArchivoByClase(int claseId)
+        {
+            string spName = "clase.clase_archivo_lstByClase";
+            var lista = new List<ClaseArchivo>();
+            ClaseArchivo claseArchivo = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            claseArchivo = new ClaseArchivo();
+                            claseArchivo.ClaseArchivoId = dr.GetInt32(dr.GetOrdinal("clase_archivo_id"));
+                            claseArchivo.ClaseId = dr.GetInt32(dr.GetOrdinal("clase_id"));
+                            claseArchivo.Nombre = dr.GetString(dr.GetOrdinal("nombre"));
+                            claseArchivo.Archivo = dr.GetGuid(dr.GetOrdinal("archivo"));
+                            claseArchivo.Estado = dr.GetString(dr.GetOrdinal("estado"));
+                            lista.Add(claseArchivo);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return lista;
+        }
+        
+        public ClaseArchivo GetClaseArchivoById(int claseArchivoId)
+        {
+            string spName = "clase.clase_archivo_getById";
+            ClaseArchivo claseArchivo = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@clase_archivo_id", claseArchivoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            claseArchivo = new ClaseArchivo();
+                            claseArchivo.ClaseArchivoId = dr.GetInt32(dr.GetOrdinal("clase_archivo_id"));
+                            claseArchivo.ClaseId = dr.GetInt32(dr.GetOrdinal("clase_id"));
+                            claseArchivo.Nombre = dr.GetString(dr.GetOrdinal("nombre"));
+                            claseArchivo.Archivo = dr.GetGuid(dr.GetOrdinal("archivo"));
+                            claseArchivo.Estado = dr.GetString(dr.GetOrdinal("estado"));
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return claseArchivo;
+        }
+
+        public int CrearClaseArchivo(ClaseArchivo claseArchivo)
+        {
+            string spName = "clase.clase_archivo_insert";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseArchivo.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@nombre", claseArchivo.Nombre, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@archivo", claseArchivo.Archivo, ParameterDirection.Input, System.Data.DbType.Guid));
+                        //command.Parameters.Add(ObjSqlParameter("@estado", claseArchivo.Estado, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public int ActualizarClaseArchivo(ClaseArchivo claseArchivo)
+        {
+            string spName = "clase.clase_archivo_update";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@clase_archivo_id", claseArchivo.ClaseArchivoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseArchivo.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@nombre", claseArchivo.Nombre, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@archivo", claseArchivo.Archivo, ParameterDirection.Input, System.Data.DbType.Guid));
+                        command.Parameters.Add(ObjSqlParameter("@estado", claseArchivo.Estado, ParameterDirection.Input, System.Data.DbType.String));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        #endregion
+
     }
 }
