@@ -73,3 +73,6 @@ SanPablo.Reclutador.Web/Archivos/
 
 #ignorar archivos generados por git
 *.orig
+
+#ignorar carpeta datos
+Consilium.Web/App_Data/
