@@ -1,6 +1,5 @@
-﻿app.factory('usuarioSesion', function ($http, $log) {
+﻿app.factory('usuarioSesion', function ($http, $log, $location) {
 
-    var serviceBase = '/api/capacidad/';
     var usuarioSesion = {};
     var usuario = null;
     init()
@@ -25,10 +24,17 @@
         };
     }
     var _getUsuario = function () {
+        $log.debug("obtenerUsuarioServer");
         return usuario;
     }
-
+    var _verificarUsuario = function () {
+        return $http.get('/account/VerificarUsuario').then(function (results) {
+            if (!results.data.sesionActiva)
+                window.location= "http://"+window.location.host + "/Account/LogOn";
+        });
+    }
     usuarioSesion.getUsuario = _getUsuario;
+    usuarioSesion.verificarUsuario = _verificarUsuario;
 
     return usuarioSesion;
 });

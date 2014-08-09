@@ -17,6 +17,14 @@
             width: 1200px !important;
         }
     </style>
+    @if (!HttpContext.Current.IsDebuggingEnabled)
+    {
+        <base href="/consilium/" />
+    }
+    else
+    {
+        <base href="/" />
+    }
 </head>
 <body>
     @RenderBody()

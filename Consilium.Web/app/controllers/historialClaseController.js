@@ -1,4 +1,4 @@
-﻿app.controller('historialClaseController', function ($scope, $location,$filter, $log, claseDataService) {
+﻿app.controller('historialClaseController', function ($scope, $location,$filter, $log,usuarioSesion, claseDataService) {
     $scope.claseBusqueda = {
         colegioId: 5,
         areaId: 0,
@@ -46,6 +46,8 @@
 
 
     $scope.obtenerHistorialClase = function () {
+        usuarioSesion.verificarUsuario();
+
         $scope.claseBusqueda.fechaInicioFormato = $filter('date')($scope.claseBusqueda.fechaInicioFormato, 'dd/MM/yyyy'),
         $scope.claseBusqueda.fechaFinFormato = $filter('date')($scope.claseBusqueda.fechaFinFormato, 'dd/MM/yyyy'),
 
