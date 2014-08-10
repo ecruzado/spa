@@ -24,6 +24,10 @@ app.config(function ($routeProvider) {
         templateUrl: baseUrl + "app/views/historialClaseView.html?v=01"
     });
 
+    $routeProvider.when("/usuario", {
+        controller: "usuarioController",
+        templateUrl: baseUrl + "app/views/usuarioView.html?v=02"
+    });
     $routeProvider.otherwise({ redirectTo: "/crearClase" });
 
 });

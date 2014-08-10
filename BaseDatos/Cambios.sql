@@ -715,7 +715,8 @@ SELECT     [usuario_id]
       ,tb1.[apematerno]
       ,tb1.[apepaterno]
       ,tb1.[correo]
-      ,tb2.[colegio_nombre]
+	  ,tb1.colegio_id
+      ,tb2.[colegio_nombre] colegio
       ,tb1.[estado]
       ,tb1.[diseno]
       ,tb1.[historia]
@@ -1496,6 +1497,34 @@ where usuario =@usuario and PWDCOMPARE(@pass, pass)=1 and estado=1
 
 END
 
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_getByid')
+   DROP PROCEDURE [clase].sp_usuario_getByid
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar prueba por clase
+-- =============================================
+CREATE PROCEDURE [clase].sp_usuario_getByid
+	@usuario_id int
+AS
+BEGIN
+
+SELECT [usuario_id],[usuario],[nombres],[apematerno]
+  ,[apepaterno],[pass],[correo],[colegio_id]
+  ,[estado],[diseno],[historia],[reporte]
+  ,[mantenimiento],[administrador],(select c.colegio_nombre from colegio c where c.colegio_id = u.colegio_id) colegio
+FROM  [usuarios] u
+where u.usuario_id = @usuario_id
+
+END
+
+
 GO
 
 IF EXISTS (
@@ -1585,4 +1614,96 @@ UPDATE [usuarios]
 END
 
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_colegio_insert')
+   DROP PROCEDURE [clase].sp_colegio_insert
+GO
+
+-- =============================================
+-- Author:		carlos onocuica
+-- Create date: 30-10-2013
+-- Description:	registrar clase 
+-- =============================================
+CREATE PROCEDURE clase.sp_colegio_insert
+	@colegio_nombre as nvarchar(250)
+	,@colegio_dirección as nvarchar(250)
+	,@colegio_telefono as nvarchar(25)
+	,@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+
+INSERT INTO [colegio]
+           ([colegio_nombre]
+           ,[colegio_dirección]
+           ,[colegio_telefono])
+VALUES
+           (@colegio_nombre
+           ,@colegio_dirección
+           ,@colegio_telefono)
+    
+
+SET @new_identity = SCOPE_IDENTITY();
+
+END
+
+GO
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_colegio_update')
+   DROP PROCEDURE [clase].sp_colegio_update
+GO
+
+-- =============================================
+-- Author:		carlos onocuica
+-- Create date: 30-10-2013
+-- Description:	registrar clase 
+-- =============================================
+CREATE PROCEDURE clase.sp_colegio_update
+	@colegio_nombre as nvarchar(250)
+	,@colegio_dirección as nvarchar(250)
+	,@colegio_telefono as nvarchar(25)
+	,@colegio_id as int
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+UPDATE [colegio]
+   SET [colegio_nombre] = @colegio_nombre
+      ,[colegio_dirección] = @colegio_dirección
+      ,[colegio_telefono] = @colegio_telefono
+WHERE colegio_id=@colegio_id
+
+END
+
+GO
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_colegio_lst')
+   DROP PROCEDURE [clase].sp_colegio_lst
+GO
+
+-- =============================================
+-- Author:		Carlos Onocuica
+-- Create date: 21-10-2013
+-- Description:	Lista dearea
+-- =============================================
+CREATE PROCEDURE clase.sp_colegio_lst
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT [colegio_id]
+      ,[colegio_nombre]
+      ,[colegio_dirección]
+      ,[colegio_telefono]
+  FROM [colegio]
+  
+END
 

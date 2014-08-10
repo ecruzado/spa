@@ -144,6 +144,7 @@
     <Compile Include="Controllers\ClaseMetodoController.cs" />
     <Compile Include="Controllers\ClasePruebaController.cs" />
     <Compile Include="Controllers\ClaseValorController.cs" />
+    <Compile Include="Controllers\ColegioController.cs" />
     <Compile Include="Controllers\ColumnaColegioController.cs" />
     <Compile Include="Controllers\ColumnaController.cs" />
     <Compile Include="Controllers\ConocimientoController.cs" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\colegioController.js" />
     <Content Include="app\controllers\pruebaPopUpController.js" />
     <Content Include="app\controllers\conocimientoPopUpController.js" />
     <Content Include="app\controllers\listaColumnaPopUpController.js" />
@@ -174,6 +176,9 @@
     <Content Include="app\controllers\historialClaseController.js" />
     <Content Include="app\controllers\navigationController.js" />
     <Content Include="app\controllers\sesionController.js" />
+    <Content Include="app\controllers\usuarioController.js" />
+    <Content Include="app\controllers\usuarioPopUpController.js" />
+    <Content Include="app\services\colegioDataService.js" />
     <Content Include="app\services\columnaColegioDataService.js" />
     <Content Include="app\services\conocimientoDataService.js" />
     <Content Include="app\services\listaColumnaDataService.js" />
@@ -182,6 +187,7 @@
     <Content Include="app\services\capacidadDataService.js" />
     <Content Include="app\services\claseDataService.js" />
     <Content Include="app\services\pruebaDataService.js" />
+    <Content Include="app\services\usuarioDataService.js" />
     <Content Include="app\services\usuarioSesion.js" />
     <Content Include="app\views\pruebaPopUpView.html" />
     <Content Include="app\views\conocimientoPopUpView.html" />
@@ -192,6 +198,8 @@
     <Content Include="app\views\capacidadPopUpView.html" />
     <Content Include="app\views\claseView.html" />
     <Content Include="app\views\historialClaseView.html" />
+    <Content Include="app\views\usuarioPopUpView.html" />
+    <Content Include="app\views\usuarioView.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

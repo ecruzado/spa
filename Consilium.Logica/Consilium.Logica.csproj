@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColegioLogica.cs" />
     <Compile Include="ConocimientoLogica.cs" />
     <Compile Include="PruebaLogica.cs" />
     <Compile Include="AreaLogica.cs" />

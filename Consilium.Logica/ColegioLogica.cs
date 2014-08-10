@@ -8,43 +8,24 @@ using System.Linq;
 using System.Xml.Linq;
 using  Consilium.Entity;
 using Consilium.DAO;
+using Consilium.Entity.Generics;
 namespace Consilium.Logica
 {
-	public class ColegioLogica
+    public class ColegioLogica : Singleton<ColegioLogica>
 	{
+        private ColegioData colegioData = new ColegioData();
+        public List<Colegio> List()
+        {
+            return colegioData.List();
+        }
 
-		public int insertar_colegio(AreaEntity AreaEntity)
-		{
-
-			int retVal = 0;
-			ColegioDAO ColegioDAO = new ColegioDAO();
-			retVal = ColegioDAO._insertar_colegio(AreaEntity);
-
-			return retVal;
-
-		}
-
-		public DataTable listar_colegio()
-		{
-
-			DataTable retVal = null;
-			ColegioDAO ColegioDAO = new ColegioDAO();
-			retVal = ColegioDAO._listar_colegio();
-
-			return retVal;
-
-		}
-		public int update_colegio(AreaEntity AreaEntity)
-		{
-
-			int retVal = 0;
-			ColegioDAO ColegioDAO = new ColegioDAO();
-			retVal = ColegioDAO._update_colegio(AreaEntity);
-
-			return retVal;
-
-		}
-
-
+        public int Insert(Colegio colegio)
+        {
+            return colegioData.Insert(colegio);
+        }
+        public int Update(Colegio colegio)
+        {
+            return colegioData.Update(colegio);
+        }
 	}
 }

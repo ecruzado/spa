@@ -39,13 +39,18 @@ namespace Consilium.DAO
                             usuario = new Usuario();
                             usuario.UsuarioId = dr.GetInt32(dr.GetOrdinal("usuario_id"));
                             usuario.Codigo = dr.GetString(dr.GetOrdinal("usuario"));
-                            //usuario.Area = dr.GetString(dr.GetOrdinal("area"));
-                            //usuario.Nivel = dr.GetString(dr.GetOrdinal("nivel"));
-                            //usuario.Grado = dr.GetString(dr.GetOrdinal("grado"));
-                            //usuario.FechaInicio = dr.GetDateTime(dr.GetOrdinal("fecha_inicio"));
-                            //usuario.FechaFin = dr.GetDateTime(dr.GetOrdinal("fecha_fin"));
-                            //usuario.FechaRegistro = dr.GetDateTime(dr.GetOrdinal("fecha_reg"));
-                            //usuario.Usuario = dr.GetString(dr.GetOrdinal("usuario"));
+                            usuario.Nombre = dr.IsDBNull(dr.GetOrdinal("nombres")) ? "" : dr.GetString(dr.GetOrdinal("nombres"));
+                            usuario.ApellidoMaterno = dr.IsDBNull(dr.GetOrdinal("apematerno")) ? "" : dr.GetString(dr.GetOrdinal("apematerno"));
+                            usuario.ApellidoPaterno = dr.IsDBNull(dr.GetOrdinal("apepaterno")) ? "" : dr.GetString(dr.GetOrdinal("apepaterno"));
+                            usuario.Correo = dr.IsDBNull(dr.GetOrdinal("correo")) ? "" : dr.GetString(dr.GetOrdinal("correo"));
+                            usuario.ColegioId = dr.IsDBNull(dr.GetOrdinal("colegio_id")) ? 0 : dr.GetInt32(dr.GetOrdinal("colegio_id"));
+                            usuario.Estado = dr.IsDBNull(dr.GetOrdinal("estado")) ? false : dr.GetBoolean(dr.GetOrdinal("estado"));
+                            usuario.DisenoClase = dr.IsDBNull(dr.GetOrdinal("diseno")) ? false : dr.GetBoolean(dr.GetOrdinal("diseno"));
+                            usuario.HistorialClase = dr.IsDBNull(dr.GetOrdinal("historia")) ? false : dr.GetBoolean(dr.GetOrdinal("historia"));
+                            usuario.Reporte = dr.IsDBNull(dr.GetOrdinal("reporte")) ? false : dr.GetBoolean(dr.GetOrdinal("reporte"));
+                            usuario.Mantenimiento = dr.IsDBNull(dr.GetOrdinal("mantenimiento")) ? false : dr.GetBoolean(dr.GetOrdinal("mantenimiento"));
+                            usuario.Administrador = dr.IsDBNull(dr.GetOrdinal("administrador")) ? false : dr.GetBoolean(dr.GetOrdinal("administrador"));
+                            usuario.Colegio = dr.IsDBNull(dr.GetOrdinal("colegio")) ? "" : dr.GetString(dr.GetOrdinal("colegio"));
                             lista.Add(usuario);
                         }
 
@@ -90,6 +95,59 @@ namespace Consilium.DAO
                             usuario.UsuarioId = dr.GetInt32(dr.GetOrdinal("usuario_id"));
                             usuario.Codigo = dr.GetString(dr.GetOrdinal("usuario"));
                             usuario.Nombre = dr.IsDBNull(dr.GetOrdinal("nombres"))? "": dr.GetString(dr.GetOrdinal("nombres"));
+                            usuario.ApellidoMaterno = dr.IsDBNull(dr.GetOrdinal("apematerno")) ? "" : dr.GetString(dr.GetOrdinal("apematerno"));
+                            usuario.ApellidoPaterno = dr.IsDBNull(dr.GetOrdinal("apepaterno")) ? "" : dr.GetString(dr.GetOrdinal("apepaterno"));
+                            usuario.Correo = dr.IsDBNull(dr.GetOrdinal("correo")) ? "" : dr.GetString(dr.GetOrdinal("correo"));
+                            usuario.ColegioId = dr.IsDBNull(dr.GetOrdinal("colegio_id")) ? 0 : dr.GetInt32(dr.GetOrdinal("colegio_id"));
+                            usuario.Estado = dr.IsDBNull(dr.GetOrdinal("estado")) ? false : dr.GetBoolean(dr.GetOrdinal("estado"));
+                            usuario.DisenoClase = dr.IsDBNull(dr.GetOrdinal("diseno")) ? false : dr.GetBoolean(dr.GetOrdinal("diseno"));
+                            usuario.HistorialClase = dr.IsDBNull(dr.GetOrdinal("historia")) ? false : dr.GetBoolean(dr.GetOrdinal("historia"));
+                            usuario.Reporte = dr.IsDBNull(dr.GetOrdinal("reporte")) ? false : dr.GetBoolean(dr.GetOrdinal("reporte"));
+                            usuario.Mantenimiento = dr.IsDBNull(dr.GetOrdinal("mantenimiento")) ? false : dr.GetBoolean(dr.GetOrdinal("mantenimiento"));
+                            usuario.Administrador = dr.IsDBNull(dr.GetOrdinal("administrador")) ? false : dr.GetBoolean(dr.GetOrdinal("administrador"));
+                            usuario.Colegio = dr.IsDBNull(dr.GetOrdinal("colegio")) ? "" : dr.GetString(dr.GetOrdinal("colegio"));
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return usuario;
+
+        }
+
+        public Usuario GetById(int usuarioId)
+        {
+
+            string spName = "clase.sp_usuario_getByid";
+            Usuario usuario = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@usuario_id", usuarioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            usuario = new Usuario();
+                            usuario.UsuarioId = dr.GetInt32(dr.GetOrdinal("usuario_id"));
+                            usuario.Codigo = dr.GetString(dr.GetOrdinal("usuario"));
+                            usuario.Nombre = dr.IsDBNull(dr.GetOrdinal("nombres")) ? "" : dr.GetString(dr.GetOrdinal("nombres"));
                             usuario.ApellidoMaterno = dr.IsDBNull(dr.GetOrdinal("apematerno")) ? "" : dr.GetString(dr.GetOrdinal("apematerno"));
                             usuario.ApellidoPaterno = dr.IsDBNull(dr.GetOrdinal("apepaterno")) ? "" : dr.GetString(dr.GetOrdinal("apepaterno"));
                             usuario.Correo = dr.IsDBNull(dr.GetOrdinal("correo")) ? "" : dr.GetString(dr.GetOrdinal("correo"));
@@ -211,167 +269,6 @@ namespace Consilium.DAO
 
         }
 
-
-        /*
-		private SqlParameter ObjSqlParameter(string pParameterName, object pValue, System.Data.ParameterDirection pDirection, DbType pDbType)
-		{
-
-			SqlParameter lSqlParameter = new SqlParameter();
-			lSqlParameter.ParameterName = pParameterName;
-			lSqlParameter.Value = pValue;
-			lSqlParameter.Direction = pDirection;
-			lSqlParameter.DbType = pDbType;
-			return lSqlParameter;
-
-		}
-
-		public DataTable _logeo_usuario(UsuarioEntity UsuarioEntity)
-		{
-			//validar usuario de acceso
-
-			string spName = "sp_usuario_logeo";
-			DataTable retVal = new DataTable();
-
-			using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString())) {
-
-
-				try {
-					SqlCommand command = new SqlCommand(spName, conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(ObjSqlParameter("@usuario", UsuarioEntity.usuario, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@pass", UsuarioEntity.pass, ParameterDirection.Input, System.Data.DbType.String));
-					conn.Open();
-					IDataReader dr = command.ExecuteReader();
-					retVal.Load(dr);
-					return retVal;
-
-
-				} catch (Exception ex) {
-					throw ex;
-
-
-				} finally {
-					conn.Close();
-
-				}
-
-			}
-
-		}
-
-		public DataTable _logeo_usuario_conectado(UsuarioEntity UsuarioEntity)
-		{
-			//validar usuario de acceso
-
-			string spName = "sp_usuario_acceso";
-			DataTable retVal = new DataTable();
-
-			using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString())) {
-
-
-				try {
-					SqlCommand command = new SqlCommand(spName, conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(ObjSqlParameter("@usuario", UsuarioEntity.usuario, ParameterDirection.Input, System.Data.DbType.String));
-					conn.Open();
-					IDataReader dr = command.ExecuteReader();
-					retVal.Load(dr);
-					return retVal;
-
-
-				} catch (Exception ex) {
-					throw ex;
-
-
-				} finally {
-					conn.Close();
-
-				}
-
-			}
-
-		}
-
-		public DataTable _listar_usuario(int colegio_id)
-		{
-			using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString())) {
-
-				string spName = "sp_usuario_listar";
-				DataTable retVal = new DataTable();
-
-				try {
-					SqlCommand command = new SqlCommand(spName, conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(ObjSqlParameter("@colegio_id", colegio_id, ParameterDirection.Input, System.Data.DbType.Int32));
-					conn.Open();
-					IDataReader dr = command.ExecuteReader();
-					retVal.Load(dr);
-					return retVal;
-
-				} catch (Exception ex) {
-					throw ex;
-				} finally {
-					conn.Close();
-				}
-
-			}
-		}
-
-		public DataTable _listar_usuario_colegio(UsuarioEntity UsuarioEntity)
-		{
-			using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString())) {
-
-				string spName = "sp_usuario_colegio_listar";
-				DataTable retVal = new DataTable();
-
-				try {
-					SqlCommand command = new SqlCommand(spName, conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(ObjSqlParameter("@colegio_id", UsuarioEntity.colegio_id, ParameterDirection.Input, System.Data.DbType.Int32));
-
-					conn.Open();
-					IDataReader dr = command.ExecuteReader();
-					retVal.Load(dr);
-					return retVal;
-
-				} catch (Exception ex) {
-					throw ex;
-				} finally {
-					conn.Close();
-				}
-
-			}
-		}
-
-
-		public int _update_usuario_pass(AreaEntity AreaEntity)
-		{
-
-			using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString())) {
-
-				string spName = "sp_usuario_update_clave";
-				int retVal = 0;
-
-
-				try {
-					SqlCommand command = new SqlCommand(spName, conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(ObjSqlParameter("@usuario_id", AreaEntity.usuario_id, ParameterDirection.Input, System.Data.DbType.Int32));
-					command.Parameters.Add(ObjSqlParameter("@pass", AreaEntity.pass, ParameterDirection.Input, System.Data.DbType.String));
-					conn.Open();
-					retVal = command.ExecuteNonQuery();
-					return retVal;
-
-				} catch (Exception ex) {
-					throw ex;
-				} finally {
-					conn.Close();
-				}
-
-			}
-
-		}
-        */ 
 
 	}
 }

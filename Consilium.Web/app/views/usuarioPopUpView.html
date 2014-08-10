@@ -1,0 +1,88 @@
+﻿<div class="modal-header" style="padding-top:10px;padding-bottom:10px">
+    <a href="" class="close" data-ng-click="close()">&times;</a>
+    <h4 style="margin-top:5px">Propiedades de Usuario</h4>
+</div>
+<div class="modal-body" style="padding:0px">
+    <div class="well well-sm" style="margin:0px">
+        <form class="form-horizontal">
+            <fieldset>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Usuario </label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="text" ng-model="usuario.codigo" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Nombre </label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="text" ng-model="usuario.nombre" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Apellido Paterno </label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="text" ng-model="usuario.apellidoPaterno" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Apellido Materno</label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="text" ng-model="usuario.apellidoMaterno" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Correo </label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="text" ng-model="usuario.correo" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Colegio </label>
+                    <div class="col-xs-8">
+                        <select class="form-control" ng-model="usuario.colegioId" ng-options="colegio.colegioId as colegio.nombre for colegio in colegios"></select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Estado </label>
+                    <div class="col-xs-1">
+                        <input class="form-control" type="checkbox" ng-model="usuario.estado" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Diseño de clase</label>
+                    <div class="col-xs-1">
+                        <input class="form-control" type="checkbox" ng-model="usuario.disenoClase" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Historia</label>
+                    <div class="col-xs-1">
+                        <input class="form-control" type="checkbox" ng-model="usuario.historialClase" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Reporte</label>
+                    <div class="col-xs-1">
+                        <input class="form-control" type="checkbox" ng-model="usuario.reporte" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Mantenimiento</label>
+                    <div class="col-xs-1">
+                        <input class="form-control" type="checkbox" ng-model="usuario.mantenimiento" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Administrador</label>
+                    <div class="col-xs-1">
+                        <input class="form-control" type="checkbox" ng-model="usuario.administrador" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer" style="padding-top:10px;padding-bottom:10px">
+    <button type="button" data-ng-click="guardarSeleccion()" class="btn btn-primary pull-right">Guardar</button>
+</div>
+

@@ -49,6 +49,7 @@
     <Compile Include="ClaseMatriz.cs" />
     <Compile Include="ClaseMetodo.cs" />
     <Compile Include="ClaseValor.cs" />
+    <Compile Include="Colegio.cs" />
     <Compile Include="ColumnaColegio.cs" />
     <Compile Include="ConfColumnaColegio.cs" />
     <Compile Include="Conocimiento.cs" />

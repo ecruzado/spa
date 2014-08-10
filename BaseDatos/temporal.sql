@@ -158,3 +158,5 @@ sp_usuario_logeo
 sp_usuario_insert
 sp_usuario_update_datos
 	select * from usuarios
+
+select * from colegio

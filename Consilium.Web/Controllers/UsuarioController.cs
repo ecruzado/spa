@@ -12,18 +12,30 @@ namespace Consilium.Web.Controllers
     public class UsuarioController : ApiController
     {
         // GET api/usuario
-        public IEnumerable<Usuario> Get(int colegioId)
+        public IEnumerable<Usuario> Get(string tipo,int colegioId)
         {
             var lista = UsuarioLogica.Instancia.List(colegioId);
-            if (lista != null)
-                lista.Insert(0,new Usuario { UsuarioId = 0, Codigo = "--Seleccionar Usuario--" });
             return lista;
         }
 
+        // GET api/usuario
+        public Usuario Get(int usuarioId)
+        {
+            var usuario = UsuarioLogica.Instancia.GetById(usuarioId);
+            return usuario;
+        }
 
         // POST api/usuario
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Usuario usuario)
         {
+            if (usuario.UsuarioId == 0)
+            {
+                UsuarioLogica.Instancia.Insert(usuario);
+            }
+            else 
+            {
+                UsuarioLogica.Instancia.Update(usuario);
+            }
         }
 
         // PUT api/usuario/5
