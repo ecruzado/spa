@@ -1,5 +1,4 @@
 ﻿var baseUrl = $("base").first().attr("href");
-console.log("base url for relative links = " + baseUrl);
 
 var app = angular.module('ClaseApp', ['ngRoute', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar', 'textAngular', 'angularFileUpload']);
 

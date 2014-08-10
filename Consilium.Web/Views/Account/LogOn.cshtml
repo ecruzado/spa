@@ -8,7 +8,6 @@
 <head>
     <title>Iniciar Sesión &middot; Sistema de Reclutamiento</title>
     <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <!--[if lt IE 9]>
     <![endif]-->
 
@@ -62,8 +61,6 @@
 
         @using (Html.BeginForm("LogOn", "Account", FormMethod.Post, new { @class = "form-signin", enctype = "multipart/form-data" }))
         {
-            @Html.ValidationSummary(true)
-
             <div style="text-align:center;clear:both">
                 <img src="@Url.Content("~/Images/logocentro.jpg")" alt="Ingresar" title="Ingresar" style="height:74.8px;width:149px;"/> 
             </div>
@@ -73,21 +70,35 @@
             </div>
             <label style="font-weight:bold;font-size:13px;">Usuario</label>
             @Html.TextBoxFor(model => model.UserName, new { @class = "input-block-level", placeholder = "Usuario" })
-            <div class="tex-error" style="font-size:12px;color:red">
-                @Html.ValidationMessageFor(model => model.UserName)
-            </div>
-            <label style="font-weight:bold;font-size:13px;">Contraseña</label>
 
+            <label style="font-weight:bold;font-size:13px;">Contraseña</label>
             @Html.TextBoxFor(model => model.Password, new { @class = "input-block-level", type = "password", placeholder = "Contraseña", @maxlength = "20" })
-            <div class="tex-error" style="font-size:12px;color:red">
-                @Html.ValidationMessageFor(model => model.Password)
-            </div>
             <br />
             <br />
             <div style="text-align:center">
-                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                <button id="btnIniciarSesion" type="submit" class="btn btn-primary">Iniciar Sesión</button>
             </div>
+            <br />
+            if (!Html.ViewData.ModelState.IsValid) { 
+                <div class="alert alert-dismissable alert-danger">
+                    @foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                    {
+                        <p>@modelError.ErrorMessage</p>
+                    }
+                </div>
+            }
+            <!--[if lt IE 9]>
+                <div class="alert alert-dismissable alert-warning">
+                    <h4>¡Página deshabilitada!</h4>
+                    <p>La página web no puede ejecutarse en esta versión de Internet Explorer, por favor actualice su navegador a la última versión.</p>
+                </div>
+            <![endif]-->
         }
     </div>
+    <!--[if lt IE 9]>
+        <script type="text/javascript">
+            document.getElementById("btnIniciarSesion").disabled=true
+        </script>
+    <![endif]-->
 </body>
 </html>

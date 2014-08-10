@@ -1,18 +1,22 @@
-﻿using Consilium.Web.Models;
+﻿using Consilium.Entity;
+using Consilium.Logica;
+using Consilium.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.SessionState;
 
 namespace Consilium.Web.Controllers
 {
+    [Authorize]    
     public class AccountController : Controller
     {
         //
         // GET: /Account/LogOn
-
+        [AllowAnonymous]   
         public ActionResult LogOn()
         {
             return View();
@@ -21,17 +25,18 @@ namespace Consilium.Web.Controllers
         //
         // POST: /Account/LogOn
 
+        [AllowAnonymous]   
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            logout();
+            //logout();
             if (ModelState.IsValid)
             {
-                if (true)
+                var usuario = UsuarioLogica.Instancia.GetByUsuarioAndPassword(model.UserName, model.Password);
+                if (usuario != null)
                 {
-                    var usuario = model.UserName;
-                    Session.Add("USUARIO", usuario);
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    System.Web.HttpContext.Current.Session.Add(Constantes.Usuario, usuario);
+                    FormsAuthentication.SetAuthCookie(model.UserName, true);
 
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -49,7 +54,6 @@ namespace Consilium.Web.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -70,6 +74,7 @@ namespace Consilium.Web.Controllers
 
         }
 
+        [HttpGet]
         public ActionResult VerificarUsuario() 
         {
             var resultado = new JsonResult();
@@ -82,6 +87,15 @@ namespace Consilium.Web.Controllers
             resultado.Data = new {sesionActiva = sesionActiva, usuario="edgar"};
             resultado.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return resultado;
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public JsonResult ObtenerUsuario()
+        {
+            var usuario = (Usuario)System.Web.HttpContext.Current.Session[Constantes.Usuario];
+
+            return Json(usuario, JsonRequestBehavior.AllowGet);
         }
     }
 }

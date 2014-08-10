@@ -153,3 +153,8 @@ go
 select * from dbo.clase_matriz cm inner join clase c on cm.clase_id = c.clase_id where c.colegio_id = 5 and c.area_id = 1 order by cm.clase_id desc
 select * from dbo.clase_actividad where actividades_id = 4316
 select * from dbo.clase_archivo
+
+sp_usuario_logeo
+sp_usuario_insert
+sp_usuario_update_datos
+	select * from usuarios

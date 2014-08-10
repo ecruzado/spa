@@ -2,29 +2,17 @@
 
     var usuarioSesion = {};
     var usuario = null;
-    init()
 
-    function init() {
-        if (usuario == null) {
-            obtenerUsuarioServer();
-        }
+    var _obtenerUsuarioServer = function (){
+        return $http.get('/account/ObtenerUsuario').then(function (results) {
+            usuario = results.data;
+            return usuario;
+        }, function (error) {
+            $log.debug(error);
+        });
     }
 
-    function obtenerUsuarioServer()
-    {
-        usuario = {
-            usuarioId: 1,
-            usuario: 'eicruzado',
-            colegioId: 5,
-            diseno: true,
-            historia: true,
-            reporte: true,
-            mantenimiento: true,
-            administrador: true
-        };
-    }
     var _getUsuario = function () {
-        $log.debug("obtenerUsuarioServer");
         return usuario;
     }
     var _verificarUsuario = function () {
@@ -35,6 +23,7 @@
     }
     usuarioSesion.getUsuario = _getUsuario;
     usuarioSesion.verificarUsuario = _verificarUsuario;
+    usuarioSesion.obtenerUsuarioServer = _obtenerUsuarioServer;
 
     return usuarioSesion;
 });

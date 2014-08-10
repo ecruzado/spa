@@ -12,5 +12,20 @@ namespace Consilium.Logica
         {
             return usuarioData.List(colegioId);
         }
+
+        public Usuario GetByUsuarioAndPassword(string nombreUsuario, string password) 
+        {
+            return usuarioData.GetByUsuarioAndPassword(nombreUsuario,password);
+        }
+
+        public int Insert(Usuario usuario) 
+        {
+            return usuarioData.Insert(usuario);
+        }
+
+        public int Update(Usuario usuario) 
+        {
+            return usuarioData.Update(usuario);
+        }
 	}
 }

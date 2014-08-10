@@ -65,6 +65,152 @@ namespace Consilium.DAO
 
         }
 
+        public Usuario GetByUsuarioAndPassword(string nombreUsuario, string password)
+        {
+
+            string spName = "clase.sp_usuario_lstByUsuarioAndPass";
+            Usuario usuario = null;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@usuario", nombreUsuario, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@pass", password, ParameterDirection.Input, System.Data.DbType.String));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            usuario = new Usuario();
+                            usuario.UsuarioId = dr.GetInt32(dr.GetOrdinal("usuario_id"));
+                            usuario.Codigo = dr.GetString(dr.GetOrdinal("usuario"));
+                            usuario.Nombre = dr.IsDBNull(dr.GetOrdinal("nombres"))? "": dr.GetString(dr.GetOrdinal("nombres"));
+                            usuario.ApellidoMaterno = dr.IsDBNull(dr.GetOrdinal("apematerno")) ? "" : dr.GetString(dr.GetOrdinal("apematerno"));
+                            usuario.ApellidoPaterno = dr.IsDBNull(dr.GetOrdinal("apepaterno")) ? "" : dr.GetString(dr.GetOrdinal("apepaterno"));
+                            usuario.Correo = dr.IsDBNull(dr.GetOrdinal("correo")) ? "" : dr.GetString(dr.GetOrdinal("correo"));
+                            usuario.ColegioId = dr.IsDBNull(dr.GetOrdinal("colegio_id")) ? 0 : dr.GetInt32(dr.GetOrdinal("colegio_id"));
+                            usuario.Estado = dr.IsDBNull(dr.GetOrdinal("estado")) ? false : dr.GetBoolean(dr.GetOrdinal("estado"));
+                            usuario.DisenoClase = dr.IsDBNull(dr.GetOrdinal("diseno")) ? false : dr.GetBoolean(dr.GetOrdinal("diseno"));
+                            usuario.HistorialClase = dr.IsDBNull(dr.GetOrdinal("historia")) ? false : dr.GetBoolean(dr.GetOrdinal("historia"));
+                            usuario.Reporte = dr.IsDBNull(dr.GetOrdinal("reporte")) ? false : dr.GetBoolean(dr.GetOrdinal("reporte"));
+                            usuario.Mantenimiento = dr.IsDBNull(dr.GetOrdinal("mantenimiento")) ? false : dr.GetBoolean(dr.GetOrdinal("mantenimiento"));
+                            usuario.Administrador = dr.IsDBNull(dr.GetOrdinal("administrador")) ? false : dr.GetBoolean(dr.GetOrdinal("administrador"));
+                            usuario.Colegio = dr.IsDBNull(dr.GetOrdinal("colegio")) ? "" : dr.GetString(dr.GetOrdinal("colegio"));
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return usuario;
+
+        }
+
+        public int Insert(Usuario usuario)
+        {
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+
+                string spName = "clase.sp_usuario_insert";
+                int retVal = 0;
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@usuario", usuario.Codigo, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@nombres", usuario.Nombre, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@apematerno", usuario.ApellidoMaterno, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@apepaterno", usuario.ApellidoPaterno, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@pass", usuario.Password, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@correo", usuario.Correo, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@colegio_id", usuario.ColegioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@estado", usuario.Estado, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@diseno", usuario.DisenoClase, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@historia", usuario.HistorialClase, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@reporte", usuario.Reporte, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@mantenimiento", usuario.Mantenimiento, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@administrador", usuario.Administrador, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    return retVal;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
+        public int Update(Usuario usuario)
+        {
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+
+                string spName = "clase.sp_usuario_update";
+                int retVal = 0;
+
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@usuario_id", usuario.UsuarioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@usuario", usuario.Codigo, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@nombres", usuario.Nombre, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@apematerno", usuario.ApellidoMaterno, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@apepaterno", usuario.ApellidoPaterno, ParameterDirection.Input, System.Data.DbType.String));
+                    //command.Parameters.Add(ObjSqlParameter("@pass", AreaEntity., ParameterDirection.Input, System.Data.DbType.String))
+                    command.Parameters.Add(ObjSqlParameter("@correo", usuario.Correo, ParameterDirection.Input, System.Data.DbType.String));
+                    command.Parameters.Add(ObjSqlParameter("@colegio_id", usuario.ColegioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@estado", usuario.Estado, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@diseno", usuario.DisenoClase, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@historia", usuario.HistorialClase, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@reporte", usuario.Reporte, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@mantenimiento", usuario.Mantenimiento, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@administrador", usuario.Administrador, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+                    return retVal;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+        }
+
 
         /*
 		private SqlParameter ObjSqlParameter(string pParameterName, object pValue, System.Data.ParameterDirection pDirection, DbType pDbType)
@@ -197,85 +343,6 @@ namespace Consilium.DAO
 			}
 		}
 
-		public int _insertar_usuario(AreaEntity AreaEntity)
-		{
-
-			using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString())) {
-
-				string spName = "sp_usuario_insert";
-				int retVal = 0;
-
-				try {
-					SqlCommand command = new SqlCommand(spName, conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(ObjSqlParameter("@usuario", AreaEntity.usuario, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@nombres", AreaEntity.nombres, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@apematerno", AreaEntity.apematerno, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@apepaterno", AreaEntity.apepaterno, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@pass", AreaEntity.pass, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@correo", AreaEntity.correo, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@colegio_id", AreaEntity.colegio_id, ParameterDirection.Input, System.Data.DbType.Int32));
-					command.Parameters.Add(ObjSqlParameter("@estado", AreaEntity.estado, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@diseno", AreaEntity.diseno, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@historia", AreaEntity.historia, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@reporte", AreaEntity.reporte, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@mantenimiento", AreaEntity.mantenimiento, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@administrador", AreaEntity.administrador, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
-					command.CommandType = CommandType.StoredProcedure;
-					conn.Open();
-					command.ExecuteNonQuery();
-                    retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
-                    return retVal;
-
-				} catch (Exception ex) {
-					throw ex;
-				} finally {
-					conn.Close();
-				}
-
-			}
-
-		}
-
-		public int _update_usuario(AreaEntity AreaEntity)
-		{
-
-			using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString())) {
-
-				string spName = "sp_usuario_update_datos";
-				int retVal = 0;
-
-
-				try {
-					SqlCommand command = new SqlCommand(spName, conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Add(ObjSqlParameter("@usuario", AreaEntity.usuario, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@nombres", AreaEntity.nombres, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@apematerno", AreaEntity.apematerno, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@apepaterno", AreaEntity.apepaterno, ParameterDirection.Input, System.Data.DbType.String));
-					//command.Parameters.Add(ObjSqlParameter("@pass", AreaEntity., ParameterDirection.Input, System.Data.DbType.String))
-					command.Parameters.Add(ObjSqlParameter("@correo", AreaEntity.correo, ParameterDirection.Input, System.Data.DbType.String));
-					command.Parameters.Add(ObjSqlParameter("@colegio_id", AreaEntity.colegio_id, ParameterDirection.Input, System.Data.DbType.Int32));
-					command.Parameters.Add(ObjSqlParameter("@estado", AreaEntity.estado, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@diseno", AreaEntity.diseno, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@historia", AreaEntity.historia, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@reporte", AreaEntity.reporte, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@mantenimiento", AreaEntity.mantenimiento, ParameterDirection.Input, System.Data.DbType.Boolean));
-					command.Parameters.Add(ObjSqlParameter("@administrador", AreaEntity.administrador, ParameterDirection.Input, System.Data.DbType.Boolean));
-					conn.Open();
-					retVal = command.ExecuteNonQuery();
-					return retVal;
-
-				} catch (Exception ex) {
-					throw ex;
-				} finally {
-					conn.Close();
-				}
-
-			}
-
-		}
 
 		public int _update_usuario_pass(AreaEntity AreaEntity)
 		{

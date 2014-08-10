@@ -1469,5 +1469,120 @@ END
 GO
 
 
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_lstByUsuarioAndPass')
+   DROP PROCEDURE [clase].sp_usuario_lstByUsuarioAndPass
+GO
 
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 27-07-2014
+-- Description:	listar prueba por clase
+-- =============================================
+CREATE PROCEDURE [clase].sp_usuario_lstByUsuarioAndPass
+	@usuario as nvarchar(50),
+	@pass as nvarchar(50)
+AS
+BEGIN
+
+SELECT [usuario_id],[usuario],[nombres],[apematerno]
+  ,[apepaterno],[pass],[correo],[colegio_id]
+  ,[estado],[diseno],[historia],[reporte]
+  ,[mantenimiento],[administrador],(select c.colegio_nombre from colegio c where c.colegio_id = u.colegio_id) colegio
+FROM  [usuarios] u
+where usuario =@usuario and PWDCOMPARE(@pass, pass)=1 and estado=1
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_insert')
+   DROP PROCEDURE [clase].sp_usuario_insert
+GO
+
+CREATE PROCEDURE [clase].sp_usuario_insert
+	@usuario as nvarchar(50)
+	,@nombres  as nvarchar(250)
+	,@apematerno  as nvarchar(150)
+	,@apepaterno  as nvarchar(150)
+	,@pass  as nvarchar(150)
+	,@correo  as nvarchar(150)
+	,@colegio_id as int
+	,@estado as bit
+	,@diseno as bit
+	,@historia as bit
+	,@reporte as bit
+	,@mantenimiento as bit
+	,@administrador as bit
+	,@new_identity INT = NULL OUTPUT
+AS
+
+BEGIN
+
+INSERT INTO [usuarios]([usuario],[nombres],[apematerno],[apepaterno]
+	,[pass],[correo],[colegio_id],[estado]
+	,[diseno],[historia],[reporte],[mantenimiento]
+	,[administrador])
+VALUES(@usuario,@nombres,@apematerno,@apepaterno
+	,PWDENCRYPT(@pass),@correo,@colegio_id,@estado
+	,@diseno,@historia,@reporte,@mantenimiento
+	,@administrador)
+
+
+SET @new_identity = SCOPE_IDENTITY();
+   
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_update')
+   DROP PROCEDURE [clase].sp_usuario_update
+GO
+
+
+CREATE PROCEDURE [clase].sp_usuario_update
+	@usuario_id as int
+	,@usuario as nvarchar(50)
+	,@nombres  as nvarchar(250)
+	,@apematerno  as nvarchar(150)
+	,@apepaterno  as nvarchar(150)
+	,@correo  as nvarchar(150)
+	,@colegio_id as int
+	,@estado as bit
+	,@diseno as bit
+	,@historia as bit
+	,@reporte as bit
+	,@mantenimiento as bit
+	,@administrador as bit
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+UPDATE [usuarios]
+   SET [usuario] = @usuario
+      ,[nombres] = @nombres
+      ,[apematerno] = @apematerno
+      ,[apepaterno] = @apepaterno
+      --,[pass] = PWDENCRYPT('@pass')
+      ,[correo] = @correo
+      ,[colegio_id] = @colegio_id
+      ,[estado] = @estado
+      ,[diseno] = @diseno
+      ,[historia] = @historia
+      ,[reporte] = @reporte
+      ,[mantenimiento] = @mantenimiento
+      ,[administrador] = @administrador
+ WHERE usuario_id = @usuario_id 
+END
+
+GO
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Consilium.Entity;
+using Consilium.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,7 +28,7 @@ namespace Consilium.Web.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            var usuario  = (Usuario)System.Web.HttpContext.Current.Session[Constantes.Usuario];
             return View();
         }
     }
