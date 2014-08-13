@@ -49,6 +49,43 @@ namespace Consilium.DAO
             return lista;
         }
 
+        public Colegio Get(int colegioId)
+        {
+            Colegio colegio = null;
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+
+                string spName = "clase.sp_colegio_getById";
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@colegio_id", colegioId, ParameterDirection.Input, System.Data.DbType.String));
+                    conn.Open();
+                    IDataReader dr = command.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        colegio = new Colegio();
+                        colegio.ColegioId = dr.GetInt32(dr.GetOrdinal("colegio_id"));
+                        colegio.Nombre = dr.IsDBNull(dr.GetOrdinal("colegio_nombre")) ? "" : dr.GetString(dr.GetOrdinal("colegio_nombre"));
+                        colegio.Direccion = dr.IsDBNull(dr.GetOrdinal("colegio_dirección")) ? "" : dr.GetString(dr.GetOrdinal("colegio_dirección"));
+                        colegio.Telefono = dr.IsDBNull(dr.GetOrdinal("colegio_telefono")) ? "" : dr.GetString(dr.GetOrdinal("colegio_telefono"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return colegio;
+        }
+
 
         public int Insert(Colegio colegio)
         {

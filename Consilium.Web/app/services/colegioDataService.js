@@ -9,6 +9,11 @@
         });
     };
 
+    var _colegio = function (colegioId) {
+        return $http.get(serviceBase, { params: {colegioId:colegioId} }).then(function (results) {
+            return results;
+        });
+    };
     var _saveColegio = function (colegio) {
         return $http.post(serviceBase, colegio).then(
             function (results) {
@@ -21,6 +26,7 @@
         );
     };
     colegioDataFactory.colegios = _colegios;
+    colegioDataFactory.colegio = _colegio;
     colegioDataFactory.saveColegio = _saveColegio;
 
     return colegioDataFactory;

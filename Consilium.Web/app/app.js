@@ -28,6 +28,10 @@ app.config(function ($routeProvider) {
         controller: "usuarioController",
         templateUrl: baseUrl + "app/views/usuarioView.html?v=02"
     });
+    $routeProvider.when("/colegio", {
+        controller: "colegioController",
+        templateUrl: baseUrl + "app/views/colegioView.html?v=02"
+    });
     $routeProvider.otherwise({ redirectTo: "/crearClase" });
 
 });

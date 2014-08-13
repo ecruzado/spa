@@ -6,6 +6,7 @@
     var _obtenerUsuarioServer = function (){
         return $http.get('/account/ObtenerUsuario').then(function (results) {
             usuario = results.data;
+            usuario.colegioId = usuario.ColegioId;
             return usuario;
         }, function (error) {
             $log.debug(error);

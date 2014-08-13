@@ -1469,7 +1469,7 @@ END
 
 GO
 
-
+	
 IF EXISTS (
 	SELECT * FROM sys.objects o
 		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
@@ -1497,6 +1497,7 @@ where usuario =@usuario and PWDCOMPARE(@pass, pass)=1 and estado=1
 
 END
 
+GO
 
 IF EXISTS (
 	SELECT * FROM sys.objects o
@@ -1706,4 +1707,32 @@ SELECT [colegio_id]
   FROM [colegio]
   
 END
+GO
 
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_colegio_getById')
+   DROP PROCEDURE [clase].sp_colegio_getById
+GO
+
+-- =============================================
+-- Author:		Carlos Onocuica
+-- Create date: 21-10-2013
+-- Description:	Lista dearea
+-- =============================================
+CREATE PROCEDURE clase.sp_colegio_getById
+	@colegio_id int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT [colegio_id]
+      ,[colegio_nombre]
+      ,[colegio_dirección]
+      ,[colegio_telefono]
+  FROM [colegio]
+  where colegio_id = @colegio_id
+  
+END

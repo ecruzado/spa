@@ -18,7 +18,10 @@ namespace Consilium.Logica
         {
             return colegioData.List();
         }
-
+        public Colegio Get(int colegioId)
+        {
+            return colegioData.Get(colegioId);
+        }
         public int Insert(Colegio colegio)
         {
             return colegioData.Insert(colegio);

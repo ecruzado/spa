@@ -78,10 +78,11 @@ namespace Consilium.Web.Controllers
         public ActionResult VerificarUsuario() 
         {
             var resultado = new JsonResult();
-            var usuario = String.Empty;
+            Usuario usuario = null;
             var sesionActiva = false;
-            if (Session["USUARIO"] != null) {
-                usuario = Session["USUARIO"].ToString();
+            if (System.Web.HttpContext.Current.Session[Constantes.Usuario] != null)
+            {
+                usuario = (Usuario)System.Web.HttpContext.Current.Session[Constantes.Usuario];
                 sesionActiva = true;
             }
             resultado.Data = new {sesionActiva = sesionActiva, usuario="edgar"};

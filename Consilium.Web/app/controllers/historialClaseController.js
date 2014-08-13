@@ -1,4 +1,5 @@
-﻿app.controller('historialClaseController', function ($scope, $location,$filter, $log,usuarioSesion, claseDataService) {
+﻿app.controller('historialClaseController', function ($scope, $location, $filter, $log,
+    usuarioSesion, claseDataService,usuarioDataService) {
     $scope.claseBusqueda = {
         colegioId: 5,
         areaId: 0,
@@ -27,7 +28,7 @@
         });
     }
     function obtenerUsuarios() {
-        claseDataService.usuarios($scope.claseBusqueda.colegioId).then(function (resultado) {
+        usuarioDataService.usuarios($scope.claseBusqueda.colegioId).then(function (resultado) {
             $scope.usuarios = resultado.data;
         });
     }

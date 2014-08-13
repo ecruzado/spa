@@ -165,6 +165,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\controllers\colegioController.js" />
+    <Content Include="app\controllers\colegioPopUpController.js" />
     <Content Include="app\controllers\pruebaPopUpController.js" />
     <Content Include="app\controllers\conocimientoPopUpController.js" />
     <Content Include="app\controllers\listaColumnaPopUpController.js" />
@@ -189,6 +190,8 @@
     <Content Include="app\services\pruebaDataService.js" />
     <Content Include="app\services\usuarioDataService.js" />
     <Content Include="app\services\usuarioSesion.js" />
+    <Content Include="app\views\colegioPopUpView.html" />
+    <Content Include="app\views\colegioView.html" />
     <Content Include="app\views\pruebaPopUpView.html" />
     <Content Include="app\views\conocimientoPopUpView.html" />
     <Content Include="app\views\listaColumnaPopUpView.html" />
@@ -234,6 +237,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\archivo.pubxml" />
+    <None Include="Properties\PublishProfiles\consiliumtest.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />

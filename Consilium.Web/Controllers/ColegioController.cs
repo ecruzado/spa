@@ -17,7 +17,11 @@ namespace Consilium.Web.Controllers
             var lista = ColegioLogica.Instancia.List();
             return lista;
         }
-
+        public Colegio Get(int colegioId)
+        {
+            var colegio = ColegioLogica.Instancia.Get(colegioId);
+            return colegio;
+        }
 
         // POST api/usuario
         public void Post([FromBody]Colegio colegio)
