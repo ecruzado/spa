@@ -47,6 +47,7 @@ select * from grado
 select * from niveles
 
 select distinct grado_id from clase
+sp_crear_clase
 
 
 

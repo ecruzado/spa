@@ -21,6 +21,11 @@ namespace Consilium.Logica
             return claseData.Crear(clase);
         }
 
+        public int Actualizar(Clase clase)
+        {
+            return claseData.Actualizar(clase);
+        }
+
         public List<Clase> List(int colegioId)
         {
             var lista = claseData.List(colegioId);

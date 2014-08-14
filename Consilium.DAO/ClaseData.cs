@@ -17,7 +17,7 @@ namespace Consilium.DAO
         /// <returns></returns>
         public int Crear(Clase clase)
         {
-            string spName = "sp_crear_clase";
+            string spName = "clase.sp_clase_insert";
             int retVal = 0;
 
             using (SqlConnection conn = new SqlConnection(CadenaConexion))
@@ -33,16 +33,51 @@ namespace Consilium.DAO
                         command.Parameters.Add(ObjSqlParameter("@area_id", clase.AreaId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.Parameters.Add(ObjSqlParameter("@nivel_id", clase.NivelId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.Parameters.Add(ObjSqlParameter("@grado_id", clase.GradoId, ParameterDirection.Input, System.Data.DbType.Int32));
-                        command.Parameters.Add(ObjSqlParameter("@fecha_inicio", clase.FechaInicio, ParameterDirection.Input, System.Data.DbType.Date));
-                        command.Parameters.Add(ObjSqlParameter("@fecha_fin", clase.FechaFin, ParameterDirection.Input, System.Data.DbType.Date));
+                        command.Parameters.Add(ObjSqlParameter("@fecha_inicio", clase.FechaInicioFormato, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@fecha_fin", clase.FechaFinFormato, ParameterDirection.Input, System.Data.DbType.String));
                         command.Parameters.Add(ObjSqlParameter("@fecha_reg", clase.FechaRegistro, ParameterDirection.Input, System.Data.DbType.Date));
                         command.Parameters.Add(ObjSqlParameter("@usuario", clase.Usuario, ParameterDirection.Input, System.Data.DbType.String));
-                        command.Parameters.Add(ObjSqlParameter("@formato", clase.Formato, ParameterDirection.Input, System.Data.DbType.String));
                         command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
                         command.CommandType = CommandType.StoredProcedure;
                         conn.Open();
                         command.ExecuteNonQuery();
                         retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public int Actualizar(Clase clase)
+        {
+            string spName = "clase.sp_clase_update";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@clase_titulo", clase.Titulo, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@area_id", clase.AreaId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@nivel_id", clase.NivelId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@grado_id", clase.GradoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@fecha_inicio", clase.FechaInicioFormato, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@fecha_fin", clase.FechaFinFormato, ParameterDirection.Input, System.Data.DbType.String));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
                     }
                     return retVal;
                 }
