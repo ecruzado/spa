@@ -1736,3 +1736,89 @@ SELECT [colegio_id]
   where colegio_id = @colegio_id
   
 END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_insert')
+   DROP PROCEDURE [clase].sp_clase_insert
+GO
+
+-- =============================================
+-- Author:		edgar cruzado
+-- Create date: 14-08-2014
+-- Description:	registrar clase 
+-- =============================================
+CREATE PROCEDURE [clase].sp_clase_insert
+	@clase_titulo nvarchar(250)
+    ,@colegio_id int
+    ,@area_id int
+    ,@nivel_id int
+    ,@grado_id int
+    ,@fecha_inicio nvarchar(10)
+    ,@fecha_fin nvarchar(10)
+    ,@fecha_reg datetime
+    ,@usuario nvarchar(50)
+	,@new_identity INT = NULL OUTPUT
+
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+
+INSERT INTO [clase]([clase_titulo],[colegio_id],[area_id],[nivel_id]
+	,[grado_id],[fecha_inicio],[fecha_fin],fecha_reg
+    ,[usuario])
+VALUES(@clase_titulo,@colegio_id,@area_id,@nivel_id
+	,@grado_id,CONVERT(Datetime, @fecha_inicio, 103),CONVERT(Datetime, @fecha_fin, 103),@fecha_reg
+	,@usuario)
+
+SET @new_identity = SCOPE_IDENTITY();
+
+
+END           
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_update')
+   DROP PROCEDURE [clase].sp_clase_update
+GO
+
+-- =============================================
+-- Author:		edgar cruzado
+-- Create date: 14-08-2014
+-- Description:	actualizar clase 
+-- =============================================
+CREATE PROCEDURE [clase].sp_clase_update
+	@clase_id int
+	,@clase_titulo nvarchar(250)
+    ,@area_id int
+    ,@nivel_id int
+    ,@grado_id int
+    ,@fecha_inicio nvarchar(10)
+    ,@fecha_fin nvarchar(10)
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+update [clase]
+set [clase_titulo] = @clase_titulo,
+	[area_id] = @area_id,
+	[nivel_id] = @nivel_id,
+	[grado_id] = @grado_id,
+	[fecha_inicio] = CONVERT(Datetime, @fecha_inicio, 103),
+	[fecha_fin] =CONVERT(Datetime, @fecha_fin, 103)
+where clase_id = @clase_id;
+
+
+END           
+
+GO
