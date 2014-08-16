@@ -11,11 +11,11 @@
             <div class="form-group form-group-sm">
                 <label for="usuario" class="col-xs-1 control-label">Usuario</label>
                 <div class="col-xs-5">
-                    <input class="form-control" id="usuario" ng-model="claseCabecera.usuario" />
+                    <input class="form-control" id="usuario" ng-model="claseCabecera.usuario" disabled="disabled"/>
                 </div>
                 <label for="area" class="col-xs-1 control-label">Area</label>
                 <div class="col-xs-5">
-                    <input class="form-control" id="area" ng-model="claseCabecera.area" />
+                    <input class="form-control" id="area" ng-model="claseCabecera.area" disabled="disabled" />
                 </div>
             </div>
             <div class="form-group form-group-sm">
@@ -49,8 +49,8 @@
             </div>
             <div class="form-group">
                 <div style="float:right;margin-right:20px">
-                    <a href="http://localhost:53456/ClaseImpresion/Imprimir/{{claseCabecera.claseId}}" target="_blank" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
-                    <button type="submit" class="btn btn-primary btn-sm">
+                    <a href="{{path}}/ClaseImpresion/Imprimir/{{claseCabecera.claseId}}" target="_blank" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
+                    <button type="submit" class="btn btn-primary btn-sm" ng-click="guardarClase()">
                         <span class="glyphicon glyphicon-hdd"></span> Guardar
                     </button>
                 </div>
@@ -71,10 +71,10 @@
         </div>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpContenidos()">3. Valores</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpContenidos()" disabled="disabled">3. Valores</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpContenidos()">4. Metodología</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpContenidos()" disabled="disabled">4. Metodología</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
         <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(1)">5. Opcional 1</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(1)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -104,10 +104,10 @@
     </div>
 </div>
 <div class="row show-grid">
-    <div class="col-xs-8">
+    <div class="col-xs-9">
         <button type="button" class="btn btn-info btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">7. Actividades (escribir dentro de la caja, hasta 1530 cacteres)</button>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-1">
         <button type="button" class="btn btn-info btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">8. Horas</button>
     </div>
     <div class="col-xs-2">
@@ -117,10 +117,10 @@
     </div>
 </div>
 <div class="row show-grid">
-    <div class="col-xs-8" style="height:400px">
+    <div class="col-xs-9" style="height:400px">
         <text-angular ng-model="actividad.actividades" ta-toolbar="[['bold','italics','underline','ul','ol'],['justifyLeft','justifyCenter','justifyRight']]" ta-html-editor-class="textarea-actividad"></text-angular>
     </div>
-    <div class="col-xs-2" style="height:400px">
+    <div class="col-xs-1" style="height:400px">
         <textarea ng-model="actividad.horas" style="height:100%;width:100%;resize:none;"></textarea>
     </div>
     <div class="col-xs-2" style="height:400px;overflow:auto;">

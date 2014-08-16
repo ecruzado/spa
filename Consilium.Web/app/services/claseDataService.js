@@ -25,7 +25,7 @@
                 toaster.pop('success', "Agregado Satisfactoriamente", "Capacidad agregada satisfactoriamente!");
             },
             function (results) {
-                alert('sucks');
+                alert('error');
                 return results;
             }
         );
@@ -36,7 +36,7 @@
                 toaster.pop('success', "Eliminada Satisfactoriamente", "Capacidad eliminada satisfactoriamente!");
             },
             function (results) {
-                alert('sucks');
+                alert('error');
                 return results;
             }
         );
@@ -53,7 +53,12 @@
     };
 
     var _saveClase = function (clase) {
-        return $http.post('/api/clase/', clase);
+        return $http.post('/api/clase/', clase).then(function (resultado) {
+            toaster.pop('success', "Guardado Satisfactoriamente", "Clase guardada satisfactoriamente!");
+            return resultado;
+        }, function (error) {
+            alert('Error');
+        });
     };
 
     var _claseContenidos = function (claseId) {
@@ -61,15 +66,83 @@
             return results;
         });
     };
+    var _saveClaseContenido = function (claseContenido) {
+        return $http.post('/api/clasecontenido/', claseContenido).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Contenido agregado satisfactoriamente!");
+            },
+            function (results) {
+                alert('Error');
+                return results;
+            }
+        );
+    };
+    var _deleteClaseContenido = function (claseContenidoId) {
+        return $http.delete('/api/clasecontenido/' + claseContenidoId).then(
+            function (results) {
+                toaster.pop('success', "Eliminada Satisfactoriamente", "Contenido eliminado satisfactoriamente!");
+            },
+            function (results) {
+                alert('Error');
+                return results;
+            }
+        );
+    };
+
     var _claseValores = function (claseId) {
         return $http.get('/api/clasevalor/', { params: { claseId: claseId } }).then(function (results) {
             return results;
         });
     };
+    var _saveClaseValor = function (claseValor) {
+        return $http.post('/api/clasevalor/', claseValor).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Valor agregado satisfactoriamente!");
+            },
+            function (results) {
+                alert('Error');
+                return results;
+            }
+        );
+    };
+    var _deleteClaseValor = function (claseValorId) {
+        return $http.delete('/api/clasevalor/' + claseValorId).then(
+            function (results) {
+                toaster.pop('success', "Eliminada Satisfactoriamente", "Valor eliminado satisfactoriamente!");
+            },
+            function (results) {
+                alert('Error');
+                return results;
+            }
+        );
+    };
+
     var _claseMetodos = function (claseId) {
         return $http.get('/api/clasemetodo/', { params: { claseId: claseId } }).then(function (results) {
             return results;
         });
+    };
+    var _saveClaseMetodo = function (claseMetodo) {
+        return $http.post('/api/clasemetodo/', claseMetodo).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Metodo agregado satisfactoriamente!");
+            },
+            function (results) {
+                alert('Error');
+                return results;
+            }
+        );
+    };
+    var _deleteClaseMetodo = function (claseMetodoId) {
+        return $http.delete('/api/clasemetodo/' + claseMetodoId).then(
+            function (results) {
+                toaster.pop('success', "Eliminada Satisfactoriamente", "Metodo eliminado satisfactoriamente!");
+            },
+            function (results) {
+                alert('Error');
+                return results;
+            }
+        );
     };
 
     var _claseActividades = function (claseId) {
@@ -225,8 +298,16 @@
     claseDataFactory.deleteClaseCapacidad = _deleteClaseCapacidad;
 
     claseDataFactory.claseContenidos = _claseContenidos;
+    claseDataFactory.saveClaseContenido = _saveClaseContenido;
+    claseDataFactory.deleteClaseContenido = _deleteClaseContenido;
+
     claseDataFactory.claseValores = _claseValores;
+    claseDataFactory.saveClaseValor = _saveClaseValor;
+    claseDataFactory.deleteClaseValor = _deleteClaseValor;
+
     claseDataFactory.claseMetodos = _claseMetodos;
+    claseDataFactory.saveClaseMetodo = _saveClaseMetodo;
+    claseDataFactory.deleteClaseMetodo = _deleteClaseMetodo;
 
     claseDataFactory.claseActividades = _claseActividades;
     claseDataFactory.claseActividadUpdate = _claseActividadUpdate;

@@ -1,55 +1,58 @@
 ﻿<div class="well well-sm">
-    <form role="form" class="form-horizontal">
+    <form class="form-horizontal" name="claseForm" ng-submit="submitForm(claseForm.$valid)" novalidate>
         <fieldset>
             <legend>Crear Clase</legend>
-            <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm" ng-class="{ 'has-error' : claseForm.titulo.$invalid && !claseForm.titulo.$pristine }">
                 <label for="nombreClase" class="col-xs-1 control-label">Título</label>
                 <div class="col-xs-11">
-                    <input class="form-control" id="nombreClase" placeholder="Ingrese nombre de clase" ng-model="claseCabecera.titulo" />
+                    <input class="form-control" id="titulo" name="titulo" placeholder="Ingrese título de clase" ng-model="claseCabecera.titulo" required ng-maxlength="250" />
+                    <p ng-show="claseForm.titulo.$invalid && !claseForm.titulo.$pristine" class="help-block">El campo título es obligatorio.</p>
+                    <p ng-show="claseForm.titulo.$error.maxlength" class="help-block">El campo título solo acepta 250 caracteres.</p>
                 </div>
             </div>
             <div class="form-group form-group-sm">
-                <label for="nombreClase" class="col-xs-1 control-label">Area </label>
+                <label for="nombreClase" class="col-xs-1 control-label">Área </label>
                 <div class="col-xs-5">
-                    <input class="form-control" id="usuario" ng-model="claseCabecera.nombreArea" disabled="disabled"/>
+                    <input class="form-control" id="usuario" ng-model="claseCabecera.nombreArea" disabled="disabled" />
                 </div>
                 <label for="exampleInputPassword1" class="col-xs-1 control-label">Usuario</label>
                 <div class="col-xs-5">
                     <input class="form-control" id="usuario" ng-model="claseCabecera.usuario" disabled="disabled" />
                 </div>
             </div>
-            <div class="form-group form-group-sm">
+            <div class="form-group form-group-sm" ng-class="{ 'has-error' : claseForm.fechaInicioFormato.$invalid && !claseForm.fechaInicioFormato.$pristine }">
                 <label for="exampleInputPassword1" class="col-xs-1 control-label">Nivel</label>
                 <div class="col-xs-2">
-                    <select class="form-control" ng-model="claseCabecera.nivelId" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="selectedNivel=1" ng-change="obtenerGrados()"></select>
+                    <select class="form-control" ng-model="claseCabecera.nivelId" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-init="claseCabecera.nivelId=0" ng-change="obtenerGrados()"></select>
                 </div>
                 <label for="exampleInputPassword1" class="col-xs-1 control-label">Grado</label>
                 <div class="col-xs-2">
                     <select class="form-control" ng-model="claseCabecera.gradoId" ng-options="grado.gradoId as grado.gradoDesc for grado in grados"></select>
                 </div>
-                <label for="exampleInputPassword1" class="col-xs-1 control-label">Fecha Inicio</label>
+                <label for="fechaInicioFormato" class="col-xs-1 control-label">Fecha Inicio</label>
                 <div class="col-xs-2">
                     <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaInicioFormato" is-open="openedFechaInicio" ng-required="true" close-text="Close" />
+                        <input type="text" name="fechaInicioFormato" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaInicioFormato" is-open="openedFechaInicio" ng-required="true" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-sm" ng-click="openFechaInicio($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                     </p>
+                    <p ng-show="claseForm.fechaInicioFormato.$invalid && !claseForm.fechaInicioFormato.$pristine" class="help-block">El campo fecha inicio es obligatorio.</p>
                 </div>
-                <label for="exampleInputPassword1" class="col-xs-1 control-label">Fecha Fin</label>
+                <label for="fechaFinFormato" class="col-xs-1 control-label">Fecha Fin</label>
                 <div class="col-xs-2">
                     <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaFinFormato" is-open="openedFechaFin" ng-required="true" close-text="Close" />
+                        <input type="text" name="fechaFinFormato" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCabecera.fechaFinFormato" is-open="openedFechaFin" ng-required="true" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-sm" ng-click="openFechaFin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                     </p>
+                    <p ng-show="claseForm.fechaFinFormato.$invalid && !claseForm.fechaFinFormato.$pristine" class="help-block">El campo fecha fin es obligatorio.</p>
                 </div>
-
             </div>
             <div class="form-group form-group-sm">
                 <div style="float:right;margin-right:20px">
-                    <button type="submit" class="btn btn-primary btn-sm" ng-click="crearClase()">
+                    <button type="submit" class="btn btn-primary btn-sm" ng-click="crearClase()" ng-disabled="claseForm.$invalid">
                         <span class="glyphicon glyphicon-hdd"></span> Crear
                     </button>
                 </div>

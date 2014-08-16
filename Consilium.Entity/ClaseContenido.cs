@@ -14,5 +14,6 @@ namespace Consilium.Entity
         public string Detalle { get; set; }
         public int ConocimientoId { get; set; }
         public string Conocimiento { get; set; }
+        public int ClaseId { get; set; }
     }
 }

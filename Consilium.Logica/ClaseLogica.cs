@@ -18,7 +18,27 @@ namespace Consilium.Logica
 
         public int Crear(Clase clase)
         {
-            return claseData.Crear(clase);
+            int resultado = 0;
+            int resultadoClase = 0;
+            resultadoClase = claseData.Crear(clase);
+            if (resultadoClase > 0) 
+            {
+                //Crear clase matriz por defecto
+                var claseMatriz = new ClaseMatriz {
+                    ClaseId = resultadoClase, 
+                    IndicadorLogro = String.Empty, 
+                    PruebaTexto = String.Empty ,
+                    ObservacionClase = String.Empty,
+                };
+                var claseActividad = new ClaseActividad {
+                    ClaseId = resultadoClase, 
+                    Actividades = String.Empty,
+                    Horas = String.Empty
+                };
+                resultado = claseData.CrearClaseMatriz(claseMatriz);
+                resultado = claseData.CrearClaseActividad(claseActividad);
+            }
+            return resultadoClase;
         }
 
         public int Actualizar(Clase clase)
@@ -68,19 +88,47 @@ namespace Consilium.Logica
             return claseData.DeleteClaseCapacidad(claseCapacidad);
         }
         
+
         public List<ClaseContenido> ListClaseContenidoByClase(int claseId)
         {
             return claseData.ListClaseContenidoByClase(claseId);
         }
 
+        public int CrearClaseContenido(ClaseContenido claseContenido) 
+        {
+            return claseData.CrearClaseContenido(claseContenido);
+        }
+
+        public int DeleteClaseContenido(ClaseContenido claseContenido) 
+        {
+            return claseData.DeleteClaseContenido(claseContenido);
+        }
+        
+
         public List<ClaseValor> ListClaseValorByClase(int claseId) 
         {
             return claseData.ListClaseValorByClase(claseId);
+        }
+        public int CrearClaseValor(ClaseValor claseValor) 
+        {
+            return claseData.CrearClaseValor(claseValor);
+        }
+        public int DeleteClaseValor(ClaseValor claseValor) 
+        {
+            return claseData.DeleteClaseValor(claseValor);
         }
 
         public List<ClaseMetodo> ListClaseMetodoByClase(int claseId) 
         {
             return claseData.ListClaseMetodoByClase(claseId);
+        }
+        public int CrearClaseMetodo(ClaseMetodo claseMetodo) 
+        {
+            return claseData.CrearClaseMetodo(claseMetodo);
+        }
+        public int DeleteClaseMetodo(ClaseMetodo claseMetodo) 
+        {
+            return claseData.DeleteClaseMetodo(claseMetodo);
         }
 
         #region Actividad

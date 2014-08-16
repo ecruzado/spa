@@ -1,9 +1,10 @@
-﻿app.controller('navigationController', function ($scope, $location, usuarioSesion) {
+﻿app.controller('navigationController', function ($scope, $location, usuarioSesion, claseDataService) {
     $scope.disenoClase = false;
     $scope.historialClase = false;
     $scope.reporte = false;
     $scope.mantenimiento = false;
     $scope.administrador = false;
+    $scope.areas = [];
     init();
 
     function init() {
@@ -13,6 +14,10 @@
             $scope.reporte = usuario.Reporte;
             $scope.mantenimiento = usuario.Mantenimiento;
             $scope.administrador = usuario.Administrador;
+        });
+
+        claseDataService.areas().then(function (resultado) {
+            $scope.areas = resultado.data;
         });
     }
 

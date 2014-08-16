@@ -12,5 +12,7 @@ namespace Consilium.Entity
         public int MetecnicaId { get; set; }
         public string Metecnica { get; set; }
         public int ClaseMetodoId { get; set; }
+
+        public int ClaseId { get; set; }
     }
 }

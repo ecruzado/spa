@@ -1,9 +1,9 @@
 ﻿app.controller('historialClaseController', function ($scope, $location, $filter, $log,
     usuarioSesion, claseDataService,usuarioDataService) {
     $scope.claseBusqueda = {
-        colegioId: 5,
+        colegioId: usuarioSesion.getUsuario().colegioId,
         areaId: 0,
-        usuario: '--Seleccionar Usuario--',
+        usuario: usuarioSesion.getUsuario().codigo,
         nivelId: 0,
         gradoId: 0
     };
@@ -30,11 +30,13 @@
     function obtenerUsuarios() {
         usuarioDataService.usuarios($scope.claseBusqueda.colegioId).then(function (resultado) {
             $scope.usuarios = resultado.data;
+            $scope.usuarios.splice(0,0,{ codigo: '--Seleccionar Usuario--' });
         });
     }
     function obtenerAreas() {
         claseDataService.areas().then(function (resultado) {
             $scope.areas = resultado.data;
+            $scope.areas.splice(0, 0, { areaId: 0, descripcion: '--Seleccionar Area--' });
         });
     }
 
@@ -47,17 +49,18 @@
 
 
     $scope.obtenerHistorialClase = function () {
-        usuarioSesion.verificarUsuario();
+        usuarioSesion.verificarUsuario().then(function () {
+            $scope.claseBusqueda.fechaInicioFormato = $filter('date')($scope.claseBusqueda.fechaInicioFormato, 'dd/MM/yyyy'),
+            $scope.claseBusqueda.fechaFinFormato = $filter('date')($scope.claseBusqueda.fechaFinFormato, 'dd/MM/yyyy'),
 
-        $scope.claseBusqueda.fechaInicioFormato = $filter('date')($scope.claseBusqueda.fechaInicioFormato, 'dd/MM/yyyy'),
-        $scope.claseBusqueda.fechaFinFormato = $filter('date')($scope.claseBusqueda.fechaFinFormato, 'dd/MM/yyyy'),
+            claseDataService.clases($scope.claseBusqueda).then(function (results) {
+                $scope.clases = results.data;
 
-        claseDataService.clases($scope.claseBusqueda).then(function (results) {
-            $scope.clases = results.data;
-
-        }, function (error) {
-            alert(error.message);
+            }, function (error) {
+                alert(error.message);
+            });
         });
+
     }
     $scope.limpiar = function () {
         $scope.claseBusqueda.colegioId = 5;

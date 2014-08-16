@@ -34,13 +34,15 @@
     }
 
     $scope.crearClase = function () {
-        $scope.claseCabecera.fechaInicioFormato = $filter('date')($scope.claseCabecera.fechaInicioFormato, 'dd/MM/yyyy'),
-        $scope.claseCabecera.fechaFinFormato = $filter('date')($scope.claseCabecera.fechaFinFormato, 'dd/MM/yyyy'),
+        usuarioSesion.verificarUsuario().then(function () {
+            $scope.claseCabecera.fechaInicioFormato = $filter('date')($scope.claseCabecera.fechaInicioFormato, 'dd/MM/yyyy'),
+            $scope.claseCabecera.fechaFinFormato = $filter('date')($scope.claseCabecera.fechaFinFormato, 'dd/MM/yyyy'),
 
-        claseDataService.saveClase($scope.claseCabecera).then(function (resultado) {
-            $location.path("/clase/"+resultado.data.claseId);
-        }, function (resultadoError) {
-            toaster.pop('error', "Ocurrio un error", "Ocurrido un error, no se pudo completar la operacion");
+            claseDataService.saveClase($scope.claseCabecera).then(function (resultado) {
+                $location.path("/clase/" + resultado.data.claseId);
+            }, function (resultadoError) {
+                toaster.pop('error', "Ocurrio un error", "Ocurrido un error, no se pudo completar la operacion");
+            });
         });
     }
 

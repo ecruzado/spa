@@ -1,5 +1,5 @@
 ﻿app.controller('claseController', function ($scope, $modal, $log, $routeParams,
-    $interval, $upload, claseDataService) {
+    $interval, $upload, $filter, $location, claseDataService, usuarioSesion) {
     $scope.claseCabecera = {
         claseId: $routeParams.claseId,
         colegioId: 5,
@@ -13,7 +13,7 @@
     $scope.niveles = [];
     $scope.grados = [];
     $scope.archivos = [];
-
+    $scope.path = "http://" + window.location.host;
     init();
     var intervalGuardar;
 
@@ -476,10 +476,10 @@
             for (i = 0; i < seleccion.length; i++) {
                 var auxSeparacion = seleccion[i].split('-');
                 if (auxSeparacion[0] == 'O') {
-                    var claseCapacidad = {};
-                    claseCapacidad.operativaId = auxSeparacion[1];
-                    claseCapacidad.claseId = $scope.claseCabecera.claseId;
-                    claseDataService.saveClaseCapacidad(claseCapacidad).then(function () {
+                    var claseContenido = {};
+                    claseContenido.contenidoId = auxSeparacion[1];
+                    claseContenido.claseId = $scope.claseCabecera.claseId;
+                    claseDataService.saveClaseContenido(claseContenido).then(function () {
                         init();
                     });
                 }
@@ -487,12 +487,12 @@
         });
     };
     $scope.eliminarContenidos = function () {
-        var arr = $("#jtClaseCapacidades").jstree('get_selected');
+        var arr = $("#jtClaseContenidos").jstree('get_selected');
         for (i = 0; i < arr.length; i++) {
             var auxSeparacion = arr[i].split('-');
-            if (auxSeparacion[0] == 'O') {
-                claseDataService.deleteClaseCapacidad(auxSeparacion[1]).then(function () {
-                    obtenerClaseCapacidades();
+            if (auxSeparacion[0] == 'C') {
+                claseDataService.deleteClaseContenido(auxSeparacion[1]).then(function () {
+                    obtenerClaseContenidos();
                 });
             }
         }
@@ -663,7 +663,19 @@
         });
     };
 
+    $scope.guardarClase = function () {
+        usuarioSesion.verificarUsuario().then(function () {
+            claseDataService.saveClaseMatriz($scope.matriz);
+            claseDataService.claseActividadUpdate($scope.actividad);
 
+            $scope.claseCabecera.fechaInicioFormato = $filter('date')($scope.claseCabecera.fechaInicioFormato, 'dd/MM/yyyy'),
+            $scope.claseCabecera.fechaFinFormato = $filter('date')($scope.claseCabecera.fechaFinFormato, 'dd/MM/yyyy'),
+
+            claseDataService.saveClase($scope.claseCabecera).then(function (resultado) {
+                $location.path("/clase/" + resultado.data.claseId);
+            });
+        });
+    }
 
 
 });

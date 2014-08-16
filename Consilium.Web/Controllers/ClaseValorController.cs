@@ -18,8 +18,9 @@ namespace Consilium.Web.Controllers
         }
 
         // POST api/clasevalor
-        public void Post([FromBody]string value)
+        public void Post([FromBody]ClaseValor claseValor)
         {
+            ClaseLogica.Instancia.CrearClaseValor(claseValor);
         }
 
         // PUT api/clasevalor/5
@@ -30,6 +31,7 @@ namespace Consilium.Web.Controllers
         // DELETE api/clasevalor/5
         public void Delete(int id)
         {
+            ClaseLogica.Instancia.DeleteClaseValor(new ClaseValor{ClaseValorId = id});
         }
     }
 }

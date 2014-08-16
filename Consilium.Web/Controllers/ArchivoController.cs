@@ -82,7 +82,9 @@ namespace Consilium.Web.Controllers
             var stream = new FileStream(path, FileMode.Open);
             result.Content = new StreamContent(stream);
             result.Content.Headers.ContentType =
-                new MediaTypeHeaderValue("application/pdf");
+                new MediaTypeHeaderValue("application/octet-stream");
+            result.Content.Headers.ContentDisposition =
+                new ContentDispositionHeaderValue("attachment"){FileName = archivo.Nombre};
             return result;
         }
 

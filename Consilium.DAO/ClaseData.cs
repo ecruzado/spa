@@ -69,6 +69,7 @@ namespace Consilium.DAO
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", clase.ClaseId, ParameterDirection.Input, System.Data.DbType.String));
                         command.Parameters.Add(ObjSqlParameter("@clase_titulo", clase.Titulo, ParameterDirection.Input, System.Data.DbType.String));
                         command.Parameters.Add(ObjSqlParameter("@area_id", clase.AreaId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.Parameters.Add(ObjSqlParameter("@nivel_id", clase.NivelId, ParameterDirection.Input, System.Data.DbType.Int32));
@@ -652,6 +653,7 @@ namespace Consilium.DAO
 
         #endregion
 
+        #region Clase Contenido
         /// <summary>
         /// Obtener el listado de contenidos por clase
         /// </summary>
@@ -705,6 +707,76 @@ namespace Consilium.DAO
             return lista;
 
         }
+        public int CrearClaseContenido(ClaseContenido claseContenido)
+        {
+            string spName = "clase.sp_clase_contenido_insert";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@organi3_id", claseContenido.ContenidoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseContenido.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public int DeleteClaseContenido(ClaseContenido claseContenido)
+        {
+
+            string spName = "clase.sp_clase_contenido_delete";
+            int retVal = 0;
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@clase_cono_id", claseContenido.ClaseContenidoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+            return retVal;
+
+        }
+
+
+        #endregion 
+
+        #region Clase Valores
 
         /// <summary>
         /// Obtener el listado de valores por clase
@@ -757,6 +829,75 @@ namespace Consilium.DAO
             return lista;
 
         }
+        public int CrearClaseValor(ClaseValor claseValor)
+        {
+            string spName = "clase.sp_clase_valores_insert";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@actitud_id", claseValor.ActitudId , ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseValor.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public int DeleteClaseValor(ClaseValor claseValor)
+        {
+
+            string spName = "clase.sp_clase_valores_delete";
+            int retVal = 0;
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@clase_valores_id", claseValor.ClaseValorId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+            return retVal;
+
+        }
+
+        #endregion 
+
+        #region Clase Metodologia
 
         /// <summary>
         /// Obtener el listado de contenidos por clase
@@ -809,7 +950,73 @@ namespace Consilium.DAO
             return lista;
 
         }
+        public int CrearClaseMetodo(ClaseMetodo claseMetodo)
+        {
+            string spName = "clase.sp_clase_metodo_insert";
+            int retVal = 0;
 
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@metecnica_id", claseMetodo.MetecnicaId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@clase_id", claseMetodo.ClaseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public int DeleteClaseMetodo(ClaseMetodo claseMetodo)
+        {
+
+            string spName = "clase.sp_clase_metodo_delete";
+            int retVal = 0;
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["base"].ToString()))
+            {
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@clase_metodo_id", claseMetodo.ClaseMetodoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+            return retVal;
+
+        }
+
+        #endregion
 
         #region Conocimiento
         /// <summary>

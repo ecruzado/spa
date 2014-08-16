@@ -212,6 +212,113 @@ GO
 IF EXISTS (
 	SELECT * FROM sys.objects o
 		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_contenido_insert')
+   DROP PROCEDURE [clase].sp_clase_contenido_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 15-08-2014
+-- Description:	insertar contenidos de una clase
+-- =============================================
+create PROCEDURE [clase].sp_clase_contenido_insert
+@clase_id as int,
+@organi3_id as int
+,@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+INSERT INTO [dbo].[clase_contenido]
+           ([organi3_id]
+           ,[clase_id])
+     VALUES
+           (@organi3_id
+           ,@clase_id)
+     SET @new_identity = SCOPE_IDENTITY();
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_contenido_delete')
+   DROP PROCEDURE [clase].sp_clase_contenido_delete
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 15-08-2014
+-- Description:	delete contenidos de una clase
+-- =============================================
+create PROCEDURE [clase].sp_clase_contenido_delete
+@clase_cono_id as int
+AS
+BEGIN
+
+delete from [dbo].[clase_contenido]
+where clase_cono_id = @clase_cono_id
+
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_valores_insert')
+   DROP PROCEDURE [clase].sp_clase_valores_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 15-08-2014
+-- Description:	insertar valores de una clase
+-- =============================================
+create PROCEDURE [clase].sp_clase_valores_insert
+@clase_id as int,
+@actitud_id as int
+,@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+INSERT INTO [dbo].[clase_valores]
+           ([actitud_id]
+           ,[clase_id])
+     VALUES(@actitud_id,@clase_id)
+     SET @new_identity = SCOPE_IDENTITY();
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_valores_delete')
+   DROP PROCEDURE [clase].sp_clase_valores_delete
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 15-08-2014
+-- Description:	delete valores de una clase
+-- =============================================
+create PROCEDURE [clase].sp_clase_valores_delete
+@clase_valores_id as int
+AS
+BEGIN
+
+delete from [dbo].[clase_valores]
+where clase_valores_id = @clase_valores_id
+
+END
+
+GO
+
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
 		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_nivel_lst')
    DROP PROCEDURE [clase].[sp_nivel_lst]
 GO
@@ -324,6 +431,57 @@ FROM [clase_metodo] as cm
 WHERE cm.clase_id=@clase_id
 ORDER BY c.criterio, c.criterio_id, m.metecnica, m.metecnica_id
   
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_metodo_insert')
+   DROP PROCEDURE [clase].sp_clase_metodo_insert
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 15-08-2014
+-- Description:	insertar valores de una clase
+-- =============================================
+create PROCEDURE [clase].sp_clase_metodo_insert
+@clase_id as int,
+@metecnica_id as int
+,@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+INSERT INTO [dbo].[clase_metodo]
+           (metecnica_id
+           ,[clase_id])
+     VALUES(@metecnica_id,@clase_id)
+     SET @new_identity = SCOPE_IDENTITY();
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_metodo_delete')
+   DROP PROCEDURE [clase].sp_clase_metodo_delete
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 15-08-2014
+-- Description:	delete valores de una clase
+-- =============================================
+create PROCEDURE [clase].sp_clase_metodo_delete
+@clase_metodo_id as int
+AS
+BEGIN
+
+delete from [dbo].[clase_metodo]
+where clase_metodo_id = @clase_metodo_id
+
 END
 
 GO

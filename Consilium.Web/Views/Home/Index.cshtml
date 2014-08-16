@@ -32,10 +32,7 @@
                 <li ng-show="disenoClase" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Diseñar Clase <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#/crearClase/Comunicacion/1">Comunicacion</a></li>
-                        <li><a href="#/crearClase/Matematica/2">Matematica</a></li>
-                        <li><a href="#/crearClase/Personal%20Social/3">Personal Social</a></li>
-                        <li><a href="#/crearClase/Opcional1/4">Opcional 1</a></li>
+                        <li ng-repeat="area in areas"><a href="#crearClase/{{area.descripcion}}/{{area.areaId}}">{{area.descripcion}}</a></li>
                     </ul>
                 </li>
                 <li ng-show="historialClase" ng-class="{'active':isActive('/historialClase')}"><a href="#/historialClase">Historial de Clase</a></li>

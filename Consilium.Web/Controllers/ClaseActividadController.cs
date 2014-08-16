@@ -26,10 +26,13 @@ namespace Consilium.Web.Controllers
         // POST api/claseactividad
         public void Post([FromBody]ClaseActividad claseActividad)
         {
-            if (claseActividad.ClaseActividadId == 0)
-                ClaseLogica.Instancia.ActualizarClaseActvidad(claseActividad);
-            else
-                ClaseLogica.Instancia.ActualizarClaseActvidad(claseActividad);
+            if(claseActividad != null)
+            {
+                if (claseActividad.ClaseActividadId == 0)
+                    ClaseLogica.Instancia.ActualizarClaseActvidad(claseActividad);
+                else
+                    ClaseLogica.Instancia.ActualizarClaseActvidad(claseActividad);
+            }
         }
 
         // PUT api/claseactividad/5

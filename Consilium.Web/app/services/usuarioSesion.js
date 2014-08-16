@@ -21,6 +21,8 @@
         return $http.get('/account/VerificarUsuario').then(function (results) {
             if (!results.data.sesionActiva)
                 window.location= "http://"+window.location.host + "/Account/LogOn";
+        }, function (error) {
+            window.location = "http://" + window.location.host + "/Account/LogOn";
         });
     }
     usuarioSesion.getUsuario = _getUsuario;

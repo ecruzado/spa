@@ -15,8 +15,8 @@ namespace Consilium.Web.Controllers
         public IEnumerable<Area> Get()
         {
             var lista = AreaLogica.Instancia.List();
-            if (lista != null)
-                lista.Insert(0, new Area { AreaId = 0, Descripcion = "--Seleccionar Area--" });
+            /*if (lista != null)
+                lista.Insert(0, new Area { AreaId = 0, Descripcion = "--Seleccionar Area--" });*/
             return lista;
         }
 

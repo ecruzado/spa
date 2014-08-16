@@ -1,4 +1,5 @@
 ﻿using Consilium.Entity;
+using Consilium.Web.Code;
 using Consilium.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 namespace Consilium.Web.Controllers
 {
     [Authorize]
+    [ValidateSesion]
     public class HomeController : Controller
     {
         public ActionResult Index()

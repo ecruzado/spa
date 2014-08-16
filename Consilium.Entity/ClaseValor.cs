@@ -12,5 +12,6 @@ namespace Consilium.Entity
         public int ActitudId { get; set; }
         public string Actitud { get; set; }
         public int ClaseValorId { get; set; }
+        public int ClaseId { get; set; }
     }
 }

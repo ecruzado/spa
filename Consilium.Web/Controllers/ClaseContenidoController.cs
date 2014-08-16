@@ -20,8 +20,9 @@ namespace Consilium.Web.Controllers
 
 
         // POST api/clasecontenido
-        public void Post([FromBody]string value)
+        public void Post([FromBody]ClaseContenido claseContenido)
         {
+            ClaseLogica.Instancia.CrearClaseContenido(claseContenido);
         }
 
         // PUT api/clasecontenido/5
@@ -32,6 +33,7 @@ namespace Consilium.Web.Controllers
         // DELETE api/clasecontenido/5
         public void Delete(int id)
         {
+            ClaseLogica.Instancia.DeleteClaseContenido(new ClaseContenido { ClaseContenidoId = id });
         }
     }
 }

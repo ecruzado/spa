@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Consilium.Web.Models
+namespace Consilium.Web.Code
 {
     public static class Constantes
     {
