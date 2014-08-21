@@ -161,3 +161,6 @@ sp_usuario_update_datos
 	select * from usuarios
 
 select * from colegio
+
+select * from valores
+select * from actitud
