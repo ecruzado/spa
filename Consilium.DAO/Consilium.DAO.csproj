@@ -47,6 +47,7 @@
     <Compile Include="ColegioData.cs" />
     <Compile Include="ColumnaColegioData.cs" />
     <Compile Include="ConfColumnaColegioData.cs" />
+    <Compile Include="MetodologiaData.cs" />
     <Compile Include="PruebaData.cs" />
     <Compile Include="ConocimientoData.cs" />
     <Compile Include="GradoData.cs" />

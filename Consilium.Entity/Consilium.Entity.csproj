@@ -62,6 +62,7 @@
     <Compile Include="Generics\Singleton.cs" />
     <Compile Include="Grado.cs" />
     <Compile Include="ItemNodo.cs" />
+    <Compile Include="Metodologia.cs" />
     <Compile Include="Nivel.cs" />
     <Compile Include="Operativa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

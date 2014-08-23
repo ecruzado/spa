@@ -535,6 +535,43 @@
         }
     };
 
+    $scope.popUpMetodologias = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/metodologiaPopUpView.html?v=2',
+            controller: 'metodologiaPopUpController',
+            size: 'sm',
+            resolve: {
+                claseCabecera: function () {
+                    return $scope.claseCabecera;
+                }
+            }
+        });
+        modalInstance.result.then(function (seleccion) {
+            for (i = 0; i < seleccion.length; i++) {
+                var auxSeparacion = seleccion[i].split('-');
+                if (auxSeparacion[0] == 'N2') {
+                    var claseMetodologia = {};
+                    claseMetodologia.metecnicaId = auxSeparacion[1];
+                    claseMetodologia.claseId = $scope.claseCabecera.claseId;
+                    claseDataService.saveClaseMetodo(claseMetodologia).then(function () {
+                        obtenerClaseMetodos();
+                    });
+                }
+            }
+        });
+    };
+    $scope.eliminarMetodologia = function () {
+        var arr = $("#jtClaseMetodos").jstree('get_selected');
+        for (i = 0; i < arr.length; i++) {
+            var auxSeparacion = arr[i].split('-');
+            if (auxSeparacion[0] == 'N2') {
+                claseDataService.deleteClaseMetodo(auxSeparacion[1]).then(function () {
+                    obtenerClaseMetodos();
+                });
+            }
+        }
+    };
+
     $scope.popUpListaColumna = function (columnaId) {
         var modalInstance = $modal.open({
             templateUrl: '/app/views/listaColumnaPopUpView.html?v=5',

@@ -431,6 +431,33 @@ END
 
 GO
 
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_metodo_lst')
+   DROP PROCEDURE [clase].sp_metodo_lst
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 30-06-2014
+-- Description:	Listar metodos de clase
+-- =============================================
+CREATE PROCEDURE [clase].sp_metodo_lst
+@colegio_id as int
+AS
+BEGIN
+	SET NOCOUNT ON;
+SELECT c.criterio_id n1_id, c.criterio n1_valor, m.metecnica_id n2_id, m.metecnica n2_valor
+FROM dbo.criterio c 
+	INNER JOIN dbo.metecnica m on m.criterio_id = c.criterio_id
+WHERE c.colegio_id = @colegio_id  
+ORDER BY c.criterio, m.metecnica
+
+END
+
+GO
+
 
 IF EXISTS (
 	SELECT * FROM sys.objects o
