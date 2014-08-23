@@ -373,6 +373,33 @@ END
 
 GO
 
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_valor_lst')
+   DROP PROCEDURE [clase].sp_valor_lst
+GO
+
+-- =============================================
+-- Author:		Edgar Cruzado
+-- Create date: 30-06-2014
+-- Description:	Listar valores
+-- =============================================
+create PROCEDURE [clase].sp_valor_lst
+@colegio_id int
+AS
+BEGIN
+	SET NOCOUNT ON
+
+SELECT v.valores_id n1_id, v.valores n1_valor, a.actitud_id n2_id, a.actitud n2_valor
+from valores v
+	inner join actitud a on v.valores_id = a.valores_id
+where v.colegio_id = @colegio_id
+ORDER BY v.valores_id, a.actitud_id
+
+END
+
+GO
 
 IF EXISTS (
 	SELECT * FROM sys.objects o
@@ -781,7 +808,7 @@ set formativa = @formativa,
 	indicador_logro = @indicador_logro,
 	pruebatxt = @pruebatxt,
 	obsclase = @obsclase
- where @clase_matriz_id = @clase_matriz_id
+ where clase_matriz_id = @clase_matriz_id
 
 END
 

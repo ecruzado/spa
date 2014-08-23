@@ -498,6 +498,43 @@
         }
     };
 
+    $scope.popUpValores = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/valorPopUpView.html?v=2',
+            controller: 'valorPopUpController',
+            size: 'sm',
+            resolve: {
+                claseCabecera: function () {
+                    return $scope.claseCabecera;
+                }
+            }
+        });
+        modalInstance.result.then(function (seleccion) {
+            for (i = 0; i < seleccion.length; i++) {
+                var auxSeparacion = seleccion[i].split('-');
+                if (auxSeparacion[0] == 'N2') {
+                    var claseValor = {};
+                    claseValor.actitudId = auxSeparacion[1];
+                    claseValor.claseId = $scope.claseCabecera.claseId;
+                    claseDataService.saveClaseValor(claseValor).then(function () {
+                        obtenerClaseValores();
+                    });
+                }
+            }
+        });
+    };
+    $scope.eliminarValores = function () {
+        var arr = $("#jtClaseValores").jstree('get_selected');
+        for (i = 0; i < arr.length; i++) {
+            var auxSeparacion = arr[i].split('-');
+            if (auxSeparacion[0] == 'N2') {
+                claseDataService.deleteClaseValor(auxSeparacion[1]).then(function () {
+                    obtenerClaseValores();
+                });
+            }
+        }
+    };
+
     $scope.popUpListaColumna = function (columnaId) {
         var modalInstance = $modal.open({
             templateUrl: '/app/views/listaColumnaPopUpView.html?v=5',

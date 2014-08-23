@@ -63,6 +63,7 @@
     <Compile Include="NivelLogica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioLogica.cs" />
+    <Compile Include="ValorLogica.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Consilium.DAO\Consilium.DAO.csproj">

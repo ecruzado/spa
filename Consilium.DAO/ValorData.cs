@@ -1,6 +1,8 @@
 ﻿using Consilium.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -8,15 +10,12 @@ namespace Consilium.DAO
 {
     public class ValorData : BaseData
     {
-        public List<ItemNodo> ListByAreaAndColegio(ClaseValor deAreaBusqueda)
+       public List<ItemNodo> ListByColegio(int colegioId)
         {
 
-            string spName = "clase.sp_dearea_lst";
-            var lista = new List<DeArea>();
-
-            //varaibles auxiliares para armar objeto anidado
-            int deAreaIdAnterior = 0, deAreaId = 0;
-            int especificaIdAnterior = 0, especificaId = 0;
+            string spName = "clase.sp_valor_lst";
+            var lista = new List<ItemNodo>();
+            ItemNodo entidad = null;
 
             using (SqlConnection conn = new SqlConnection(CadenaConexion))
             {
@@ -24,46 +23,20 @@ namespace Consilium.DAO
                 {
                     using (SqlCommand command = new SqlCommand(spName, conn))
                     {
-                        command.Parameters.Add(ObjSqlParameter("@area", deAreaBusqueda.AreaId, ParameterDirection.Input, System.Data.DbType.Int32));
-                        command.Parameters.Add(ObjSqlParameter("@colegio_id", deAreaBusqueda.ColegioId, ParameterDirection.Input, System.Data.DbType.Int32));
-
+                        command.Parameters.Add(ObjSqlParameter("@colegio_id", colegioId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.CommandType = CommandType.StoredProcedure;
                         conn.Open();
 
                         IDataReader dr = command.ExecuteReader();
-                        DeArea deArea = null;
-                        Especifica especifica = null;
-                        Operativa operativa = null;
 
                         while (dr.Read())
                         {
-                            deAreaId = dr.GetInt32(dr.GetOrdinal("dearea_id"));
-                            especificaId = dr.GetInt32(dr.GetOrdinal("especifica_id"));
-
-                            if (deAreaId != deAreaIdAnterior)
-                            {
-                                deArea = new DeArea();
-                                deArea.DeAreaId = deAreaId;
-                                deArea.Nombre = dr.GetString(dr.GetOrdinal("dearea"));
-                                deArea.Especificas = new List<Especifica>();
-                                lista.Add(deArea);
-                                deAreaIdAnterior = deArea.DeAreaId;
-                            }
-
-                            if (especificaId != especificaIdAnterior)
-                            {
-                                especifica = new Especifica();
-                                especifica.EspecificaId = especificaId;
-                                especifica.Nombre = dr.GetString(dr.GetOrdinal("especifica"));
-                                especifica.Operativas = new List<Operativa>();
-                                deArea.Especificas.Add(especifica);
-                                especificaIdAnterior = especifica.EspecificaId;
-
-                            }
-                            operativa = new Operativa();
-                            operativa.OperativaId = dr.GetInt32(dr.GetOrdinal("operativa_id"));
-                            operativa.Nombre = dr.GetString(dr.GetOrdinal("operativa"));
-                            especifica.Operativas.Add(operativa);
+                            entidad = new ItemNodo();
+                            entidad.Nodo1Id = dr.GetInt32(dr.GetOrdinal("n1_id"));
+                            entidad.Nodo1Valor = dr.GetString(dr.GetOrdinal("n1_valor"));
+                            entidad.Nodo2Id = dr.GetInt32(dr.GetOrdinal("n2_id"));
+                            entidad.Nodo2Valor = dr.GetString(dr.GetOrdinal("n2_valor"));
+                            lista.Add(entidad);
                         }
 
                     }
@@ -82,5 +55,7 @@ namespace Consilium.DAO
 
         }
 
+
     }
+
 }

@@ -157,6 +157,7 @@
     <Compile Include="Controllers\NivelController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\ValorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,6 +181,7 @@
     <Content Include="app\controllers\sesionController.js" />
     <Content Include="app\controllers\usuarioController.js" />
     <Content Include="app\controllers\usuarioPopUpController.js" />
+    <Content Include="app\controllers\valorPopUpController.js" />
     <Content Include="app\services\colegioDataService.js" />
     <Content Include="app\services\columnaColegioDataService.js" />
     <Content Include="app\services\conocimientoDataService.js" />
@@ -191,6 +193,7 @@
     <Content Include="app\services\pruebaDataService.js" />
     <Content Include="app\services\usuarioDataService.js" />
     <Content Include="app\services\usuarioSesion.js" />
+    <Content Include="app\services\valorDataService.js" />
     <Content Include="app\views\colegioPopUpView.html" />
     <Content Include="app\views\colegioView.html" />
     <Content Include="app\views\pruebaPopUpView.html" />
@@ -204,6 +207,7 @@
     <Content Include="app\views\historialClaseView.html" />
     <Content Include="app\views\usuarioPopUpView.html" />
     <Content Include="app\views\usuarioView.html" />
+    <Content Include="app\views\valorPopUpView.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
