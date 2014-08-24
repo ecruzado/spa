@@ -1,5 +1,6 @@
-﻿app.controller('claseController', function ($scope, $modal, $log, $routeParams,
-    $interval, $upload, $filter, $location, claseDataService, usuarioSesion) {
+﻿app.controller('claseController', function ($scope, $rootScope, $modal, $routeParams,
+    $interval, $upload, $filter, $location,
+    claseDataService, usuarioSesion, $log) {
     $scope.claseCabecera = {
         claseId: $routeParams.claseId,
         colegioId: 5,
@@ -14,16 +15,25 @@
     $scope.grados = [];
     $scope.archivos = [];
     $scope.path = "http://" + window.location.host;
+    $scope.hayCambios = false;
     init();
-    var intervalGuardar;
+
+    $scope.$on('$locationChangeStart', function (event) {
+        if ($scope.hayCambios) {
+            var answer = confirm("¿Deseas abandonar la página sin guardar los cambios realizados?");
+            if (!answer) {
+                event.preventDefault();
+            }
+        }
+    });
+
+    $scope.$watch('[claseCabecera,matriz,actividad]', function () {
+        $scope.hayCambios = true;
+    }, true);
 
     function init() {
         obtenerNiveles();
         obtenerClase();
-        intervalGuardar = $interval(function () {
-            claseDataService.saveClaseMatriz($scope.matriz);
-            claseDataService.claseActividadUpdate($scope.actividad);
-        }, 180000);
     }
 
     function obtenerClase() {
@@ -748,6 +758,7 @@
             claseDataService.saveClase($scope.claseCabecera).then(function (resultado) {
                 $location.path("/clase/" + resultado.data.claseId);
             });
+            $scope.hayCambios = false;
         });
     }
 

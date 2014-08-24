@@ -6,22 +6,22 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when("/columna/:nombre/:columnaId", {
         controller: "columnaController",
-        templateUrl: baseUrl+"app/views/columnaView.html?v=01"
+        templateUrl: baseUrl+"app/views/columnaView.html?v=02"
     });
 
     $routeProvider.when("/crearClase/:nombreArea/:area", {
         controller: "crearClaseController",
-        templateUrl: baseUrl + "app/views/crearClaseView.html?v=01"
+        templateUrl: baseUrl + "app/views/crearClaseView.html?v=02"
     });
 
     $routeProvider.when("/clase/:claseId", {
         controller: "claseController",
-        templateUrl: baseUrl + "app/views/claseView.html?v=01"
+        templateUrl: baseUrl + "app/views/claseView.html?v=02"
     });
 
     $routeProvider.when("/historialClase", {
         controller: "historialClaseController",
-        templateUrl: baseUrl + "app/views/historialClaseView.html?v=01"
+        templateUrl: baseUrl + "app/views/historialClaseView.html?v=02"
     });
 
     $routeProvider.when("/usuario", {
@@ -30,7 +30,7 @@ app.config(function ($routeProvider) {
     });
     $routeProvider.when("/colegio", {
         controller: "colegioController",
-        templateUrl: baseUrl + "app/views/colegioView.html?v=02"
+        templateUrl: baseUrl + "app/views/colegioView.html?v=03"
     });
     $routeProvider.when("/metodologia", {
         controller: "metodologiaController",

@@ -20,11 +20,13 @@ namespace Consilium.Web.Controllers
         private ClaseActividad claseActividad;
         Font normal;
         Font negrita;
+        Font letraTitulo;
 
         public ActionResult Imprimir(int id)
         {
-            normal = new Font(FontFactory.GetFont("Arial", 12, Font.NORMAL));
-            negrita = new Font(FontFactory.GetFont("Arial", 12, Font.BOLD));
+            letraTitulo = new Font(FontFactory.GetFont("Arial", 13, Font.BOLD));
+            normal = new Font(FontFactory.GetFont("Arial", 11, Font.NORMAL));
+            negrita = new Font(FontFactory.GetFont("Arial", 11, Font.BOLD));
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -40,7 +42,9 @@ namespace Consilium.Web.Controllers
                 //float[] widthMainTable = new float[] { 100.0f };
                 //mainTable.set(widthMainTable);
 
-                PdfPCell celdaTitulo = new PdfPCell(new Phrase("Clase",negrita));
+                mainTable.AddCell(GetEncabezado());
+
+                PdfPCell celdaTitulo = new PdfPCell(new Phrase("Clase", letraTitulo));
                 // se alinea a la derecha
                 celdaTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
                 // se quitan los bordes de la celda
@@ -70,6 +74,34 @@ namespace Consilium.Web.Controllers
             }
         }
 
+        private PdfPTable GetEncabezado() 
+        {
+            //se crea la  1 tabla que contiene las celdas
+            PdfPTable table1 = new PdfPTable(2);
+
+            // se definen los anchos de la tabla
+            float[] anchos1 = new float[] { 20.0f, 80.0f };
+            table1.SetWidths(anchos1);
+
+            // se crea la celda con el valor que contiene
+            string imagepath = Server.MapPath(@"~/Images");
+            Image img = Image.GetInstance(imagepath + "/logocentro.jpg");
+            img.ScalePercent(15f);
+            PdfPCell logo = new PdfPCell(img);
+            logo.HorizontalAlignment = Element.ALIGN_LEFT;
+            // se quitan los bordes de la celda
+            logo.Border = Rectangle.NO_BORDER;
+            // se agrega la celda a la tabla
+            table1.AddCell(logo);
+            PdfPCell celdaVacia = new PdfPCell();
+            celdaVacia.HorizontalAlignment = Element.ALIGN_CENTER;
+            celdaVacia.Border = Rectangle.NO_BORDER;
+            table1.AddCell(celdaVacia);
+
+
+            return table1;        
+        }
+
         private PdfPTable GetCabecera() 
         {
             PdfPTable table = new PdfPTable(1);
@@ -96,12 +128,12 @@ namespace Consilium.Web.Controllers
             table.HorizontalAlignment = Element.ALIGN_LEFT;
             table.WidthPercentage = 100.0f;
             // se definen los anchos de la tabla
-            float[] widthTable = new float[] { 8.0f, 2.0f, 15.0f, 8.0f, 2.0f, 15.0f, 8.0f, 2.0f, 15.0f, 8.0f, 2.0f, 15.0f };
+            float[] widthTable = new float[] { 8.0f, 2.0f, 15.0f, 8.0f, 2.0f, 7.0f, 12.0f, 2.0f, 15.0f, 12.0f, 2.0f, 15.0f };
             table.SetWidths(widthTable);
 
             Clase clase = ClaseLogica.Instancia.Get(claseId);
 
-            PdfPCell celdaLabelNombre = new PdfPCell(new Phrase("Titulo", negrita));
+            PdfPCell celdaLabelNombre = new PdfPCell(new Phrase("Título", negrita));
             celdaLabelNombre.HorizontalAlignment = Element.ALIGN_RIGHT;
             celdaLabelNombre.Border = Rectangle.NO_BORDER;
             table.AddCell(celdaLabelNombre);
@@ -116,7 +148,7 @@ namespace Consilium.Web.Controllers
             celdaNombre.Colspan = 10;
             table.AddCell(celdaNombre);
 
-            PdfPCell celdaLabelArea = new PdfPCell(new Phrase("Area",negrita));
+            PdfPCell celdaLabelArea = new PdfPCell(new Phrase("Área",negrita));
             celdaLabelArea.HorizontalAlignment = Element.ALIGN_RIGHT;
             celdaLabelArea.Border = Rectangle.NO_BORDER;
             table.AddCell(celdaLabelArea);
@@ -183,7 +215,7 @@ namespace Consilium.Web.Controllers
             celdaVacia.Border = Rectangle.NO_BORDER;
             table.AddCell(celdaVacia);
 
-            PdfPCell celdaFechaInicio = new PdfPCell(new Phrase(clase.FechaInicioFormato));
+            PdfPCell celdaFechaInicio = new PdfPCell(new Phrase(clase.FechaInicioFormato,normal));
             celdaFechaInicio.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaFechaInicio.Border = Rectangle.NO_BORDER;
             table.AddCell(celdaFechaInicio);
@@ -233,7 +265,7 @@ namespace Consilium.Web.Controllers
             tabla.HorizontalAlignment = Element.ALIGN_LEFT;
             tabla.WidthPercentage = 100.0f;
             
-            PdfPCell celdaTituloCapacidad = new PdfPCell(new Phrase("1. Capcacidades",negrita));
+            PdfPCell celdaTituloCapacidad = new PdfPCell(new Phrase("1. Capacidades",negrita));
             celdaTituloCapacidad.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaTituloCapacidad.Border = Rectangle.BOTTOM_BORDER;
             tabla.AddCell(celdaTituloCapacidad);
@@ -379,7 +411,7 @@ namespace Consilium.Web.Controllers
             float[] widthTable = new float[] { 10.0f, 80.0f };
             tabla.SetWidths(widthTable);
 
-            PdfPCell celdaTitulo = new PdfPCell(new Phrase("4. Metodologia",negrita));
+            PdfPCell celdaTitulo = new PdfPCell(new Phrase("4. Metodología",negrita));
             celdaTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaTitulo.Border = Rectangle.BOTTOM_BORDER;
             celdaTitulo.Colspan = 2;
