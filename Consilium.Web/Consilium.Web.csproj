@@ -151,9 +151,11 @@
     <Compile Include="Controllers\ColumnaController.cs" />
     <Compile Include="Controllers\ConocimientoController.cs" />
     <Compile Include="Controllers\ContenidoController.cs" />
+    <Compile Include="Controllers\CriterioController.cs" />
     <Compile Include="Controllers\GradoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListaColumnaController.cs" />
+    <Compile Include="Controllers\MetecnicaController.cs" />
     <Compile Include="Controllers\MetodologiaController.cs" />
     <Compile Include="Controllers\NivelController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
@@ -170,6 +172,7 @@
     <Content Include="app\controllers\colegioController.js" />
     <Content Include="app\controllers\colegioPopUpController.js" />
     <Content Include="app\controllers\metodoligaPopUpController.js" />
+    <Content Include="app\controllers\metodologiaController.js" />
     <Content Include="app\controllers\pruebaPopUpController.js" />
     <Content Include="app\controllers\conocimientoPopUpController.js" />
     <Content Include="app\controllers\listaColumnaPopUpController.js" />
@@ -200,6 +203,7 @@
     <Content Include="app\views\colegioPopUpView.html" />
     <Content Include="app\views\colegioView.html" />
     <Content Include="app\views\metodologiaPopUpView.html" />
+    <Content Include="app\views\metodologiaView.html" />
     <Content Include="app\views\pruebaPopUpView.html" />
     <Content Include="app\views\conocimientoPopUpView.html" />
     <Content Include="app\views\listaColumnaPopUpView.html" />

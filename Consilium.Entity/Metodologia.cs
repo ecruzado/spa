@@ -11,5 +11,7 @@ namespace Consilium.Entity
         public String Criterio { get; set; }
         public int MetecnicaId { get; set; }
         public string Metecnica { get; set; }
+        public int ColegioId { get; set; }
+        public int AreaId { get; set; }
     }
 }

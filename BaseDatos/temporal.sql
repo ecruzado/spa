@@ -164,3 +164,6 @@ select * from colegio
 
 select * from valores
 select * from actitud
+
+select * from dbo.metecnica m where m.criterio_id = 1
+select * from dbo.criterio c where c.colegio_id = 1

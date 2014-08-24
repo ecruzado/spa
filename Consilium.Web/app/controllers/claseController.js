@@ -655,7 +655,7 @@
 
     $scope.popUpPruebas = function () {
         var modalInstance = $modal.open({
-            templateUrl: '/app/views/pruebaPopUpView.html?v=2',
+            templateUrl: '/app/views/pruebaPopUpView.html?v=1',
             controller: 'pruebaPopUpController',
             size: 'sm',
             resolve: {
