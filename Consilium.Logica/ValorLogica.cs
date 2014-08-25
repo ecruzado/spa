@@ -16,5 +16,54 @@ namespace Consilium.Logica
         {
             return valorData.ListByColegio(colegioId);
         }
+
+        #region valor
+
+        public List<Valor> ListValorByColegio(int colegioId) 
+        {
+            return valorData.ListValorByColegio(colegioId);
+        }
+
+        public int CrearValor(Valor valor) 
+        {
+            return valorData.CrearValor(valor);
+        }
+
+        public int ActualizarValor(Valor valor) 
+        {
+            return valorData.ActualizarValor(valor);
+        }
+
+        public int DeleteValor(Valor valor) 
+        {
+            return valorData.DeleteValor(valor);
+        }
+
+        #endregion
+        
+        #region actiud
+        
+        public List<Valor> ListActitudByValor(int valorId) 
+        {
+            return valorData.ListActitudByValor(valorId);
+        }
+
+        public int CrearActitud(Valor actitud) 
+        {
+            return valorData.CrearActitud(actitud);
+        }
+
+        public int ActualizarActitud(Valor actitud) 
+        {
+            return valorData.ActualizarActitud(actitud);
+        }
+
+        public int DeleteActitud(Valor actitud) 
+        {
+            return valorData.DeleteActitud(actitud);
+        }
+
+        #endregion
+
     }
 }

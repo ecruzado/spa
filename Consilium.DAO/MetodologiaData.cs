@@ -10,7 +10,7 @@ namespace Consilium.DAO
 {
     public class MetodologiaData : BaseData
     {
-        public List<ItemNodo> ListByColegio(int colegioId)
+        public List<ItemNodo> ListByColegioAndArea(int colegioId, int areaId)
         {
 
             string spName = "clase.sp_metodo_lst";
@@ -24,6 +24,7 @@ namespace Consilium.DAO
                     using (SqlCommand command = new SqlCommand(spName, conn))
                     {
                         command.Parameters.Add(ObjSqlParameter("@colegio_id", colegioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@area_id", areaId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.CommandType = CommandType.StoredProcedure;
                         conn.Open();
 

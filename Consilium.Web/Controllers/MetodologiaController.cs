@@ -12,9 +12,9 @@ namespace Consilium.Web.Controllers
     public class MetodologiaController : ApiController
     {
         // GET api/nivel
-        public IEnumerable<ItemNodo> Get(int colegioId)
+        public IEnumerable<ItemNodo> Get(int colegioId, int areaId)
         {
-            var lista = MetodologiaLogica.Instancia.ListByColegio(colegioId);
+            var lista = MetodologiaLogica.Instancia.ListByColegioAndArea(colegioId,areaId);
             return lista;
         }
     }

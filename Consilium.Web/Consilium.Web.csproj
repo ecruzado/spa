@@ -129,6 +129,7 @@
     <Compile Include="Code\ExceptionHandlingAttribute.cs" />
     <Compile Include="Code\ValidateSesionAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActitudController.cs" />
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\ArchivoController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValorController.cs" />
+    <Compile Include="Controllers\ValoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,6 +188,7 @@
     <Content Include="app\controllers\sesionController.js" />
     <Content Include="app\controllers\usuarioController.js" />
     <Content Include="app\controllers\usuarioPopUpController.js" />
+    <Content Include="app\controllers\valorController.js" />
     <Content Include="app\controllers\valorPopUpController.js" />
     <Content Include="app\services\colegioDataService.js" />
     <Content Include="app\services\columnaColegioDataService.js" />
@@ -216,6 +219,7 @@
     <Content Include="app\views\usuarioPopUpView.html" />
     <Content Include="app\views\usuarioView.html" />
     <Content Include="app\views\valorPopUpView.html" />
+    <Content Include="app\views\valorView.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

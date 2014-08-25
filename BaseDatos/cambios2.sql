@@ -161,3 +161,162 @@ GO
 
 
 
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_valores_lst')
+   DROP PROCEDURE [clase].sp_valores_lst
+GO
+
+CREATE PROC clase.sp_valores_lst
+	@colegio_id int
+AS
+BEGIN
+	SELECT v.valores_id, v.valores, v.colegio_id
+	FROM dbo.valores v
+	WHERE v.colegio_id = @colegio_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_valores_insert')
+   DROP PROCEDURE [clase].sp_valores_insert
+GO
+
+CREATE PROC clase.sp_valores_insert 
+	@valores nvarchar(300),
+	@colegio_id int,
+	@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+	INSERT INTO dbo.valores(valores, colegio_id)
+	VALUES (@valores, @colegio_id)
+	SET @new_identity = SCOPE_IDENTITY();
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_valores_update')
+   DROP PROCEDURE [clase].sp_valores_update
+GO
+
+CREATE PROC clase.sp_valores_update
+	@valores_id int,
+	@valores nvarchar(300),
+	@colegio_id int
+AS
+BEGIN
+
+UPDATE dbo.valores 
+set valores = @valores,
+	colegio_id = @colegio_id
+where valores_id = @valores_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_valores_delete')
+   DROP PROCEDURE [clase].sp_valores_delete
+GO
+
+CREATE PROC clase.sp_valores_delete
+	@valores_id int
+AS
+BEGIN
+
+delete from dbo.valores where valores_id = @valores_id
+
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_actitud_lstByValores')
+   DROP PROCEDURE [clase].sp_actitud_lstByValores
+GO
+
+CREATE PROC clase.sp_actitud_lstByValores
+	@valores_id int
+AS
+BEGIN
+	SELECT a.valores_id, a.actitud_id, a.actitud
+	FROM dbo.actitud a 
+	WHERE a.valores_id = @valores_id
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_actitud_insert')
+   DROP PROCEDURE [clase].sp_actitud_insert
+GO
+
+CREATE PROC clase.sp_actitud_insert 
+	@actitud nvarchar(500),
+	@valores_id int,
+	@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+	INSERT INTO dbo.actitud(valores_id,actitud)
+	VALUES (@valores_id, @actitud)
+	SET @new_identity = SCOPE_IDENTITY();
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_actitud_update')
+   DROP PROCEDURE [clase].sp_actitud_update
+GO
+
+CREATE PROC clase.sp_actitud_update
+	@actitud_id int,
+	@actitud nvarchar(500),
+	@valores_id int
+AS
+BEGIN
+
+UPDATE dbo.actitud 
+set actitud = @actitud,
+	valores_id = @valores_id
+where actitud_id = @actitud_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_actitud_delete')
+   DROP PROCEDURE [clase].sp_actitud_delete
+GO
+
+CREATE PROC clase.sp_actitud_delete
+	@actitud_id int
+AS
+BEGIN
+
+delete from dbo.actitud where actitud_id = @actitud_id
+
+END
+
+GO

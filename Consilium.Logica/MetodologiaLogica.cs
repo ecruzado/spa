@@ -12,9 +12,9 @@ namespace Consilium.Logica
     {
         private MetodologiaData metodologiaData = new MetodologiaData();
 
-        public List<ItemNodo> ListByColegio(int colegioId)
+        public List<ItemNodo> ListByColegioAndArea(int colegioId,int areaId)
         {
-            return metodologiaData.ListByColegio(colegioId);
+            return metodologiaData.ListByColegioAndArea(colegioId, areaId);
         }
         
         #region criterio
