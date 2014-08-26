@@ -5,8 +5,8 @@ GO
 IF EXISTS (
 	SELECT * FROM sys.objects o
 		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
-		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_dearea_lst')
-   DROP PROCEDURE [clase].[sp_dearea_lst]
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_capacidad_lst')
+   DROP PROCEDURE [clase].sp_capacidad_lst
 GO
 
 -- =============================================
@@ -14,14 +14,14 @@ GO
 -- Create date: 21-06-14
 -- Description:	Lista dearea con sus especificas y operativas
 -- =============================================
-CREATE PROCEDURE [clase].[sp_dearea_lst]
+CREATE PROCEDURE [clase].sp_capacidad_lst
 @area as int,
 @colegio_id as int
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-select da.dearea_id, da.dearea, e.especifica_id, e.especifica, o.operativa_id, o.operativa
+select da.dearea_id n1_id, da.dearea n1_valor, e.especifica_id n2_id, e.especifica n2_valor, o.operativa_id n3_id, o.operativa n3_valor
 from dearea da inner join especifica e on da.dearea_id = e.dearea_id
 	inner join operativa o on e.especifica_id = o.especifica_id
 where da.area = @area

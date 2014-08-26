@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area.cs" />
+    <Compile Include="Capacidad.cs" />
     <Compile Include="Clase.cs" />
     <Compile Include="ClaseActividad.cs" />
     <Compile Include="ClaseArchivo.cs" />

@@ -40,6 +40,10 @@ app.config(function ($routeProvider) {
         controller: "valorController",
         templateUrl: baseUrl + "app/views/valorView.html?v=02"
     });
+    $routeProvider.when("/capacidad", {
+        controller: "capacidadController",
+        templateUrl: baseUrl + "app/views/capacidadView.html?v=02"
+    });
     $routeProvider.otherwise({ redirectTo: "/crearClase" });
 
 });

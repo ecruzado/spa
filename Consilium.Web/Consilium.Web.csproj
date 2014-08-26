@@ -153,12 +153,15 @@
     <Compile Include="Controllers\ConocimientoController.cs" />
     <Compile Include="Controllers\ContenidoController.cs" />
     <Compile Include="Controllers\CriterioController.cs" />
+    <Compile Include="Controllers\DeAreaController.cs" />
+    <Compile Include="Controllers\EspecificaController.cs" />
     <Compile Include="Controllers\GradoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListaColumnaController.cs" />
     <Compile Include="Controllers\MetecnicaController.cs" />
     <Compile Include="Controllers\MetodologiaController.cs" />
     <Compile Include="Controllers\NivelController.cs" />
+    <Compile Include="Controllers\OperativaController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValorController.cs" />
@@ -171,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\capacidadController.js" />
     <Content Include="app\controllers\colegioController.js" />
     <Content Include="app\controllers\colegioPopUpController.js" />
     <Content Include="app\controllers\metodoligaPopUpController.js" />
@@ -203,6 +207,7 @@
     <Content Include="app\services\usuarioDataService.js" />
     <Content Include="app\services\usuarioSesion.js" />
     <Content Include="app\services\valorDataService.js" />
+    <Content Include="app\views\capacidadView.html" />
     <Content Include="app\views\colegioPopUpView.html" />
     <Content Include="app\views\colegioView.html" />
     <Content Include="app\views\metodologiaPopUpView.html" />

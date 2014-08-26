@@ -167,3 +167,27 @@ select * from actitud
 
 select * from dbo.metecnica m where m.criterio_id = 1
 select * from dbo.criterio c where c.colegio_id = 1
+
+select * from dbo.valores
+select * from dbo.actitud a where a.valores_id = 10
+
+
+select da.dearea_id, da.dearea, e.especifica_id, e.especifica, o.operativa_id, o.operativa
+from dearea da inner join especifica e on da.dearea_id = e.dearea_id
+	inner join operativa o on e.especifica_id = o.especifica_id
+where da.area = 1
+	and da.colegio_id = 1 
+order by da.dearea, da.dearea_id, e.especifica, e.especifica_id, o.operativa, o.operativa_id
+
+sp_dearea_lst
+sp_dearea_insert
+sp_dearea_update
+sp_dearea_delete
+sp_especifica_lst
+sp_especifica_insert
+sp_especifica_update
+sp_especifica_delete
+sp_operativa_lst
+sp_operativa_insert
+sp_operativa_update
+sp_operativa_delete

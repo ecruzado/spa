@@ -320,3 +320,285 @@ delete from dbo.actitud where actitud_id = @actitud_id
 END
 
 GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_dearea_lst')
+   DROP PROCEDURE [clase].sp_dearea_lst
+GO
+
+CREATE PROCEDURE clase.sp_dearea_lst
+	@area as int,
+	@colegio_id as int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT [dearea_id] ,[dearea] ,[area] FROM [dearea] where area=@area and colegio_id=@colegio_id 
+  
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_dearea_insert')
+   DROP PROCEDURE [clase].sp_dearea_insert
+GO
+
+CREATE PROCEDURE clase.sp_dearea_insert
+	@dearea nvarchar(150)
+    ,@area int
+    ,@colegio_id int
+	,@new_identity INT = NULL OUTPUT
+AS
+
+BEGIN
+
+INSERT INTO [dearea]
+          ([dearea]
+           ,[area]
+           ,[colegio_id])
+     VALUES
+           (@dearea
+           ,@area
+           ,@colegio_id)
+
+	SET @new_identity = SCOPE_IDENTITY();
+
+END 
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_dearea_update')
+   DROP PROCEDURE [clase].sp_dearea_update
+GO
+
+CREATE PROCEDURE clase.sp_dearea_update
+	@dearea nvarchar(150)
+	,@dearea_id int 
+	,@area int
+	,@colegio_id int
+AS
+
+BEGIN
+
+UPDATE [dearea]
+SET [dearea] = @dearea
+WHERE dearea_id=@dearea_id
+
+END 
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_dearea_delete')
+   DROP PROCEDURE [clase].sp_dearea_delete
+GO
+
+CREATE PROCEDURE clase.sp_dearea_delete
+	@dearea_id int
+AS
+
+BEGIN
+
+DELETE FROM [dearea]
+WHERE dearea_id = @dearea_id
+
+END
+ 
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_especifica_lst')
+   DROP PROCEDURE [clase].sp_especifica_lst
+GO
+
+CREATE PROCEDURE clase.sp_especifica_lst
+	@dearea_id as int
+AS
+
+
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT [especifica_id]
+      ,[especifica]
+      ,[dearea_id]
+  FROM [especifica] 
+  where [dearea_id]=@dearea_id
+  
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_especifica_insert')
+   DROP PROCEDURE [clase].sp_especifica_insert
+GO
+
+CREATE PROCEDURE [clase].sp_especifica_insert
+	@especifica nvarchar(150)
+    ,@dearea_id int
+	,@new_identity INT = NULL OUTPUT
+AS
+
+BEGIN
+
+INSERT INTO [especifica]([especifica]
+           ,[dearea_id])
+     VALUES
+           (@especifica
+           ,@dearea_id)
+	SET @new_identity = SCOPE_IDENTITY();
+END
+           
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_especifica_update')
+   DROP PROCEDURE [clase].sp_especifica_update
+GO
+
+CREATE PROCEDURE clase.sp_especifica_update
+	@especifica nvarchar(150)
+	,@dearea_id int
+	,@especifica_id int
+AS
+
+BEGIN
+
+UPDATE [especifica]
+   SET [especifica] = @especifica
+WHERE especifica_id = @especifica_id
+
+END 
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_especifica_delete')
+   DROP PROCEDURE [clase].sp_especifica_delete
+GO
+
+CREATE PROCEDURE clase.sp_especifica_delete
+    @especifica_id int
+AS
+
+BEGIN
+
+DELETE FROM [especifica]
+WHERE especifica_id=@especifica_id
+
+END 
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_operativa_lst')
+   DROP PROCEDURE [clase].sp_operativa_lst
+GO
+
+CREATE PROCEDURE clase.sp_operativa_lst
+	@especifica_id as int
+AS
+
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT [operativa_id]
+      ,[operativa]
+      ,[especifica_id]
+FROM [operativa] WHERE especifica_id=@especifica_id
+  
+END
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_operativa_insert')
+   DROP PROCEDURE [clase].sp_operativa_insert
+GO
+
+CREATE PROCEDURE clase.sp_operativa_insert
+	@operativa nvarchar(150)
+	,@especifica_id int
+	,@new_identity INT = NULL OUTPUT
+AS
+
+BEGIN
+
+INSERT INTO [operativa]
+   ([operativa]
+    ,[especifica_id])
+     VALUES
+    (@operativa
+    ,@especifica_id)
+
+	SET @new_identity = SCOPE_IDENTITY();
+
+END
+           
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_operativa_update')
+   DROP PROCEDURE [clase].sp_operativa_update
+GO
+
+CREATE PROCEDURE clase.sp_operativa_update
+	@operativa nvarchar(150)
+	,@especifica_id int
+	,@operativa_id int
+AS
+
+BEGIN
+
+UPDATE [operativa]
+   SET [operativa] = @operativa
+ WHERE operativa_id=@operativa_id
+
+END 
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_operativa_delete')
+   DROP PROCEDURE [clase].sp_operativa_delete
+GO
+
+CREATE PROCEDURE clase.sp_operativa_delete
+   @operativa_id int
+AS
+
+BEGIN
+
+DELETE FROM [operativa]
+WHERE operativa_id =@operativa_id
+
+END 
+
+GO

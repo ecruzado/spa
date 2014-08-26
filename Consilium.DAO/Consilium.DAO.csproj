@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AreaData.cs" />
     <Compile Include="BaseData.cs" />
+    <Compile Include="CapacidadData.cs" />
     <Compile Include="ClaseData.cs" />
     <Compile Include="ClaseConfColumnaColegioData.cs" />
     <Compile Include="ColegioData.cs" />
