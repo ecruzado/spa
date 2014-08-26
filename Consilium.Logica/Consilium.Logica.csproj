@@ -63,6 +63,7 @@
     <Compile Include="GradoLogica.cs" />
     <Compile Include="NivelLogica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReporteLogica.cs" />
     <Compile Include="UsuarioLogica.cs" />
     <Compile Include="ValorLogica.cs" />
   </ItemGroup>

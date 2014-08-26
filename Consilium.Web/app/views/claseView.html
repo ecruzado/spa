@@ -104,26 +104,26 @@
     </div>
 </div>
 <div class="row show-grid">
-    <div class="col-xs-9">
+    <div class="col-xs-9" style="width: 80% !important">
         <button type="button" class="btn btn-info btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">7. Actividades (escribir dentro de la caja, hasta 1530 cacteres)</button>
     </div>
-    <div class="col-xs-1">
+    <div class="col-xs-1" style="width: 5% !important">
         <button type="button" class="btn btn-info btn-sm btn-clase" style="width:100%" ng-click="" disabled="disabled">8. Horas</button>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-2" style="width: 15% !important">
         <span class="btn btn-info btn-sm btn-clase btn-file" style="width:80%">
             9. Archivos <input type="file" ng-file-select="onFileSelect($files)">
         </span><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseArchivo()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
 </div>
 <div class="row show-grid">
-    <div class="col-xs-9" style="height:400px">
+    <div class="col-xs-9" style="width: 80% !important;height:400px">
         <text-angular ng-model="actividad.actividades" ta-toolbar="[['bold','italics','underline','ul','ol'],['justifyLeft','justifyCenter','justifyRight']]" ta-html-editor-class="textarea-actividad"></text-angular>
     </div>
-    <div class="col-xs-1" style="height:400px">
+    <div class="col-xs-1" style="width: 5% !important;height:400px">
         <textarea ng-model="actividad.horas" style="height:100%;width:100%;resize:none;"></textarea>
     </div>
-    <div class="col-xs-2" style="height:400px;overflow:auto;">
+    <div class="col-xs-2" style="width: 15% !important;height:400px;overflow:auto;">
         <ul class="jstree-container-ul jstree-children jstree-no-icons" style="width:50px">
             <li class="jstree-node  jstree-last jstree-closed" ng-repeat="archivo in archivos"><input type="checkbox" ng-model="archivo.seleccion"/> <a target="_blank" href="/api/archivo/{{archivo.claseArchivoId}}">{{archivo.nombre}}</a></li>
         </ul>
@@ -178,7 +178,7 @@
     </div>
     <div class="col-xs-4">
         <div style="width:100%;height:300px">
-            <div id="jsClasePrueba" style="height:100px"></div>
+            <div id="jsClasePrueba" style="height:100px;overflow:scroll"></div>
             <div><button class="btn btn-success btn-sm btn-clase" style="width:100%" disabled="disabled">Ingrese algun comentario referente a la prueba</button></div>
             <textarea ng-model="matriz.pruebaTexto" style="height:168px;width:100%;resize:none"></textarea>
         </div>

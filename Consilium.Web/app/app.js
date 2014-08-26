@@ -44,6 +44,10 @@ app.config(function ($routeProvider) {
         controller: "capacidadController",
         templateUrl: baseUrl + "app/views/capacidadView.html?v=02"
     });
+    $routeProvider.when("/reporte", {
+        controller: "reporteController",
+        templateUrl: baseUrl + "app/views/reporteView.html?v=02"
+    });
     $routeProvider.otherwise({ redirectTo: "/crearClase" });
 
 });

@@ -18,12 +18,15 @@ namespace Consilium.Web.Controllers
         // GET: /ClaseImpresion/
         private ClaseMatriz claseMatriz;
         private ClaseActividad claseActividad;
+        private Clase clase;
         Font normal;
         Font negrita;
         Font letraTitulo;
 
         public ActionResult Imprimir(int id)
         {
+            clase = ClaseLogica.Instancia.Get(id);
+
             letraTitulo = new Font(FontFactory.GetFont("Arial", 13, Font.BOLD));
             normal = new Font(FontFactory.GetFont("Arial", 11, Font.NORMAL));
             negrita = new Font(FontFactory.GetFont("Arial", 11, Font.BOLD));
@@ -93,8 +96,9 @@ namespace Consilium.Web.Controllers
             logo.Border = Rectangle.NO_BORDER;
             // se agrega la celda a la tabla
             table1.AddCell(logo);
-            PdfPCell celdaVacia = new PdfPCell();
+            PdfPCell celdaVacia = new PdfPCell(new Phrase(clase.Colegio,letraTitulo));
             celdaVacia.HorizontalAlignment = Element.ALIGN_CENTER;
+            celdaVacia.VerticalAlignment = Element.ALIGN_MIDDLE;
             celdaVacia.Border = Rectangle.NO_BORDER;
             table1.AddCell(celdaVacia);
 
@@ -131,8 +135,6 @@ namespace Consilium.Web.Controllers
             float[] widthTable = new float[] { 8.0f, 2.0f, 15.0f, 8.0f, 2.0f, 7.0f, 12.0f, 2.0f, 15.0f, 12.0f, 2.0f, 15.0f };
             table.SetWidths(widthTable);
 
-            Clase clase = ClaseLogica.Instancia.Get(claseId);
-
             PdfPCell celdaLabelNombre = new PdfPCell(new Phrase("Título", negrita));
             celdaLabelNombre.HorizontalAlignment = Element.ALIGN_RIGHT;
             celdaLabelNombre.Border = Rectangle.NO_BORDER;
@@ -143,7 +145,7 @@ namespace Consilium.Web.Controllers
             table.AddCell(celdaVacia);
 
             PdfPCell celdaNombre = new PdfPCell(new Phrase(clase.Titulo,normal));
-            celdaNombre.HorizontalAlignment = Element.ALIGN_LEFT;
+            celdaNombre.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaNombre.Border = Rectangle.NO_BORDER;
             celdaNombre.Colspan = 10;
             table.AddCell(celdaNombre);
@@ -282,7 +284,7 @@ namespace Consilium.Web.Controllers
             {
                 if (deAreaAnt != item.DeArea)
                 {
-                    celda.AddElement(new Phrase(item.Operativa,normal));
+                    celda.AddElement(new Phrase(item.DeArea,normal));
                     deAreaAnt = item.DeArea;
                 }
                 if (especificaAnt != item.Especifica)

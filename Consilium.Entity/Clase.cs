@@ -28,5 +28,7 @@ namespace Consilium.Entity
         public string FechaFinFormato { get; set; }
 
         public string FechaRegistroFormato { get; set; }
+
+        public string Colegio { get; set; }
     }
 }

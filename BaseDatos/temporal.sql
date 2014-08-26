@@ -191,3 +191,11 @@ sp_operativa_lst
 sp_operativa_insert
 sp_operativa_update
 sp_operativa_delete
+
+sp_reporte_capacidad
+sp_reporte_contenido
+sp_reporte_metodos
+sp_reporte_valores
+sp_reporte_logro
+sp_reporte_tipo_conocimiento
+sp_reporte_prueba

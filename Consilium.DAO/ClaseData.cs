@@ -245,6 +245,7 @@ namespace Consilium.DAO
                             clase.GradoId = dr.GetInt32(dr.GetOrdinal("grado_id"));
                             clase.AreaId = dr.GetInt32(dr.GetOrdinal("area_id"));
                             clase.ColegioId = dr.GetInt32(dr.GetOrdinal("colegio_id"));
+                            clase.Colegio = dr.GetString(dr.GetOrdinal("colegio_nombre"));
                         }
 
                     }

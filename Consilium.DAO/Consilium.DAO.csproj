@@ -56,6 +56,7 @@
     <Compile Include="ContenidoData.cs" />
     <Compile Include="DeAreaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReporteData.cs" />
     <Compile Include="UsuarioData.cs" />
     <Compile Include="ValorData.cs" />
   </ItemGroup>

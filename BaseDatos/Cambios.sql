@@ -594,11 +594,12 @@ BEGIN
 SELECT c.clase_id, c.clase_titulo, a.area, n.nivel, 
 	g.grado, c.fecha_inicio, c.fecha_fin, c.fecha_reg,
 	c.usuario, c.formato, c.nivel_id, c.grado_id,
-	c.area_id, c.colegio_id
+	c.area_id, c.colegio_id, co.colegio_nombre
 FROM [clase] as c 
 	inner join area as a on c.area_id=a.area_id
 	inner join niveles as n on c.nivel_id=n.nivel_id
 	inner join grado as g on c.grado_id=g.grado_id
+	inner join colegio as co on c.colegio_id = co.colegio_id
 where c.clase_id=@clase_id
 ORDER BY c.clase_id DESC
   

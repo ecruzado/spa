@@ -442,12 +442,12 @@
         modalInstance.result.then(function (seleccion) {
             for (i = 0; i < seleccion.length; i++) {
                 var auxSeparacion = seleccion[i].split('-');
-                if (auxSeparacion[0] == 'O') {
+                if (auxSeparacion[0] == 'N3') {
                     var claseCapacidad = {};
                     claseCapacidad.operativaId = auxSeparacion[1];
                     claseCapacidad.claseId = $scope.claseCabecera.claseId;
                     claseDataService.saveClaseCapacidad(claseCapacidad).then(function () {
-                        init();
+                        obtenerClaseCapacidades();
                     });
                 }
             }
@@ -490,7 +490,7 @@
                     claseContenido.contenidoId = auxSeparacion[1];
                     claseContenido.claseId = $scope.claseCabecera.claseId;
                     claseDataService.saveClaseContenido(claseContenido).then(function () {
-                        init();
+                        obtenerClaseContenidos();
                     });
                 }
             }
