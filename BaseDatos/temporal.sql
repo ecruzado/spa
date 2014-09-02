@@ -199,3 +199,20 @@ sp_reporte_valores
 sp_reporte_logro
 sp_reporte_tipo_conocimiento
 sp_reporte_prueba
+
+SELECT REPLACE(REPLACE(@str, CHAR(13), ''), CHAR(10), '')
+
+GO
+
+select * 
+from clase_actividad ca 
+	inner join clase c on ca.clase_id = c.clase_id 
+where ca.actividades like '%'+char(10)+'%'
+
+select * 
+from clase_actividad ca where ca.clase_id= 5717
+
+update clase_actividad 
+set actividades = REPLACE(REPLACE(actividades, CHAR(13), '<br/>'), CHAR(10), '<br/>')
+where clase_id = 5717
+--

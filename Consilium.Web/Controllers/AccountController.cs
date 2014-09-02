@@ -18,8 +18,12 @@ namespace Consilium.Web.Controllers
         //
         // GET: /Account/LogOn
         [AllowAnonymous]   
-        public ActionResult LogOn()
+        public ActionResult LogOn(string acceso)
         {
+            if (acceso == null) 
+            {
+                return Redirect("http://consilium-educacion.jimdo.com");
+            }
             return View();
         }
 

@@ -46,6 +46,12 @@ namespace Consilium.Logica
             return claseData.Actualizar(clase);
         }
 
+        public int Delete(int claseId)
+        {
+            return claseData.Delete(claseId);
+        }
+
+
         public List<Clase> List(int colegioId)
         {
             var lista = claseData.List(colegioId);

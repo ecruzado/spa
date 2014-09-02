@@ -4,7 +4,7 @@
     init();
 
     function init() {
-        metodologiaDataService.metodologias(claseCabecera.colegioId)
+        metodologiaDataService.metodologias(claseCabecera.colegioId,claseCabecera.areaId)
             .then(function (resultado) {
                 var arr = resultado.data;
                 var listaTree = [],

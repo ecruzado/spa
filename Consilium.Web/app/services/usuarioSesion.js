@@ -19,10 +19,12 @@
     }
     var _verificarUsuario = function () {
         return $http.get('/account/VerificarUsuario').then(function (results) {
-            if (!results.data.sesionActiva)
-                window.location= "http://"+window.location.host + "/Account/LogOn";
+            if (!results.data.sesionActiva) {
+                window.location = "http://consilium-educacion.jimdo.com";
+            }
         }, function (error) {
-            window.location = "http://" + window.location.host + "/Account/LogOn";
+            //window.location = "http://" + window.location.host + "/Account/LogOn";
+            window.location = "http://consilium-educacion.jimdo.com";
         });
     }
     usuarioSesion.getUsuario = _getUsuario;

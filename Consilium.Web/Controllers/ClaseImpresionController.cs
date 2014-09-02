@@ -27,9 +27,9 @@ namespace Consilium.Web.Controllers
         {
             clase = ClaseLogica.Instancia.Get(id);
 
-            letraTitulo = new Font(FontFactory.GetFont("Arial", 13, Font.BOLD));
-            normal = new Font(FontFactory.GetFont("Arial", 11, Font.NORMAL));
-            negrita = new Font(FontFactory.GetFont("Arial", 11, Font.BOLD));
+            letraTitulo = new Font(FontFactory.GetFont("Arial", 11, Font.BOLD));
+            normal = new Font(FontFactory.GetFont("Arial", 9, Font.NORMAL));
+            negrita = new Font(FontFactory.GetFont("Arial", 9, Font.BOLD));
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -47,7 +47,7 @@ namespace Consilium.Web.Controllers
 
                 mainTable.AddCell(GetEncabezado());
 
-                PdfPCell celdaTitulo = new PdfPCell(new Phrase("Clase", letraTitulo));
+                PdfPCell celdaTitulo = new PdfPCell(new Phrase("Diseño de Clase", letraTitulo));
                 // se alinea a la derecha
                 celdaTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
                 // se quitan los bordes de la celda
@@ -540,6 +540,10 @@ namespace Consilium.Web.Controllers
             var lista = HTMLWorker.ParseToList(new StringReader(claseActividad.Actividades), styles);
             foreach (var item in lista)
             {
+                if (item is Paragraph)
+                {
+                    ((Paragraph)item).Font = normal;
+                }
                 celdaActividad.AddElement((IElement)item);
             }
             celdaActividad.Border = Rectangle.NO_BORDER;
@@ -557,7 +561,7 @@ namespace Consilium.Web.Controllers
             celdaTituloActividadHora.Border = Rectangle.BOTTOM_BORDER;
             tablaActividadHora.AddCell(celdaTituloActividadHora);
 
-            PdfPCell celdaActividadHora = new PdfPCell(new Phrase(claseActividad.Horas));
+            PdfPCell celdaActividadHora = new PdfPCell(new Phrase(claseActividad.Horas,normal));
             celdaActividadHora.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaActividadHora.Border = Rectangle.NO_BORDER;
             tablaActividadHora.AddCell(celdaActividadHora);
@@ -626,37 +630,37 @@ namespace Consilium.Web.Controllers
 
             PdfPCell celdaCombo = null;
 
-            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Formativa)+"Formativa"));
+            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Formativa)+"Formativa",normal));
             celdaCombo.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaCombo.Border = Rectangle.RIGHT_BORDER;
             tableMatrizCombo.AddCell(celdaCombo);
 
-            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Sumativa) + "Sumativa"));
+            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Sumativa) + "Sumativa",normal));
             celdaCombo.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaCombo.Border = Rectangle.RIGHT_BORDER;
             tableMatrizCombo.AddCell(celdaCombo);
 
-            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.AutoEvaluativa) + "AutoEvaluativa"));
+            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.AutoEvaluativa) + "AutoEvaluativa",normal));
             celdaCombo.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaCombo.Border = Rectangle.RIGHT_BORDER;
             tableMatrizCombo.AddCell(celdaCombo);
 
-            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Coevaluativa) + "Coevaluativa"));
+            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Coevaluativa) + "Coevaluativa",normal));
             celdaCombo.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaCombo.Border = Rectangle.RIGHT_BORDER;
             tableMatrizCombo.AddCell(celdaCombo);
 
-            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.HeteroEvalucion) + "HeteroEvalucion"));
+            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.HeteroEvalucion) + "HeteroEvalucion",normal));
             celdaCombo.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaCombo.Border = Rectangle.RIGHT_BORDER;
             tableMatrizCombo.AddCell(celdaCombo);
 
-            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Censal) + "Censal"));
+            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Censal) + "Censal",normal));
             celdaCombo.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaCombo.Border = Rectangle.RIGHT_BORDER;
             tableMatrizCombo.AddCell(celdaCombo);
 
-            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Muestral) + "Muestral"));
+            celdaCombo = new PdfPCell(new Phrase(EtiquetaCheck(claseMatriz.Muestral) + "Muestral",normal));
             celdaCombo.HorizontalAlignment = Element.ALIGN_LEFT;
             celdaCombo.Border = Rectangle.NO_BORDER;
             tableMatrizCombo.AddCell(celdaCombo);
@@ -674,7 +678,7 @@ namespace Consilium.Web.Controllers
             PdfPTable table = new PdfPTable(5);
             table.HorizontalAlignment = Element.ALIGN_LEFT;
             table.WidthPercentage = 100.0f;
-            table.DefaultCell.Border = Rectangle.NO_BORDER;
+            table.DefaultCell.Border = Rectangle.RIGHT_BORDER;
             // se definen los anchos de la tabla
             float[] widthTable = new float[] { 20.0f, 20.0f, 20.0f, 20.0f, 40.0f };
             table.SetWidths(widthTable);

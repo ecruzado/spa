@@ -178,6 +178,7 @@
     <Content Include="app\controllers\capacidadController.js" />
     <Content Include="app\controllers\colegioController.js" />
     <Content Include="app\controllers\colegioPopUpController.js" />
+    <Content Include="app\controllers\eliminarClasePopUpController.js" />
     <Content Include="app\controllers\metodoligaPopUpController.js" />
     <Content Include="app\controllers\metodologiaController.js" />
     <Content Include="app\controllers\pruebaPopUpController.js" />
@@ -213,6 +214,7 @@
     <Content Include="app\views\capacidadView.html" />
     <Content Include="app\views\colegioPopUpView.html" />
     <Content Include="app\views\colegioView.html" />
+    <Content Include="app\views\eliminarClasePopUpView.html" />
     <Content Include="app\views\metodologiaPopUpView.html" />
     <Content Include="app\views\metodologiaView.html" />
     <Content Include="app\views\pruebaPopUpView.html" />
@@ -266,6 +268,7 @@
     <None Include="Properties\PublishProfiles\archivo.pubxml" />
     <None Include="Properties\PublishProfiles\consiliumtest.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
+    <None Include="Properties\PublishProfiles\webhosting.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />

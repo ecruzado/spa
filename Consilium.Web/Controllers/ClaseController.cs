@@ -40,14 +40,10 @@ namespace Consilium.Web.Controllers
             }
         }
 
-        // PUT api/clase/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
         // DELETE api/clase/5
         public void Delete(int id)
         {
+            ClaseLogica.Instancia.Delete(id);
         }
     }
 }

@@ -13,7 +13,6 @@
         return $http.get(serviceBase, { params: { usuarioId: usuarioid } }).then(function (results) {
             return results;
         }, function (e) {
-            $log.debug(e);
         });
     };
     var _saveUsuario = function (usuario) {

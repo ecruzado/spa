@@ -60,7 +60,17 @@
             alert('Error');
         });
     };
-
+    var _deleteClase = function (claseId) {
+        return $http.delete('/api/clase/' + claseId).then(
+            function (results) {
+                toaster.pop('success', "Eliminada Satisfactoriamente", "Clase eliminada satisfactoriamente!");
+            },
+            function (results) {
+                alert('Error');
+                return results;
+            }
+        );
+    };
     var _claseContenidos = function (claseId) {
         return $http.get('/api/clasecontenido/', { params: { claseId: claseId } }).then(function (results) {
             return results;
@@ -292,6 +302,7 @@
     claseDataFactory.clases = _clases;
     claseDataFactory.clase = _clase;
     claseDataFactory.saveClase = _saveClase;
+    claseDataFactory.deleteClase = _deleteClase;
     
     claseDataFactory.claseCapacidades = _claseCapacidades;
     claseDataFactory.saveClaseCapacidad = _saveClaseCapacidad;

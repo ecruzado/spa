@@ -194,3 +194,12 @@
         <textarea ng-model="matriz.observacionClase" style="width:100%;height:100px;resize:none"></textarea>
     </div>
 </div>
+<div class="row well well-sm">
+    <div style="float:right;margin-right:20px">
+        <a href="{{path}}/ClaseImpresion/Imprimir/{{claseCabecera.claseId}}" target="_blank" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
+        <button type="submit" class="btn btn-primary btn-sm" ng-click="guardarClase()">
+            <span class="glyphicon glyphicon-hdd"></span> Guardar
+        </button>
+    </div>
+    <div class="clear-fix clearfix"></div>
+</div>

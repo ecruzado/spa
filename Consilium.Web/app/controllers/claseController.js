@@ -72,7 +72,6 @@
                 operativaIndex = -1,
                 deAreaIdAnt = 0,
                 especificaIdAnt = 0;
-            $log.debug(arr);    
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].deAreaId != deAreaIdAnt) {
                     deAreaIndex++;
@@ -125,7 +124,6 @@
                 contenidoIndex = -1,
                 conocimientoIdAnt = 0,
                 detalleIdAnt = 0;
-            $log.debug(arr);
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].conocimientoId != conocimientoIdAnt) {
                     conocimientoIndex++;
@@ -177,7 +175,6 @@
                 valorIndex = -1,
                 actitudIndex = -1,
                 valorIdAnt = 0;
-            $log.debug(arr);
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].valorId != valorIdAnt) {
                     valorIndex++;
@@ -451,7 +448,6 @@
                     });
                 }
             }
-            $log.debug(seleccion);
         });
     };
     $scope.eliminarCapacidades = function () {
@@ -648,7 +644,6 @@
                     });
                 }
             }
-            $log.debug(seleccion);
         });
     };
     $scope.eliminarConocimientos = function () {
@@ -686,7 +681,6 @@
                     });
                 }
             }
-            $log.debug(seleccion);
         });
     };
     $scope.eliminarPruebas = function () {

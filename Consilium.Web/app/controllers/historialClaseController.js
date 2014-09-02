@@ -1,4 +1,4 @@
-﻿app.controller('historialClaseController', function ($scope, $location, $filter, $log,
+﻿app.controller('historialClaseController', function ($scope, $location, $filter, $log,$modal,
     usuarioSesion, claseDataService,usuarioDataService) {
     $scope.claseBusqueda = {
         colegioId: usuarioSesion.getUsuario().colegioId,
@@ -88,4 +88,23 @@
 
         $scope.openedFechaFin = true;
     };
+
+    $scope.eliminarClase = function (claseId) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/eliminarClasePopUpView.html?v=2',
+            controller: 'eliminarClasePopUpController',
+            size: 'sm',
+            resolve: {
+            }
+        });
+        modalInstance.result.then(function (resultado) {
+            if (resultado) {
+                claseDataService.deleteClase(claseId).then(function () {
+                    $scope.obtenerHistorialClase();
+                });
+
+            }
+        });
+    };
+
 });

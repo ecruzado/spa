@@ -93,6 +93,40 @@ namespace Consilium.DAO
             }
         }
         
+        public int Delete(int claseId)
+        {
+
+            string spName = "clase.sp_clase_delete";
+            int retVal = 0;
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@clase_id", claseId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+
+            return retVal;
+
+        }
+
+        
         public List<Clase> List(int colegioId)
         {
 

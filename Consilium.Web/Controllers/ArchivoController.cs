@@ -28,7 +28,7 @@ namespace Consilium.Web.Controllers
             var listaClaseId = new List<string>(headerRequest.GetValues("claseId"));
             var claseId = Convert.ToInt32(listaClaseId[0]);
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            string root = HttpContext.Current.Server.MapPath("~/App_Data/files");
             var provider = new MultipartFormDataStreamProvider(root);
 
             // Read the form data and return an async task.
@@ -75,7 +75,7 @@ namespace Consilium.Web.Controllers
         public HttpResponseMessage Get(int id)
         {
             var archivo = ClaseLogica.Instancia.GetClaseArchivoById(id);
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            string root = HttpContext.Current.Server.MapPath("~/App_Data/files");
             string path = Path.Combine(root, archivo.Archivo.ToString());
 
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);

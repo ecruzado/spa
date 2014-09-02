@@ -444,14 +444,16 @@ GO
 -- Description:	Listar metodos de clase
 -- =============================================
 CREATE PROCEDURE [clase].sp_metodo_lst
-@colegio_id as int
+@colegio_id as int,
+@area_id as int
 AS
 BEGIN
 	SET NOCOUNT ON;
 SELECT c.criterio_id n1_id, c.criterio n1_valor, m.metecnica_id n2_id, m.metecnica n2_valor
 FROM dbo.criterio c 
 	INNER JOIN dbo.metecnica m on m.criterio_id = c.criterio_id
-WHERE c.colegio_id = @colegio_id  
+WHERE c.colegio_id = @colegio_id 
+	AND c.area_id = @area_id 
 ORDER BY c.criterio, m.metecnica
 
 END
@@ -865,7 +867,7 @@ CREATE PROCEDURE [clase].sp_clase_lstByFilto
 	@fechaFin nvarchar(10) = null
 AS
 BEGIN
-SELECT TOP 100 c.clase_id, c.clase_titulo,a.area,n.nivel
+SELECT TOP 50 c.clase_id, c.clase_titulo,a.area,n.nivel
 	,g.grado,c.fecha_inicio,c.fecha_fin,c.fecha_reg
 	,c.usuario,c.formato
 FROM [clase] as c
@@ -2033,5 +2035,62 @@ where clase_id = @clase_id;
 
 
 END           
+
+GO
+
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_delete')
+   DROP PROCEDURE [clase].sp_clase_delete
+GO
+
+-- =============================================
+-- Author:		edgar cruzado
+-- Create date: 14-08-2014
+-- Description:	eliminar clase 
+-- =============================================
+CREATE PROCEDURE [clase].sp_clase_delete
+	@clase_id int
+AS
+
+BEGIN
+
+DELETE FROM clase_actividad 
+WHERE clase_id=@clase_id 
+
+DELETE FROM clase_capacidad 
+WHERE clase_id=@clase_id 
+
+DELETE FROM clase_contenido 
+WHERE clase_id=@clase_id 
+
+DELETE FROM clase_item_registro_reactivo 
+WHERE clase_id=@clase_id 
+
+DELETE FROM clase_matriz 
+WHERE clase_id=@clase_id 
+
+DELETE FROM clase_metodo 
+WHERE clase_id=@clase_id 
+
+DELETE FROM clase_tipo_conocimiento 
+WHERE clase_id=@clase_id
+
+DELETE FROM clase_valores 
+WHERE clase_id=@clase_id
+
+DELETE FROM clase_conf_col_colegio
+where clase_id =@clase_id
+
+DELETE FROM clase_archivo
+where clase_id =@clase_id
+
+DELETE FROM clase
+WHERE clase_id=@clase_id 
+
+END
 
 GO

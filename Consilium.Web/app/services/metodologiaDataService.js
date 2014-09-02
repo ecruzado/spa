@@ -5,8 +5,8 @@
     var metecnicaServiceBase = '/api/metecnica/';
     var metodologiaDataFactory = {};
 
-    var _metodologias = function (colegioId) {
-        return $http.get(serviceBase, { params: { colegioId: colegioId } }).then(function (results) {
+    var _metodologias = function (colegioId,areaId) {
+        return $http.get(serviceBase, { params: { colegioId: colegioId, areaId: areaId } }).then(function (results) {
             return results;
         });
     };
