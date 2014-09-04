@@ -1,0 +1,173 @@
+﻿<div class="well well-sm">
+    <form class="form-horizontal">
+        <div class="form-group form-group-sm">
+            <label for="area" class="col-xs-1 control-label">Area </label>
+            <div class="col-xs-3">
+                <select class="form-control" id="area" ng-model="selectedArea" ng-options="area.areaId as area.descripcion for area in areas" ng-init="selectedArea=0" ng-change="obtenerConocimientos()"></select>
+            </div>
+        </div>
+    </form>
+    <div style="display:block;width:100%;border-bottom:1px solid #e5e5e5;margin-bottom:10px;"></div>
+    <div class="col-xs-4">
+        <div style="height:40px;">
+            <div ng-show="conocimientoBotones">
+                <button type="button" class="btn btn-info btn-sm" ng-click="agregarConocimiento()"><i class="glyphicon glyphicon-plus"></i> Agregar</button>
+            </div>
+            <div ng-show="conocimientoForm">
+                <form class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" placeholder="Ingrese nombre" ng-model="actual" />
+                        </div>
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="cancelarConocimiento()">Cancelar</button>
+                            <button type="button" class="btn btn-info btn-sm" ng-click="guardarConocimiento()">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div>
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr class="info">
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-hide="conocimientos || conocimientos.length > 0">
+                        <td colspan="10">
+                            <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-repeat="conocimiento in conocimientos">
+                        <td>{{ conocimiento.conocimientoId }}</td>
+                        <td>{{ conocimiento.conocimiento }}</td>
+                        <td class="col-options">
+                            <a ng-click="seleccionarConocimiento(conocimiento.conocimientoId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
+                            <a ng-click="editarConocimiento(conocimiento.conocimientoId, conocimiento.conocimiento)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div style="height:{{altoNivel2}}px;">
+            <div ng-show="nodo2NivelArea">
+                <form class="form-horizontal">
+                    <div class="form-group form-group-sm" style="margin-bottom:5px">
+                        <label class="control-label" style="width:40px;float:left">Nivel</label>
+                        <div class="" style="width:130px;float:left;margin-left:5px">
+                            <select class="form-control" ng-model="nivelId" ng-options="nivel.nivelId as nivel.nivelDesc for nivel in niveles" ng-change="obtenerGrados()"></select>
+                        </div>
+                        <label class="control-label" style="width:50px;float:left;margin-left:5px">Grado</label>
+                        <div class="" style="width:130px;float:left">
+                            <select class="form-control" ng-model="gradoId" ng-options="grado.gradoId as grado.gradoDesc for grado in grados" ng-change="obtenerDetalles(actualPadreId)"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div ng-show="detalleBotones">
+                <button type="button" class="btn btn-info btn-sm" ng-click="agregarDetalle()"><i class="glyphicon glyphicon-plus"></i> Agregar</button>
+            </div>
+            <div ng-show="detalleForm">
+                <form class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" placeholder="Ingrese nombre" ng-model="actual" />
+                        </div>
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="cancelarDetalle()">Cancelar</button>
+                            <button type="button" class="btn btn-info btn-sm" ng-click="guardarDetalle()">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div style="margin-top:10px">
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr class="info">
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-hide="detalles || detalles.length > 0">
+                        <td colspan="10">
+                            <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-repeat="detalle in detalles">
+                        <td>{{ detalle.detalleId }}</td>
+                        <td>{{ detalle.detalle }}</td>
+                        <td class="col-options">
+                            <a ng-click="seleccionarDetalle(detalle.detalleId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
+                            <a ng-click="editarDetalle(detalle.detalleId, detalle.detalle)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="col-xs-4">
+        <div style="height:40px;">
+            <div ng-show="contenidoBotones">
+                <button type="button" class="btn btn-info btn-sm" ng-click="agregarContenido()"><i class="glyphicon glyphicon-plus"></i> Agregar</button>
+            </div>
+            <div ng-show="contenidoForm">
+                <form class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" placeholder="Ingrese nombre" ng-model="actual" />
+                        </div>
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="cancelarContenido()">Cancelar</button>
+                            <button type="button" class="btn btn-info btn-sm" ng-click="guardarContenido()">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div>
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr class="info">
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-hide="contenidos || contenidos.length > 0">
+                        <td colspan="10">
+                            <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
+                        </td>
+                    </tr>
+                    <tr data-ng-repeat="contenido in contenidos">
+                        <td>{{ contenido.contenidoId }}</td>
+                        <td>{{ contenido.contenidoDesc }}</td>
+                        <td class="col-options">
+                            <a ng-click="editarContenido(contenido.contenidoId, contenido.contenidoDesc)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="row show-grid">
+</div>
+<div class="row show-grid">
+</div>

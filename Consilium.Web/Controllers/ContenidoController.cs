@@ -29,20 +29,5 @@ namespace Consilium.Web.Controllers
         {
             return "value";
         }
-
-        // POST api/contenido
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/contenido/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/contenido/5
-        public void Delete(int id)
-        {
-        }
     }
 }

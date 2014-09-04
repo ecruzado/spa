@@ -11,10 +11,25 @@ namespace Consilium.Web.Controllers
 {
     public class ConocimientoController : ApiController
     {
-        // GET api/actividad
-        public IEnumerable<ItemNodo> Get()
+        // GET api/conocimiento
+        public IEnumerable<Contenido> Get(int colegioId, int areaId)
         {
-            return ConocimientoLogica.Instancia.List();
+            return ContenidoLogica.Instancia.ListConocimiento(colegioId, areaId);
+        }
+
+        // POST api/conocimiento
+        public void Post([FromBody]Contenido value)
+        {
+            if (value.ConocimientoId == 0)
+                ContenidoLogica.Instancia.CrearConocimiento(value);
+            else
+                ContenidoLogica.Instancia.ActualizarConocimiento(value);
+        }
+
+        // POST api/conocimiento
+        public void Delete(int id)
+        {
+            ContenidoLogica.Instancia.DeleteConocimiento(id);
         }
     }
 }

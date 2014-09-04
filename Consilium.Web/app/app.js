@@ -48,6 +48,10 @@ app.config(function ($routeProvider) {
         controller: "reporteController",
         templateUrl: baseUrl + "app/views/reporteView.html?v=02"
     });
+    $routeProvider.when("/contenido", {
+        controller: "contenidoController",
+        templateUrl: baseUrl + "app/views/contenidoView.html?v=02"
+    });
     $routeProvider.otherwise({ redirectTo: "/crearClase" });
 
 });

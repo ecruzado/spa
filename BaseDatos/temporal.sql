@@ -212,7 +212,7 @@ where ca.actividades like '%'+char(10)+'%'
 select * 
 from clase_actividad ca where ca.clase_id= 5717
 
-update clase_actividad 
-set actividades = REPLACE(REPLACE(actividades, CHAR(13), '<br/>'), CHAR(10), '<br/>')
-where clase_id = 5717
+--update clase_actividad 
+--set actividades = REPLACE(REPLACE(actividades, CHAR(13), '<br/>'), CHAR(10), '<br/>')
+--where clase_id = 5717
 --
