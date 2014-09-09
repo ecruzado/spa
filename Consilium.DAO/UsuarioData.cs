@@ -269,6 +269,36 @@ namespace Consilium.DAO
 
         }
 
+        public int UpdatePassword(int usuarioId, string password) 
+        {
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
 
+                string spName = "sp_usuario_update_clave";
+                int retVal = 0;
+
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@usuario_id", usuarioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@pass", password, ParameterDirection.Input, System.Data.DbType.String));
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+                    return retVal;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+        }
 	}
 }

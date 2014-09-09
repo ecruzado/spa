@@ -32,5 +32,9 @@ namespace Consilium.Logica
         {
             return usuarioData.Update(usuario);
         }
+        public int UpdatePassword(int usuarioId, string password)
+        {
+            return usuarioData.UpdatePassword(usuarioId,password);
+        }
 	}
 }

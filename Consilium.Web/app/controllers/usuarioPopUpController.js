@@ -1,10 +1,12 @@
-﻿app.controller('usuarioPopUpController', function ($scope, $modalInstance,usuarioDataService,colegioDataService, usuarioSeleccion) {
+﻿app.controller('usuarioPopUpController', function ($scope, $modalInstance, usuarioDataService,
+    colegioDataService, usuarioSeleccion) {
     $scope.usuario = {
+        codigo: '',
         nombre: '',
         apellidoPaterno: '',
         apellidoMaterno: '',
         correo: '',
-        estado: false,
+        estado: true,
         disenoClase: false,
         historialClase: false,
         reporte: false,
@@ -12,15 +14,20 @@
         administrador: false
     };
     $scope.colegios = [];
-
+    $scope.disabledUsuario = true;
     init();
     function init() {
-        usuarioDataService.usuario(usuarioSeleccion).then(function (resultado) {
-            $scope.usuario = resultado.data;
-        });
         colegioDataService.colegios().then(function (resultado) {
             $scope.colegios = resultado.data;
         });
+
+        if (usuarioSeleccion != 0) {
+            usuarioDataService.usuario(usuarioSeleccion).then(function (resultado) {
+                $scope.usuario = resultado.data;
+            });
+        } else {
+            $scope.disabledUsuario = false;
+        }
     };
 
     $scope.close = function () {

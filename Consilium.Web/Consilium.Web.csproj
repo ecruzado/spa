@@ -133,6 +133,7 @@
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\ArchivoController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\CambioPasswordController.cs" />
     <Compile Include="Controllers\CapacidadController.cs" />
     <Compile Include="Controllers\ClaseActividadController.cs" />
     <Compile Include="Controllers\ClaseArchivoController.cs" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\cambioPasswordController.js" />
     <Content Include="app\controllers\capacidadController.js" />
     <Content Include="app\controllers\colegioController.js" />
     <Content Include="app\controllers\colegioPopUpController.js" />
@@ -214,6 +216,7 @@
     <Content Include="app\services\usuarioDataService.js" />
     <Content Include="app\services\usuarioSesion.js" />
     <Content Include="app\services\valorDataService.js" />
+    <Content Include="app\views\cambioPasswordView.html" />
     <Content Include="app\views\capacidadView.html" />
     <Content Include="app\views\colegioPopUpView.html" />
     <Content Include="app\views\colegioView.html" />

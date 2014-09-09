@@ -25,6 +25,15 @@ namespace Consilium.DAO
             lSqlParameter.DbType = pDbType;
             return lSqlParameter;
         }
-
+        protected SqlParameter ObjSqlParameter(string pParameterName, object pValue, System.Data.ParameterDirection pDirection, DbType pDbType, int pSize)
+        {
+            SqlParameter lSqlParameter = new SqlParameter();
+            lSqlParameter.ParameterName = pParameterName;
+            lSqlParameter.Value = pValue;
+            lSqlParameter.Direction = pDirection;
+            lSqlParameter.DbType = pDbType;
+            lSqlParameter.Size = pSize;
+            return lSqlParameter;
+        }
     }
 }

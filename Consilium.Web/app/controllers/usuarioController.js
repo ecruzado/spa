@@ -18,7 +18,7 @@
 
     $scope.popUpUsuario = function (seleccion) {
         var modalInstance = $modal.open({
-            templateUrl: '/app/views/usuarioPopUpView.html?v=1',
+            templateUrl: '/app/views/usuarioPopUpView.html?v=0.1',
             controller: 'usuarioPopUpController',
             resolve: {
                 usuarioSeleccion: function () {
@@ -31,4 +31,18 @@
         });
     };
 
+    $scope.cambioPassword = function (seleccion) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/cambioPasswordView.html?v=0.1',
+            controller: 'cambioPasswordController',
+            resolve: {
+                usuarioSeleccion: function () {
+                    return seleccion;
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            $scope.obtenerUsuarios();
+        });
+    };
 });

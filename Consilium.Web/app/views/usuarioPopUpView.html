@@ -4,12 +4,13 @@
 </div>
 <div class="modal-body" style="padding:0px">
     <div class="well well-sm" style="margin:0px">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="usuarioForm" ng-submit="submitForm(usuarioForm.$valid)" novalidate>
             <fieldset>
-                <div class="form-group form-group-sm">
+                <div class="form-group form-group-sm" ng-class="{ 'has-error' : usuarioForm.codigo.$invalid && !usuarioForm.codigo.$pristine }">
                     <label for="nombreClase" class="control-label col-xs-4">Usuario </label>
                     <div class="col-xs-8">
-                        <input class="form-control" type="text" ng-model="usuario.codigo" disabled="disabled" />
+                        <input class="form-control" type="text" name="codigo" ng-model="usuario.codigo" ng-disabled="disabledUsuario" required />
+                        <p ng-show="usuarioForm.codigo.$invalid && !usuarioForm.codigo.$pristine" class="help-block">Usuario es obligatorio.</p>
                     </div>
                 </div>
                 <div class="form-group form-group-sm">
@@ -36,10 +37,18 @@
                         <input class="form-control" type="text" ng-model="usuario.correo" />
                     </div>
                 </div>
-                <div class="form-group form-group-sm">
+                <div class="form-group form-group-sm" ng-class="{ 'has-error' : usuarioForm.colegio.$invalid && !usuarioForm.colegio.$pristine }">
                     <label for="nombreClase" class="control-label col-xs-4">Colegio </label>
                     <div class="col-xs-8">
-                        <select class="form-control" ng-model="usuario.colegioId" ng-options="colegio.colegioId as colegio.nombre for colegio in colegios"></select>
+                        <select class="form-control" name="colegio" ng-model="usuario.colegioId" ng-options="colegio.colegioId as colegio.nombre for colegio in colegios" required></select>
+                        <p ng-show="usuarioForm.colegio.$invalid && !usuarioForm.colegio.$pristine" class="help-block">Colegio es obligatorio.</p>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm" ng-class="{ 'has-error' : usuarioForm.password.$invalid && !usuarioForm.password.$pristine }" ng-show="!disabledUsuario">
+                    <label for="password" class="control-label col-xs-4">Contraseña </label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="password" name="password" ng-model="usuario.password" ng-required="!disabledUsuario" />
+                        <p ng-show="usuarioForm.password.$invalid && !usuarioForm.password.$pristine" class="help-block">Contraseña es obligatoria.</p>
                     </div>
                 </div>
                 <div class="form-group form-group-sm">
@@ -83,6 +92,6 @@
     </div>
 </div>
 <div class="modal-footer" style="padding-top:10px;padding-bottom:10px">
-    <button type="button" data-ng-click="guardarSeleccion()" class="btn btn-primary pull-right">Guardar</button>
+    <button type="button" data-ng-click="guardarSeleccion()" class="btn btn-primary pull-right" ng-disabled="usuarioForm.$invalid">Guardar</button>
 </div>
 
