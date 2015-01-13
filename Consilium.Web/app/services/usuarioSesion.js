@@ -2,6 +2,7 @@
 
     var usuarioSesion = {};
     var usuario = null;
+    var _busqueda = {};
 
     var _obtenerUsuarioServer = function (){
         return $http.get('/account/ObtenerUsuario').then(function (results) {
@@ -30,6 +31,7 @@
     usuarioSesion.getUsuario = _getUsuario;
     usuarioSesion.verificarUsuario = _verificarUsuario;
     usuarioSesion.obtenerUsuarioServer = _obtenerUsuarioServer;
+    usuarioSesion.busqueda = _busqueda;
 
     return usuarioSesion;
 });

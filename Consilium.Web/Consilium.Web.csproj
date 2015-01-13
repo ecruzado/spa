@@ -167,6 +167,7 @@
     <Compile Include="Controllers\OperativaController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
+    <Compile Include="Controllers\TipoConocimientoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValorController.cs" />
     <Compile Include="Controllers\ValoresController.cs" />
@@ -213,6 +214,7 @@
     <Content Include="app\services\metodologiaDataService.js" />
     <Content Include="app\services\pruebaDataService.js" />
     <Content Include="app\services\reporteDataService.js" />
+    <Content Include="app\services\tipoConocimientoDataService.js" />
     <Content Include="app\services\usuarioDataService.js" />
     <Content Include="app\services\usuarioSesion.js" />
     <Content Include="app\services\valorDataService.js" />
@@ -325,7 +327,7 @@
     <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\files\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Consilium.Entity\Consilium.Entity.csproj">

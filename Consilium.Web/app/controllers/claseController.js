@@ -16,6 +16,23 @@
     $scope.archivos = [];
     $scope.path = "http://" + window.location.host;
     $scope.hayCambios = false;
+    var intervalSave;
+
+    $scope.guardarClase = function () {
+        usuarioSesion.verificarUsuario().then(function () {
+            claseDataService.saveClaseMatriz($scope.matriz);
+            claseDataService.claseActividadUpdate($scope.actividad);
+
+            $scope.claseCabecera.fechaInicioFormato = $filter('date')($scope.claseCabecera.fechaInicioFormato, 'dd/MM/yyyy'),
+            $scope.claseCabecera.fechaFinFormato = $filter('date')($scope.claseCabecera.fechaFinFormato, 'dd/MM/yyyy'),
+
+            claseDataService.saveClase($scope.claseCabecera).then(function (resultado) {
+                $location.path("/clase/" + resultado.data.claseId);
+            });
+            $scope.hayCambios = false;
+        });
+    }
+
     init();
 
     $scope.$on('$locationChangeStart', function (event) {
@@ -26,6 +43,10 @@
             }
         }
     });
+    $scope.$on('$destroy', function () {
+        if (intervalSave)
+            $interval.cancel(intervalSave);
+    });
 
     $scope.$watch('[claseCabecera,matriz,actividad]', function () {
         $scope.hayCambios = true;
@@ -34,6 +55,9 @@
     function init() {
         obtenerNiveles();
         obtenerClase();
+        intervalSave = $interval(function () {
+            $scope.guardarClase();
+        }, 300000);
     }
 
     function obtenerClase() {
@@ -533,7 +557,7 @@
         var arr = $("#jtClaseValores").jstree('get_selected');
         for (i = 0; i < arr.length; i++) {
             var auxSeparacion = arr[i].split('-');
-            if (auxSeparacion[0] == 'N2') {
+            if (auxSeparacion[0] == 'B') {
                 claseDataService.deleteClaseValor(auxSeparacion[1]).then(function () {
                     obtenerClaseValores();
                 });
@@ -570,7 +594,7 @@
         var arr = $("#jtClaseMetodos").jstree('get_selected');
         for (i = 0; i < arr.length; i++) {
             var auxSeparacion = arr[i].split('-');
-            if (auxSeparacion[0] == 'N2') {
+            if (auxSeparacion[0] == 'B') {
                 claseDataService.deleteClaseMetodo(auxSeparacion[1]).then(function () {
                     obtenerClaseMetodos();
                 });
@@ -741,20 +765,7 @@
         });
     };
 
-    $scope.guardarClase = function () {
-        usuarioSesion.verificarUsuario().then(function () {
-            claseDataService.saveClaseMatriz($scope.matriz);
-            claseDataService.claseActividadUpdate($scope.actividad);
 
-            $scope.claseCabecera.fechaInicioFormato = $filter('date')($scope.claseCabecera.fechaInicioFormato, 'dd/MM/yyyy'),
-            $scope.claseCabecera.fechaFinFormato = $filter('date')($scope.claseCabecera.fechaFinFormato, 'dd/MM/yyyy'),
-
-            claseDataService.saveClase($scope.claseCabecera).then(function (resultado) {
-                $location.path("/clase/" + resultado.data.claseId);
-            });
-            $scope.hayCambios = false;
-        });
-    }
 
 
 });

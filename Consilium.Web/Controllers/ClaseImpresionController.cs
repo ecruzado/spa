@@ -9,6 +9,7 @@ using iTextSharp.text.pdf;
 using Consilium.Entity;
 using Consilium.Logica;
 using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.html;
 
 namespace Consilium.Web.Controllers
 {
@@ -89,7 +90,7 @@ namespace Consilium.Web.Controllers
             // se crea la celda con el valor que contiene
             string imagepath = Server.MapPath(@"~/Images");
             Image img = Image.GetInstance(imagepath + "/logocentro.jpg");
-            img.ScalePercent(15f);
+            img.ScalePercent(7f);
             PdfPCell logo = new PdfPCell(img);
             logo.HorizontalAlignment = Element.ALIGN_LEFT;
             // se quitan los bordes de la celda
@@ -535,22 +536,41 @@ namespace Consilium.Web.Controllers
             celdaTituloActividad.Border = Rectangle.BOTTOM_BORDER;
             tablaActividad.AddCell(celdaTituloActividad);
 
-            PdfPCell celdaActividad = new PdfPCell();
+            PdfPCell celdaActividad;
             StyleSheet styles = new StyleSheet();
+            styles.LoadTagStyle(HtmlTags.P, HtmlTags.SIZE, "9f");
+            styles.LoadTagStyle(HtmlTags.LI, HtmlTags.SIZE, "9f");
+
             var lista = HTMLWorker.ParseToList(new StringReader(claseActividad.Actividades), styles);
             foreach (var item in lista)
             {
-                if (item is Paragraph)
-                {
-                    ((Paragraph)item).Font = normal;
-                }
+                //if (item is Paragraph)
+                //{
+                //    //((Paragraph)item).Font = normal;
+                //    Paragraph itemPar = (Paragraph)item;
+                //    foreach (Chunk chunk in itemPar.Chunks) 
+                //    {
+                //        if (chunk.Content != "\n")
+                //        {
+                //            celdaActividad = new PdfPCell();
+                //            celdaActividad.Border = Rectangle.NO_BORDER;
+                //            celdaActividad.AddElement((IElement)chunk);
+                //            tablaActividad.AddCell(celdaActividad);
+                //        }
+                //    }
+                //}
+                celdaActividad = new PdfPCell();
+                celdaActividad.Border = Rectangle.NO_BORDER;
                 celdaActividad.AddElement((IElement)item);
+                tablaActividad.AddCell(celdaActividad);
             }
-            celdaActividad.Border = Rectangle.NO_BORDER;
-            tablaActividad.AddCell(celdaActividad);
+            
 
+            //tablaActividad.AddCell(celdaActividad);
+            //tablaActividad.SplitRows = true;
+            //tablaActividad.SplitLate = true;
+            tablaActividad.KeepTogether = false;
             table.AddCell(tablaActividad);
-
 
             PdfPTable tablaActividadHora = new PdfPTable(1);
             tablaActividadHora.HorizontalAlignment = Element.ALIGN_LEFT;

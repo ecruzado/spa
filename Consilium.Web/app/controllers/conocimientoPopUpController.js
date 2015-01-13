@@ -1,10 +1,10 @@
-﻿app.controller('conocimientoPopUpController', function ($scope, $modalInstance, conocimientoDataService, claseCabecera) {
+﻿app.controller('conocimientoPopUpController', function ($scope, $modalInstance, tipoConocimientoDataService, claseCabecera) {
     $scope.user = { userName: "" };
     $scope.lista = [];
     init();
 
     function init() {
-        conocimientoDataService.conocimientos()
+        tipoConocimientoDataService.tipoConocimientos()
             .then(function (resultado) {
                 var arr = resultado.data;
                 var listaTree = [],
