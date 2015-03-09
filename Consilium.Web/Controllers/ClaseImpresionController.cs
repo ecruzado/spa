@@ -89,9 +89,10 @@ namespace Consilium.Web.Controllers
 
             // se crea la celda con el valor que contiene
             string imagepath = Server.MapPath(@"~/Images");
-            Image img = Image.GetInstance(imagepath + "/logocentro.jpg");
-            img.ScalePercent(7f);
-            PdfPCell logo = new PdfPCell(img);
+            //Image img = Image.GetInstance(imagepath + "/logocentro.jpg");
+            //img.ScalePercent(7f);
+            //PdfPCell logo = new PdfPCell(img);
+            PdfPCell logo = new PdfPCell();
             logo.HorizontalAlignment = Element.ALIGN_LEFT;
             // se quitan los bordes de la celda
             logo.Border = Rectangle.NO_BORDER;

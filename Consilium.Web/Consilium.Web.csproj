@@ -276,6 +276,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\archivo.pubxml" />
     <None Include="Properties\PublishProfiles\consiliumtest.pubxml" />
+    <None Include="Properties\PublishProfiles\consilium_ftp.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Properties\PublishProfiles\webhosting.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />

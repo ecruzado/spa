@@ -22,7 +22,7 @@ namespace Consilium.Web.Controllers
         {
             if (acceso == null) 
             {
-                //return Redirect("http://consilium-educacion.jimdo.com");
+                return Redirect("http://consilium-educacion.jimdo.com");
             }
             return View();
         }

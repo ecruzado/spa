@@ -627,19 +627,19 @@
                     claseColumna.confColumnaColegioId = auxSeparacion[1];
                     claseColumna.claseId = $scope.claseCabecera.claseId;
                     claseDataService.saveClaseColumna(claseColumna).then(function () {
-                        init();
+                        obtenerClaseColumna(columnaId);
                     });
                 }
             }
         });
     };
     $scope.eliminarClaseColumna = function (columnaId) {
-        var arr = $("#jtClaseColumna1").jstree('get_selected');
+        var arr = $("#jtClaseColumna"+columnaId).jstree('get_selected');
         for (i = 0; i < arr.length; i++) {
             var auxSeparacion = arr[i].split('-');
             if (auxSeparacion[0] == 'N3') {
                 claseDataService.deleteClaseColumna(auxSeparacion[1]).then(function () {
-                    init();
+                    obtenerClaseColumna(columnaId);
                 });
             }
         }
