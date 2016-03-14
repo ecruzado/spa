@@ -120,5 +120,47 @@ namespace Consilium.DAO
             return entidad;
 
         }
+        
+        public List<ColumnaColegio> ListByColegio(int colegioId)
+        {
+            string spName = "clase.col_colegio_lstByColegio";
+            ColumnaColegio entidad = null;
+            var lista = new List<ColumnaColegio>();
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(ObjSqlParameter("@colegio_id", colegioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        conn.Open();
+
+                        IDataReader dr = command.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            entidad = new ColumnaColegio();
+                            entidad.ColumnaId = dr.GetInt32(dr.GetOrdinal("columna_id"));
+                            entidad.ColegioId = dr.GetInt32(dr.GetOrdinal("colegio_id"));
+                            entidad.Nombre = dr.GetString(dr.GetOrdinal("nombre"));
+                            entidad.Estado = dr.GetBoolean(dr.GetOrdinal("estado"));
+                            lista.Add(entidad);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+            return lista;
+
+        }
     }
 }

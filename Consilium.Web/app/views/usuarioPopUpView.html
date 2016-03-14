@@ -9,7 +9,7 @@
                 <div class="form-group form-group-sm" ng-class="{ 'has-error' : usuarioForm.codigo.$invalid && !usuarioForm.codigo.$pristine }">
                     <label for="nombreClase" class="control-label col-xs-4">Usuario </label>
                     <div class="col-xs-8">
-                        <input class="form-control" type="text" name="codigo" ng-model="usuario.codigo" ng-disabled="disabledUsuario" required />
+                        <input class="form-control" type="text" name="codigo" ng-model="usuario.codigo" required />
                         <p ng-show="usuarioForm.codigo.$invalid && !usuarioForm.codigo.$pristine" class="help-block">Usuario es obligatorio.</p>
                     </div>
                 </div>

@@ -20,6 +20,7 @@ namespace Consilium.Web.Controllers
         private ClaseMatriz claseMatriz;
         private ClaseActividad claseActividad;
         private Clase clase;
+        private List<ColumnaColegio> columnas;
         Font normal;
         Font negrita;
         Font letraTitulo;
@@ -27,6 +28,7 @@ namespace Consilium.Web.Controllers
         public ActionResult Imprimir(int id)
         {
             clase = ClaseLogica.Instancia.Get(id);
+            columnas = ColumnaColegioLogica.Instancia.ListByColegio(clase.ColegioId);
 
             letraTitulo = new Font(FontFactory.GetFont("Arial", 11, Font.BOLD));
             normal = new Font(FontFactory.GetFont("Arial", 9, Font.NORMAL));
@@ -254,9 +256,9 @@ namespace Consilium.Web.Controllers
             table.SetWidths(widthTable);
 
             table.AddCell(GetTablaCapacidades(claseId));
+            table.AddCell(GetTablaMetodologia(claseId));
             table.AddCell(GetTablaContenidos(claseId));
             table.AddCell(GetTablaValores(claseId));
-            table.AddCell(GetTablaMetodologia(claseId));
             table.AddCell(GetTablaColumna3Nodos(claseId,1));
             table.AddCell(GetTablaColumna3Nodos(claseId,2));
             
@@ -308,7 +310,7 @@ namespace Consilium.Web.Controllers
             float[] widthTable = new float[] { 10.0f, 10.0f, 80.0f };
             tabla.SetWidths(widthTable);
 
-            PdfPCell celdaTituloCapacidad = new PdfPCell(new Phrase("2. Contenidos",negrita));
+            PdfPCell celdaTituloCapacidad = new PdfPCell(new Phrase("3. Contenidos",negrita));
             celdaTituloCapacidad.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaTituloCapacidad.Border = Rectangle.BOTTOM_BORDER;
             celdaTituloCapacidad.Colspan = 3;
@@ -371,7 +373,7 @@ namespace Consilium.Web.Controllers
             float[] widthTable = new float[] { 10.0f, 80.0f };
             tabla.SetWidths(widthTable);
 
-            PdfPCell celdaTitulo = new PdfPCell(new Phrase("3. Valores",negrita));
+            PdfPCell celdaTitulo = new PdfPCell(new Phrase("4. Valores",negrita));
             celdaTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaTitulo.Border = Rectangle.BOTTOM_BORDER;
             celdaTitulo.Colspan = 2;
@@ -415,7 +417,7 @@ namespace Consilium.Web.Controllers
             float[] widthTable = new float[] { 10.0f, 80.0f };
             tabla.SetWidths(widthTable);
 
-            PdfPCell celdaTitulo = new PdfPCell(new Phrase("4. Metodología",negrita));
+            PdfPCell celdaTitulo = new PdfPCell(new Phrase("2. Metodología",negrita));
             celdaTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaTitulo.Border = Rectangle.BOTTOM_BORDER;
             celdaTitulo.Colspan = 2;
@@ -459,7 +461,7 @@ namespace Consilium.Web.Controllers
             float[] widthTable = new float[] { 10.0f, 10.0f, 80.0f };
             tabla.SetWidths(widthTable);
 
-            PdfPCell celdaTituloCapacidad = new PdfPCell(new Phrase("5. Columna", negrita));
+            PdfPCell celdaTituloCapacidad = new PdfPCell(new Phrase(GetNombreColumna(columnaId), negrita));
             celdaTituloCapacidad.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaTituloCapacidad.Border = Rectangle.BOTTOM_BORDER;
             celdaTituloCapacidad.Colspan = 3;
@@ -514,6 +516,10 @@ namespace Consilium.Web.Controllers
             return tabla;
         }
 
+        private string GetNombreColumna(int columnaId)
+        {
+            return columnas.FirstOrDefault(x => x.ColumnaId == columnaId).Nombre;
+        }
 
         #endregion
 

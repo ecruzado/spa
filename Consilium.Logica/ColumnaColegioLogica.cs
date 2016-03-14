@@ -26,5 +26,11 @@ namespace Consilium.Logica
         {
             return columnaColegioData.Get(columnaColegio);
         }
+
+        public List<ColumnaColegio> ListByColegio(int colegioId)
+        {
+            return columnaColegioData.ListByColegio(colegioId);
+        }
+
     }
 }

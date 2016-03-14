@@ -4,7 +4,12 @@
     var columnaColegioDataFactory = {};
 
     var _get = function (columnaId, colegioId) {
-        return $http.get(serviceBase, { params: { columnaId: columnaId, colegioId: colegioId } }).then(function (results) {
+        var params = {};
+        params.colegioId = colegioId;
+        if (columnaId !== 0) {
+            params.columnaId = columnaId;
+        }
+        return $http.get(serviceBase, { params: params }).then(function (results) {
             return results;
         });
     };

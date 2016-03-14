@@ -13,6 +13,12 @@ namespace Consilium.Web.Controllers
     public class ColumnaColegioController : ApiController
     {
         // GET api/columnacolegio
+        public List<ColumnaColegio> Get(int colegioId)
+        {
+            var lista = ColumnaColegioLogica.Instancia.ListByColegio(colegioId);
+            return lista;
+        }
+
         public ColumnaColegio Get(int columnaId, int colegioId)
         {
             var busqueda = new ColumnaColegio{ColumnaId = columnaId, ColegioId = colegioId};

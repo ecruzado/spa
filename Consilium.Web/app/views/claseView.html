@@ -66,21 +66,19 @@
         </div>
     </div>
     <div class="col-xs-2">
-        <div>
-            <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpContenidos()">2. Contenidos</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
-        </div>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpMetodologias()">2. Metodología</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarMetodologia()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpValores()">3. Valores</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarValores()"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpContenidos()">3. Contenidos</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarContenidos()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpMetodologias()">4. Metodología</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarMetodologia()"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpValores()">4. Valores</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarValores()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(1)">5. Opcional 1</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(1)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(1)">5. {{nombreColumna1}}</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(1)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">6. Opcional 2</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-info btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(2)">6. {{nombreColumna2}}</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
 </div>
 <div class="row show-grid">
@@ -88,13 +86,13 @@
         <div id="jtClaseCapacidades"></div>
     </div>
     <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
-        <div id="jtClaseContenidos"></div>
+        <div id="jtClaseMetodos"></div>
     </div>    
     <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
-        <div id="jtClaseValores"></div>
+        <div id="jtClaseContenidos"></div>
     </div>
     <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
-        <div id="jtClaseMetodos"></div>
+        <div id="jtClaseValores"></div>
     </div>
     <div class="col-xs-2" style="overflow:auto;height:400px;padding-left:1px;padding-right:1px;">
         <div id="jtClaseColumna1"></div>
@@ -154,10 +152,10 @@
         <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpConocimientos()">2. Tipo de conocimiento</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarConocimientos()"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(3)">3. Opcional 3</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(3)">3. {{nombreColumna3}}</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(3)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(4)">4. Opcional 4</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(2)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-success btn-sm btn-clase" style="width:80%" ng-click="popUpListaColumna(4)">4. {{nombreColumna4}}</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:20%" ng-click="eliminarClaseColumna(4)"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="col-xs-4">
         <button type="button" class="btn btn-success btn-sm btn-clase" style="width:90%" ng-click="popUpPruebas()">5. Pruebas</button><button type="button" class="btn btn-danger btn-sm btn-clase" style="width:10%" ng-click="eliminarPruebas()"><span class="glyphicon glyphicon-remove"></span></button>

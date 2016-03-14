@@ -1,6 +1,6 @@
 ﻿app.controller('claseController', function ($scope, $rootScope, $modal, $routeParams,
     $interval, $upload, $filter, $location,
-    claseDataService, usuarioSesion, $log) {
+    claseDataService, usuarioSesion, $log, columnaColegioDataService) {
     $scope.claseCabecera = {
         claseId: $routeParams.claseId,
         colegioId: 5,
@@ -85,6 +85,30 @@
                 $scope.grados = resultadoGrados.data;
                 $scope.claseCabecera.gradoId = resultado.data.gradoId;
             });
+            obtenerColumnasColegio();
+        });
+    }
+
+    function obtenerColumnasColegio()
+    {
+        columnaColegioDataService.get(0,$scope.claseCabecera.colegioId).then(function (resultado) {
+            var arr = resultado.data;
+            for (i = 0; i < arr.length; i++) {
+                switch (arr[i].columnaId) {
+                    case 1:
+                        $scope.nombreColumna1 = arr[i].nombre
+                        break;
+                    case 2:
+                        $scope.nombreColumna2 = arr[i].nombre
+                        break;
+                    case 3:
+                        $scope.nombreColumna3 = arr[i].nombre
+                        break;
+                    case 4:
+                        $scope.nombreColumna4 = arr[i].nombre
+                        break;
+                }
+            }
         });
     }
 
