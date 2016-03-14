@@ -296,6 +296,33 @@
             }
         );
     };
+
+    var _claseComentarios = function (claseId) {
+        return $http.get('/api/clasecomentario/', { params: { claseId: claseId } }).then(function (results) {
+            return results;
+        });
+    };
+    var _saveClaseComentario = function (claseArchivo) {
+        return $http.post('/api/clasecomentario/', claseArchivo).then(
+            function (results) {
+                toaster.pop('success', "Agregado Satisfactoriamente", "Comentario agregado satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+    var _deleteClaseComentario = function (ids) {
+        return $http.delete('/api/clasecomentario/', { params: { ids: ids } }).then(
+            function (results) {
+                toaster.pop('success', "Eliminado Satisfactoriamente", "Comentario eliminado(s) satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
+    };
+
     claseDataFactory.niveles = _niveles;
     claseDataFactory.grados = _grados;
 
@@ -345,6 +372,9 @@
     claseDataFactory.saveClaseArchivo = _saveClaseArchivo;
     claseDataFactory.deleteClaseArchivo = _deleteClaseArchivo;
     
+    claseDataFactory.claseComentarios = _claseComentarios;
+    claseDataFactory.saveClaseComentario = _saveClaseComentario;
+    claseDataFactory.deleteClaseComentario = _deleteClaseComentario;
 
     return claseDataFactory;
 });

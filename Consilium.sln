@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Web
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consilium.Web", "Consilium.Web\Consilium.Web.csproj", "{8C6C6D06-6D53-44E2-989E-150F4F7925D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consilium.Entity", "Consilium.Entity\Consilium.Entity.csproj", "{E27AFD90-CB1C-4A2C-AF52-ABDDF7DC4FEB}"
@@ -10,6 +8,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consilium.DAO", "Consilium.DAO\Consilium.DAO.csproj", "{13750352-DE84-4EA2-8813-968F1916734C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consilium.Logica", "Consilium.Logica\Consilium.Logica.csproj", "{D8B4566D-836A-460F-83FA-1EB48C219B19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{41039C3B-5897-47B5-BBDC-0AE309FF1D13}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

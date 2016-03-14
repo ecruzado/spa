@@ -208,6 +208,39 @@ namespace Consilium.DAO
 
         }
 
+        public int ActualizarDeAreaOrden(int deAreaId, bool arriba)
+        {
+            string spName = "clase.sp_dearea_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@dearea_id", deAreaId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+
         #endregion
 
         #region especifica
@@ -356,6 +389,39 @@ namespace Consilium.DAO
 
         }
 
+        public int ActualizarEspecificaOrden(int especificaId, bool arriba)
+        {
+            string spName = "clase.sp_especifica_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@especifica_id", especificaId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+
         #endregion
 
         #region operativa
@@ -503,6 +569,39 @@ namespace Consilium.DAO
             return retVal;
 
         }
+
+        public int ActualizarOperativaOrden(int operativaId, bool arriba)
+        {
+            string spName = "clase.sp_operativa_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@operativa_id", operativaId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
 
         #endregion
     }

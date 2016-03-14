@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -133,6 +135,7 @@
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\ArchivoController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\ArribaAbajoController.cs" />
     <Compile Include="Controllers\CambioPasswordController.cs" />
     <Compile Include="Controllers\CapacidadController.cs" />
     <Compile Include="Controllers\ClaseActividadController.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Controllers\ClaseBusquedaController.cs" />
     <Compile Include="Controllers\ClaseCapacidadController.cs" />
     <Compile Include="Controllers\ClaseColumnaController.cs" />
+    <Compile Include="Controllers\ClaseComentarioController.cs" />
     <Compile Include="Controllers\ClaseConocimientoController.cs" />
     <Compile Include="Controllers\ClaseContenidoController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
@@ -203,6 +207,7 @@
     <Content Include="app\controllers\usuarioPopUpController.js" />
     <Content Include="app\controllers\valorController.js" />
     <Content Include="app\controllers\valorPopUpController.js" />
+    <Content Include="app\services\arribaAbajoDataService.js" />
     <Content Include="app\services\colegioDataService.js" />
     <Content Include="app\services\columnaColegioDataService.js" />
     <Content Include="app\services\conocimientoDataService.js" />
@@ -368,6 +373,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

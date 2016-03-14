@@ -4,6 +4,7 @@
     init();
 
     function init() {
+        //$('.dropdown-toggle').dropdown();
         usuarioSesion.obtenerUsuarioServer().then(function (usuario) {
             $scope.colegio = usuario.Colegio;
             $scope.usuario = usuario.Codigo;

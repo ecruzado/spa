@@ -75,6 +75,7 @@
         obtenerClaseConocimientos();
         obtenerClasePruebas();
         obtenerClaseArchivos();
+        obtenerClaseComentarios();
     }
 
     function obtenerClaseCabecera() {
@@ -429,6 +430,13 @@
             $scope.archivos = arr;
         });
     }
+
+    function obtenerClaseComentarios() {
+        claseDataService.claseComentarios($scope.claseCabecera.claseId).then(function (resultado) {
+            $scope.comentarios = resultado.data;
+        });
+    }
+
 
     $scope.openFechaInicio = function ($event) {
         $event.preventDefault();

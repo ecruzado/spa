@@ -1,5 +1,5 @@
 ﻿app.controller('capacidadController', function ($scope, $location, $log, $routeParams,
-    usuarioSesion, claseDataService, capacidadDataService, toaster) {
+    usuarioSesion, claseDataService, capacidadDataService, toaster, arribaAbajoDataService) {
     $scope.nombre = '';
     $scope.colegioId = usuarioSesion.getUsuario().colegioId;
     $scope.areas = [];
@@ -87,6 +87,28 @@
         $scope.actualPadreId = id;
     }
 
+    $scope.arribaDeArea = function (id) {
+        var item = {
+            entidad: "DeArea",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerDeArea();
+        });
+    }
+
+    $scope.abajoDeArea = function (id) {
+        var item = {
+            entidad: "DeArea",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerDeArea();
+        });
+    }
+
     $scope.obtenerEspecifica = function (idPadre) {
         $scope.operativas = [];
         $scope.especificaBotones = true;
@@ -141,6 +163,28 @@
         $scope.actualPadreNodo3Id = id;
     }
 
+    $scope.arribaEspecifica = function (id) {
+        var item = {
+            entidad: "Especifica",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerEspecifica($scope.actualPadreId);
+        });
+    }
+
+    $scope.abajoEspecifica = function (id) {
+        var item = {
+            entidad: "Especifica",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerEspecifica($scope.actualPadreId);
+        });
+    }
+
     $scope.obtenerOperativa = function (idPadre) {
         capacidadDataService.operativas(idPadre).then(function (resultado) {
             $scope.operativas = resultado.data;
@@ -182,4 +226,25 @@
         $scope.actualId = id;
     }
 
+    $scope.arribaOperativa = function (id) {
+        var item = {
+            entidad: "Operativa",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerOperativa($scope.actualPadreNodo3Id);
+        });
+    }
+
+    $scope.abajoOperativa = function (id) {
+        var item = {
+            entidad: "Operativa",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerOperativa($scope.actualPadreNodo3Id);
+        });
+    }
 });

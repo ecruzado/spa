@@ -42,6 +42,10 @@ namespace Consilium.Logica
             return contenidoData.ActualizarConocimiento(conocimiento);
         }
 
+        public int ActualizarConocimientoOrden(int conocimientoId, bool arriba)
+        {
+            return contenidoData.ActualizarConocimientoOrden(conocimientoId, arriba);
+        }
         #endregion 
 
         #region detalle
@@ -65,7 +69,12 @@ namespace Consilium.Logica
         {
             return contenidoData.ActualizarDetalle(detalle);
         }
-        
+
+        public int ActualizarDetalleOrden(int detalleId, bool arriba)
+        {
+            return contenidoData.ActualizarDetalleOrden(detalleId, arriba);
+        }
+
         #endregion
 
         #region contenido
@@ -88,6 +97,11 @@ namespace Consilium.Logica
         public int ActualizarContenido(Contenido contenido) 
         {
             return contenidoData.ActualizarContenido(contenido);
+        }
+
+        public int ActualizarContenidoOrden(int contenidoId, bool arriba)
+        {
+            return contenidoData.ActualizarContenidoOrden(contenidoId, arriba);
         }
 
         #endregion

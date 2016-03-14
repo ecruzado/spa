@@ -213,6 +213,39 @@ namespace Consilium.DAO
 
         }
 
+        public int ActualizarConocimientoOrden(int conocimientoId, bool arriba)
+        {
+            string spName = "clase.sp_organizador_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@organi_id", conocimientoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+
         #endregion
 
         #region detalle
@@ -363,6 +396,40 @@ namespace Consilium.DAO
             }
         }
 
+
+        public int ActualizarDetalleOrden(int detalleId, bool arriba)
+        {
+            string spName = "clase.sp_organizador2_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@organi2_id", detalleId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+
         #endregion
 
         #region contenido
@@ -509,6 +576,39 @@ namespace Consilium.DAO
                     conn.Close();
                 }
 
+            }
+        }
+
+
+        public int ActualizarContenidoOrden(int contenidoId, bool arriba)
+        {
+            string spName = "clase.sp_organizador3_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@organi3_id", contenidoId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
 

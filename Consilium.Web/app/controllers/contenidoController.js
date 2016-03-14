@@ -1,5 +1,5 @@
 ﻿app.controller('contenidoController', function ($scope, $location, $log,
-    usuarioSesion, claseDataService, contenidoDataService, toaster) {
+    usuarioSesion, claseDataService, contenidoDataService, toaster, arribaAbajoDataService) {
     $scope.colegioId = usuarioSesion.getUsuario().colegioId;
     $scope.areas = [];
     $scope.conocimientos = [];
@@ -103,6 +103,28 @@
         $scope.actualPadreId = id;
     }
 
+    $scope.arribaConocimiento = function (id) {
+        var item = {
+            entidad: "Conocimiento",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerConocimientos();
+        });
+    }
+
+    $scope.abajoConocimiento = function (id) {
+        var item = {
+            entidad: "Conocimiento",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerConocimientos();
+        });
+    }
+
     $scope.obtenerDetalles = function (idPadre) {
         $scope.contenidos = [];
         $scope.detalleBotones = true;
@@ -161,6 +183,28 @@
         $scope.actualPadreNodo3Id = id;
     }
 
+    $scope.arribaDetalle = function (id) {
+        var item = {
+            entidad: "Detalle",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerDetalles($scope.actualPadreId);
+        });
+    }
+
+    $scope.abajoDetalle = function (id) {
+        var item = {
+            entidad: "Detalle",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerDetalles($scope.actualPadreId);
+        });
+    }
+
     $scope.obtenerContenidos = function (idPadre) {
         contenidoDataService.contenidosMant(idPadre).then(function (resultado) {
                 $scope.contenidos = resultado.data;
@@ -210,5 +254,26 @@
         });
     }
 
+    $scope.arribaContenido = function (id) {
+        var item = {
+            entidad: "Contenido",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerContenidos($scope.actualPadreNodo3Id);
+        });
+    }
+
+    $scope.abajoContenido = function (id) {
+        var item = {
+            entidad: "Contenido",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerContenidos($scope.actualPadreNodo3Id);
+        });
+    }
 
 });

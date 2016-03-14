@@ -40,12 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area.cs" />
+    <Compile Include="ArribaAbajo.cs" />
     <Compile Include="Capacidad.cs" />
     <Compile Include="Clase.cs" />
     <Compile Include="ClaseActividad.cs" />
     <Compile Include="ClaseArchivo.cs" />
     <Compile Include="ClaseCapacidad.cs" />
     <Compile Include="ClaseColColumnaColegio.cs" />
+    <Compile Include="ClaseComentario.cs" />
     <Compile Include="ClaseContenido.cs" />
     <Compile Include="ClaseMatriz.cs" />
     <Compile Include="ClaseMetodo.cs" />

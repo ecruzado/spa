@@ -1,5 +1,5 @@
 ﻿app.controller('valorController', function ($scope, $location, $log, $routeParams,
-    usuarioSesion, claseDataService, valorDataService, toaster) {
+    usuarioSesion, claseDataService, valorDataService, toaster, arribaAbajoDataService) {
     $scope.colegioId = usuarioSesion.getUsuario().colegioId;
     $scope.areas = [];
     $scope.valores = [];
@@ -84,6 +84,28 @@
         $scope.actualPadreId = id;
     }
 
+    $scope.arribaValor = function (id) {
+        var item = {
+            entidad: "Valor",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerValores();
+        });
+    }
+
+    $scope.abajoValor = function (id) {
+        var item = {
+            entidad: "Valor",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerValores();
+        });
+    }
+
     $scope.obtenerActitudes = function (idPadre) {
         $scope.actitudBotones = true;
         $scope.actitudForm = false;
@@ -126,5 +148,27 @@
         $scope.actitudForm = true;
         $scope.actual = valor;
         $scope.actualId = id;
+    }
+
+    $scope.arribaActitud = function (id) {
+        var item = {
+            entidad: "Actitud",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerActitudes($scope.actualPadreId);
+        });
+    }
+
+    $scope.abajoActitud = function (id) {
+        var item = {
+            entidad: "Actitud",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerActitudes($scope.actualPadreId);
+        });
     }
 });

@@ -47,6 +47,8 @@
                         <td>{{ deArea.deAreaId }}</td>
                         <td>{{ deArea.deArea }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoDeArea(deArea.deAreaId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaDeArea(deArea.deAreaId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="seleccionarDeArea(deArea.deAreaId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarDeArea(deArea.deAreaId,deArea.deArea)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
@@ -94,6 +96,8 @@
                         <td>{{ especifica.especificaId }}</td>
                         <td>{{ especifica.especifica }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoEspecifica(especifica.especificaId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaEspecifica(especifica.especificaId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="seleccionarEspecifica(especifica.especificaId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarEspecifica(especifica.especificaId,especifica.especifica)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
@@ -142,6 +146,8 @@
                         <td>{{ operativa.operativaId }}</td>
                         <td>{{ operativa.operativa }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoOperativa(operativa.operativaId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaOperativa(operativa.operativaId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="editarOperativa(operativa.operativaId,operativa.operativa)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
                     </tr>

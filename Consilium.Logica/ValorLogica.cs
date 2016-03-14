@@ -39,6 +39,11 @@ namespace Consilium.Logica
             return valorData.DeleteValor(valor);
         }
 
+        public int ActualizarValorOrden(int valorid, bool arriba)
+        {
+            return valorData.ActualizarValorOrden(valorid, arriba);
+        }
+
         #endregion
         
         #region actiud
@@ -61,6 +66,11 @@ namespace Consilium.Logica
         public int DeleteActitud(Valor actitud) 
         {
             return valorData.DeleteActitud(actitud);
+        }
+
+        public int ActualizarActitudOrden(int actitudId, bool arriba) 
+        {
+            return valorData.ActualizarActitudOrden(actitudId, arriba);
         }
 
         #endregion

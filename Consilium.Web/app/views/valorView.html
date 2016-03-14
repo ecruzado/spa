@@ -38,6 +38,8 @@
                         <td>{{ valor.valorId }}</td>
                         <td>{{ valor.valorDsc }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoValor(valor.valorId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaValor(valor.valorId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="seleccionarValor(valor.valorId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarValor(valor.valorId,valor.valorDsc)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
@@ -85,6 +87,8 @@
                         <td>{{ actitud.actitudId }}</td>
                         <td>{{ actitud.actitud }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoActitud(actitud.actitudId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaActitud(actitud.actitudId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="editarActitud(actitud.actitudId, actitud.actitud)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
                     </tr>

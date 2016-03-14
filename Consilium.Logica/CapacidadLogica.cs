@@ -38,6 +38,11 @@ namespace Consilium.Logica
         {
             return capacidadData.DeleteDeArea(deAreaId);
         }
+
+        public int ActualizarDeAreaOrden(int deAreaId, bool arriba) 
+        {
+            return capacidadData.ActualizarDeAreaOrden(deAreaId, arriba);
+        }
         #endregion
 
         #region especifica
@@ -58,7 +63,12 @@ namespace Consilium.Logica
         {
             return capacidadData.DeleteEspecifica(especificaId);
         }
-        
+
+        public int ActualizarEspecificaOrden(int especificaId, bool arriba) 
+        {
+            return capacidadData.ActualizarEspecificaOrden(especificaId, arriba);
+        }
+
         #endregion
 
         #region operativa
@@ -79,6 +89,11 @@ namespace Consilium.Logica
         {
             return capacidadData.DeleteOperativa(operativaId);
         }
+        public int ActualizarOperativaOrden(int operativaId, bool arriba) 
+        {
+            return capacidadData.ActualizarOperativaOrden(operativaId, arriba);
+        }
+        
         #endregion
     }
 }

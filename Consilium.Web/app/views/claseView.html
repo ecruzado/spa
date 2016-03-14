@@ -203,3 +203,11 @@
     </div>
     <div class="clear-fix clearfix"></div>
 </div>
+
+<div class="row show-grid">
+    <div class="col-xs-12">
+        <div class="alert alert-info" role="alert" ng-repeat="comentario in comentarios">
+          <strong>{{comentario.usuario}} :  </strong>{{comentario.descripcion}}
+        </div>
+    </div>
+</div>

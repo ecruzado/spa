@@ -47,6 +47,8 @@
                         <td>{{ conocimiento.conocimientoId }}</td>
                         <td>{{ conocimiento.conocimiento }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoConocimiento(conocimiento.conocimientoId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaConocimiento(conocimiento.conocimientoId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="seleccionarConocimiento(conocimiento.conocimientoId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarConocimiento(conocimiento.conocimientoId, conocimiento.conocimiento)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
@@ -108,6 +110,8 @@
                         <td>{{ detalle.detalleId }}</td>
                         <td>{{ detalle.detalle }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoDetalle(detalle.detalleId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaDetalle(detalle.detalleId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="seleccionarDetalle(detalle.detalleId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarDetalle(detalle.detalleId, detalle.detalle)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
@@ -156,6 +160,8 @@
                         <td>{{ contenido.contenidoId }}</td>
                         <td>{{ contenido.contenidoDesc }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoContenido(contenido.contenidoId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaContenido(contenido.contenidoId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="editarContenido(contenido.contenidoId, contenido.contenidoDesc)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
                     </tr>
