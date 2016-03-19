@@ -1,5 +1,5 @@
 ﻿app.controller('metodologiaController', function ($scope, $location, $log, $routeParams,
-    usuarioSesion,claseDataService, metodologiaDataService, toaster) {
+    usuarioSesion,claseDataService, metodologiaDataService, toaster, arribaAbajoDataService) {
     $scope.colegioId = usuarioSesion.getUsuario().colegioId;
     $scope.areas = [];
     $scope.criterios = [];
@@ -85,6 +85,28 @@
         $scope.actualPadreId = id;
     }
 
+    $scope.arribaCriterio = function (id) {
+        var item = {
+            entidad: "Criterio",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerCriterios();
+        });
+    }
+
+    $scope.abajoCriterio = function (id) {
+        var item = {
+            entidad: "Criterio",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerCriterios();
+        });
+    }
+
     $scope.obtenerMetecnicas = function (idPadre) {
         $scope.metecnicaBotones = true;
         $scope.metecnicaForm = false;
@@ -127,5 +149,27 @@
         $scope.metecnicaForm = true;
         $scope.actual = valor;
         $scope.actualId = id;
+    }
+
+    $scope.arribaMetecnica = function (id) {
+        var item = {
+            entidad: "Metecnica",
+            arriba: true,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerMetecnicas($scope.actualPadreId);
+        });
+    }
+
+    $scope.abajoMetecnica = function (id) {
+        var item = {
+            entidad: "Metecnica",
+            arriba: false,
+            id1: id
+        };
+        arribaAbajoDataService.saveArribaAbajo(item).then(function () {
+            $scope.obtenerMetecnicas($scope.actualPadreId);
+        });
     }
 });

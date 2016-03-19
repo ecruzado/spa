@@ -1,0 +1,32 @@
+﻿<div class="well well-sm">
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Listado de Comentarios</legend>
+        </fieldset>
+    </form>
+</div>
+<div class="col-xs-12">
+    <table class="table table-striped table-hover table-condensed" style="font-size:13px;">
+        <thead>
+            <tr>
+                <th >Id</th>
+                <th >Clase</th>
+                <th >Comentario</th>
+                <th >Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-hide="comentarios || comentarios.length > 0">
+                <td colspan="4">
+                    <div class="alert alert-dismissable alert-warning"><strong>No se encontraron comentarios</strong></div>
+                </td>
+            </tr>
+            <tr data-ng-repeat="comentario in comentarios">
+                <td>{{ comentario.claseComentarioId }}</td>
+                <td><a href="#/clase/{{comentario.claseId}}">{{ comentario.claseId }}</a></td>
+                <td>{{ comentario.descripcion }}</td>
+                <td>{{ comentario.usuario }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

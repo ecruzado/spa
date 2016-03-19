@@ -207,6 +207,39 @@ namespace Consilium.DAO
 
         }
 
+        public int ActualizarCriterioOrden(int criterioId, bool arriba)
+        {
+            string spName = "clase.sp_criterio_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@criterio_id", criterioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+
         #endregion
 
         #region metecnica
@@ -354,6 +387,39 @@ namespace Consilium.DAO
             return retVal;
 
         }
+
+        public int ActualizarMetecnicaOrden(int metecnicaId, bool arriba)
+        {
+            string spName = "clase.sp_metecnica_orden";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@metecnica_id", metecnicaId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
 
         #endregion
     }

@@ -17,5 +17,21 @@ namespace Consilium.Web.Controllers
             return list;
         }
 
+        public IEnumerable<ClaseComentario> Get(string usuario)
+        {
+            var list = ClaseComentarioLogica.Instancia.GetByUsuario(usuario);
+            return list;
+        }
+
+        // POST api/claseconocimiento
+        public void Post([FromBody]ClaseComentario claseComentario)
+        {
+            if (claseComentario.ClaseComentarioId == 0)
+                ClaseComentarioLogica.Instancia.CrearClaseComentario(claseComentario);
+            else
+                ClaseComentarioLogica.Instancia.ActualizarClaseComentario(claseComentario);
+        }
+
+
     }
 }

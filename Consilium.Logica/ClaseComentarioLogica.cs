@@ -16,5 +16,20 @@ namespace Consilium.Logica
         {
             return claseComentarioData.GetByClase(claseId);
         }
+
+        public List<ClaseComentario> GetByUsuario(string usuario)
+        {
+            return claseComentarioData.GetByUsuario(usuario);
+        }
+
+        public int CrearClaseComentario(ClaseComentario claseComentario)
+        {
+            return claseComentarioData.CrearClaseComentario(claseComentario);
+        }
+
+        public int ActualizarClaseComentario(ClaseComentario claseComentario)
+        {
+            return claseComentarioData.ActualizarClaseComentario(claseComentario);
+        }
     }
 }

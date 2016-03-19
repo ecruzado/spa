@@ -14,11 +14,17 @@
             $scope.reporte = usuario.Reporte;
             $scope.mantenimiento = usuario.Mantenimiento;
             $scope.administrador = usuario.Administrador;
+
+
+            claseDataService.claseComentarios(0, usuarioSesion.getUsuario().codigo).then(function (resultado) {
+                $scope.comentarios = resultado.data;
+            });
         });
 
         claseDataService.areas().then(function (resultado) {
             $scope.areas = resultado.data;
         });
+
     }
 
     $scope.isActive = function (path) {

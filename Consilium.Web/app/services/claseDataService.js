@@ -297,8 +297,14 @@
         );
     };
 
-    var _claseComentarios = function (claseId) {
-        return $http.get('/api/clasecomentario/', { params: { claseId: claseId } }).then(function (results) {
+    var _claseComentarios = function (claseId, usuario) {
+        var params = {};
+        if (claseId && claseId !== 0)
+            params.claseId = claseId;
+        if (usuario && usuario !== "")
+            params.usuario = usuario;
+
+        return $http.get('/api/clasecomentario/', { params: params }).then(function (results) {
             return results;
         });
     };

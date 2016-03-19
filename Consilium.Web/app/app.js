@@ -52,6 +52,11 @@ app.config(function ($routeProvider) {
         controller: "contenidoController",
         templateUrl: baseUrl + "app/views/contenidoView.html?v=0.1"
     });
-    $routeProvider.otherwise({ redirectTo: "/crearClase" });
+    $routeProvider.when("/comentario", {
+        controller: "comentarioController",
+        templateUrl: baseUrl + "app/views/comentarioView.html?v=0.1"
+    });
+
+    $routeProvider.otherwise({ redirectTo: "/comentario" });
 
 });

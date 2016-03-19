@@ -38,6 +38,11 @@ namespace Consilium.Logica
         {
             return metodologiaData.DeleteCriterio(metodologia);
         }
+        
+        public int ActualizarCriterioOrden(int criterioId, bool arriba)
+        {
+            return metodologiaData.ActualizarCriterioOrden(criterioId, arriba);
+        }
 
         #endregion
         
@@ -59,6 +64,11 @@ namespace Consilium.Logica
         public int DeleteMetecnica(Metodologia metodologia)
         {
             return metodologiaData.DeleteMetecnica(metodologia);
+        }
+
+        public int ActualizarMetecnicaOrden(int metecnicaId, bool arriba)
+        {
+            return metodologiaData.ActualizarMetecnicaOrden(metecnicaId, arriba);
         }
     }
 }

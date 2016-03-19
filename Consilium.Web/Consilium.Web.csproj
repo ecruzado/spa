@@ -187,6 +187,7 @@
     <Content Include="app\controllers\capacidadController.js" />
     <Content Include="app\controllers\colegioController.js" />
     <Content Include="app\controllers\colegioPopUpController.js" />
+    <Content Include="app\controllers\comentarioController.js" />
     <Content Include="app\controllers\contenidoController.js" />
     <Content Include="app\controllers\eliminarClasePopUpController.js" />
     <Content Include="app\controllers\metodoligaPopUpController.js" />
@@ -227,6 +228,7 @@
     <Content Include="app\views\capacidadView.html" />
     <Content Include="app\views\colegioPopUpView.html" />
     <Content Include="app\views\colegioView.html" />
+    <Content Include="app\views\comentarioView.html" />
     <Content Include="app\views\contenidoView.html" />
     <Content Include="app\views\eliminarClasePopUpView.html" />
     <Content Include="app\views\metodologiaPopUpView.html" />

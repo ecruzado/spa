@@ -50,6 +50,8 @@
                         <td>{{ criterio.criterioId }}</td>
                         <td>{{ criterio.criterio }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoCriterio(criterio.criterioId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaCriterio(criterio.criterioId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="seleccionarCriterio(criterio.criterioId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarCriterio(criterio.criterioId,criterio.criterio)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
@@ -97,6 +99,8 @@
                         <td>{{ metecnica.metecnicaId }}</td>
                         <td>{{ metecnica.metecnica }}</td>
                         <td class="col-options">
+                            <a ng-click="abajoMetecnica(metecnica.metecnicaId)" class=""><span class="glyphicon glyphicon-arrow-down" style=""></span></a>
+                            <a ng-click="arribaMetecnica(metecnica.metecnicaId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="editarMetecnica(metecnica.metecnicaId,metecnica.metecnica)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                         </td>
                     </tr>

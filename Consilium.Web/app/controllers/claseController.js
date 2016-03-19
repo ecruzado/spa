@@ -1,6 +1,6 @@
 ﻿app.controller('claseController', function ($scope, $rootScope, $modal, $routeParams,
     $interval, $upload, $filter, $location,
-    claseDataService, usuarioSesion, $log, columnaColegioDataService) {
+    claseDataService, usuarioSesion, $log, columnaColegioDataService, usuarioDataService) {
     $scope.claseCabecera = {
         claseId: $routeParams.claseId,
         colegioId: 5,
@@ -8,6 +8,7 @@
         nivelId: 1,
         gradoId: 2
     };
+    $scope.usuarios = [];
     $scope.matriz = {};
     $scope.actividad = {};
     $scope.claseCapacidades = [];
@@ -78,6 +79,13 @@
         obtenerClaseComentarios();
     }
 
+    function obtenerUsuarios() {
+        usuarioDataService.usuarios($scope.claseCabecera.colegioId).then(function (resultado) {
+            $scope.usuarios = resultado.data;
+            $scope.usuarios.splice(0, 0, { codigo: '--Seleccionar Usuario--' });
+        });
+    }
+
     function obtenerClaseCabecera() {
         claseDataService.clase($scope.claseCabecera.claseId).then(function (resultado) {
             $scope.claseCabecera = resultado.data;
@@ -86,6 +94,7 @@
                 $scope.claseCabecera.gradoId = resultado.data.gradoId;
             });
             obtenerColumnasColegio();
+            obtenerUsuarios();
         });
     }
 
@@ -462,6 +471,7 @@
     }
 
 
+
     $scope.openFechaInicio = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -798,6 +808,18 @@
     };
 
 
+    $scope.guardarComentario = function () {
+        var claseComentario = {};
+        claseComentario.descripcion = $scope.comentario;
+        claseComentario.usuario = usuarioSesion.getUsuario().codigo;
+        claseComentario.claseId = $scope.claseCabecera.claseId;
+        claseComentario.estado = true;
+        claseComentario.esNotificado = false;
+        claseDataService.saveClaseComentario(claseComentario).then(function () {
+            obtenerClaseComentarios();
+            $scope.comentario = "";
+        });
+    };
 
 
 });

@@ -52,6 +52,12 @@ namespace Consilium.Web.Controllers
                 case "Contenido":
                     ContenidoLogica.Instancia.ActualizarContenidoOrden(arribaAbajo.Id1, arribaAbajo.Arriba);
                     break;
+                case "Criterio":
+                    MetodologiaLogica.Instancia.ActualizarCriterioOrden(arribaAbajo.Id1, arribaAbajo.Arriba);
+                    break;
+                case "Metecnica":
+                    MetodologiaLogica.Instancia.ActualizarMetecnicaOrden(arribaAbajo.Id1, arribaAbajo.Arriba);
+                    break;
                 default:
                     break;
             }

@@ -76,6 +76,7 @@ namespace Consilium.DAO
                         command.Parameters.Add(ObjSqlParameter("@grado_id", clase.GradoId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.Parameters.Add(ObjSqlParameter("@fecha_inicio", clase.FechaInicioFormato, ParameterDirection.Input, System.Data.DbType.String));
                         command.Parameters.Add(ObjSqlParameter("@fecha_fin", clase.FechaFinFormato, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@usuario", clase.Usuario, ParameterDirection.Input, System.Data.DbType.String));
                         command.CommandType = CommandType.StoredProcedure;
                         conn.Open();
                         retVal = command.ExecuteNonQuery();
