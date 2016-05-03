@@ -4,9 +4,12 @@
     init();
 
     function init() {
-        claseDataService.claseComentarios(0, usuarioSesion.getUsuario().codigo).then(function (resultado) {
-            $scope.comentarios = resultado.data;
+        usuarioSesion.obtenerUsuarioServer().then(function (usuario) {
+            claseDataService.claseComentarios(0, usuarioSesion.getUsuario().codigo).then(function (resultado) {
+                $scope.comentarios = resultado.data;
+            });
         });
+
 
     }
 
