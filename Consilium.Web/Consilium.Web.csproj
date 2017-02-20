@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -135,6 +136,7 @@
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\ArchivoController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\AreaColegioController.cs" />
     <Compile Include="Controllers\ArribaAbajoController.cs" />
     <Compile Include="Controllers\CambioPasswordController.cs" />
     <Compile Include="Controllers\CapacidadController.cs" />
@@ -185,7 +187,9 @@
     <Content Include="app\app.js" />
     <Content Include="app\controllers\cambioPasswordController.js" />
     <Content Include="app\controllers\capacidadController.js" />
+    <Content Include="app\controllers\areaController.js" />
     <Content Include="app\controllers\colegioController.js" />
+    <Content Include="app\controllers\areaPopUpController.js" />
     <Content Include="app\controllers\colegioPopUpController.js" />
     <Content Include="app\controllers\comentarioController.js" />
     <Content Include="app\controllers\contenidoController.js" />
@@ -203,6 +207,7 @@
     <Content Include="app\controllers\historialClaseController.js" />
     <Content Include="app\controllers\navigationController.js" />
     <Content Include="app\controllers\reporteController.js" />
+    <Content Include="app\controllers\seleccionPopUpController.js" />
     <Content Include="app\controllers\sesionController.js" />
     <Content Include="app\controllers\usuarioController.js" />
     <Content Include="app\controllers\usuarioPopUpController.js" />
@@ -226,7 +231,9 @@
     <Content Include="app\services\valorDataService.js" />
     <Content Include="app\views\cambioPasswordView.html" />
     <Content Include="app\views\capacidadView.html" />
+    <Content Include="app\views\areaPopUpView.html" />
     <Content Include="app\views\colegioPopUpView.html" />
+    <Content Include="app\views\areaView.html" />
     <Content Include="app\views\colegioView.html" />
     <Content Include="app\views\comentarioView.html" />
     <Content Include="app\views\contenidoView.html" />
@@ -243,6 +250,7 @@
     <Content Include="app\views\claseView.html" />
     <Content Include="app\views\historialClaseView.html" />
     <Content Include="app\views\reporteView.html" />
+    <Content Include="app\views\seleccionPopUpView.html" />
     <Content Include="app\views\usuarioPopUpView.html" />
     <Content Include="app\views\usuarioView.html" />
     <Content Include="app\views\valorPopUpView.html" />
@@ -299,7 +307,9 @@
     <Content Include="Scripts\toaster.js" />
     <Content Include="Scripts\ui-bootstrap-0.11.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.11.0.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

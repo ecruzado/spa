@@ -19,11 +19,12 @@
             claseDataService.claseComentarios(0, usuarioSesion.getUsuario().codigo).then(function (resultado) {
                 $scope.comentarios = resultado.data;
             });
+
+            claseDataService.areas(usuarioSesion.getUsuario().colegioId).then(function (resultado) {
+                $scope.areas = resultado.data;
+            });
         });
 
-        claseDataService.areas().then(function (resultado) {
-            $scope.areas = resultado.data;
-        });
 
     }
 

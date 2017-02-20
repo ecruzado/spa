@@ -240,6 +240,37 @@ namespace Consilium.DAO
             }
         }
 
+        public int ExportarDeArea(CapacidadExportar capacidadExportar)
+        {
+            string spName = "clase.sp_dearea_exportar";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@dearea_id_origen", capacidadExportar.DeAreaIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@area_id_destino", capacidadExportar.AreaIdDestino, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         #endregion
 

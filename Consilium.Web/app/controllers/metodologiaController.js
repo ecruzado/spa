@@ -24,7 +24,7 @@
     }
 
     function obtenerAreas() {
-        claseDataService.areas().then(function (resultado) {
+        claseDataService.areas(usuarioSesion.getUsuario().colegioId).then(function (resultado) {
             $scope.areas = resultado.data;
         });
 

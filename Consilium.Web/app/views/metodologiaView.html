@@ -46,7 +46,7 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="criterio in criterios">
+                    <tr data-ng-repeat="criterio in criterios" ng-class="{'warning': criterio.criterioId == actualPadreId}">
                         <td>{{ criterio.criterioId }}</td>
                         <td>{{ criterio.criterio }}</td>
                         <td class="col-options">

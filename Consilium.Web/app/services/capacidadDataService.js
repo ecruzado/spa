@@ -40,6 +40,18 @@
         );
     };
 
+    var _exportarDeArea = function (exportar) {
+        return $http.post(deAreaServiceBase+'export/', exportar).then(
+            function (results) {
+                toaster.pop('success', "Exportado Satisfactoriamente", "De Area exportado satisfactoriamente!");
+            },
+            function (results) {
+                alert('error');
+                return results;
+            }
+        );
+    };
+
     var _especificas = function (deAreaId) {
         return $http.get(especificaServiceBase, { params: { deAreaId: deAreaId } }).then(function (results) {
             return results;
@@ -101,6 +113,7 @@
     capacidadDataFactory.deAreas = _deAreas;
     capacidadDataFactory.saveDeArea = _saveDeArea;
     capacidadDataFactory.deleteDeArea = _deleteDeArea;
+    capacidadDataFactory.exportarDeArea = _exportarDeArea
 
     capacidadDataFactory.especificas = _especificas;
     capacidadDataFactory.saveEspecifica = _saveEspecifica;

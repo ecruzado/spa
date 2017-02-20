@@ -16,4 +16,10 @@ namespace Consilium.Entity
         public int ColegioId { get; set; }
         public int AreaId { get; set; }
     }
+
+    public class CapacidadExportar
+    {
+        public int DeAreaIdOrigen { get; set; }
+        public int AreaIdDestino { get; set; }
+    }
 }

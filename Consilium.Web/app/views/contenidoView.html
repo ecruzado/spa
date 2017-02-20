@@ -43,7 +43,7 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="conocimiento in conocimientos">
+                    <tr data-ng-repeat="conocimiento in conocimientos" ng-class="{'warning': conocimiento.conocimientoId == actualPadreId}">
                         <td>{{ conocimiento.conocimientoId }}</td>
                         <td>{{ conocimiento.conocimiento }}</td>
                         <td class="col-options">
@@ -106,7 +106,7 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="detalle in detalles">
+                    <tr data-ng-repeat="detalle in detalles" ng-class="{'warning': detalle.detalleId == actualPadreNodo3Id}">
                         <td>{{ detalle.detalleId }}</td>
                         <td>{{ detalle.detalle }}</td>
                         <td class="col-options">

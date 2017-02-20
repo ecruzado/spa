@@ -12,24 +12,14 @@ namespace Consilium.Web.Controllers
     public class AreaController : ApiController
     {
         // GET api/area
-        public IEnumerable<Area> Get()
+        public IEnumerable<Area> Get(int colegioId)
         {
-            var lista = AreaLogica.Instancia.List();
+            var lista = AreaLogica.Instancia.List(colegioId);
             /*if (lista != null)
                 lista.Insert(0, new Area { AreaId = 0, Descripcion = "--Seleccionar Area--" });*/
             return lista;
         }
 
-        // GET api/area/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/area
-        public void Post([FromBody]string value)
-        {
-        }
 
         // PUT api/area/5
         public void Put(int id, [FromBody]string value)

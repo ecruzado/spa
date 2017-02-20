@@ -43,7 +43,7 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="deArea in deAreas">
+                    <tr data-ng-repeat="deArea in deAreas" ng-class="{'warning': deArea.deAreaId == actualPadreId}">
                         <td>{{ deArea.deAreaId }}</td>
                         <td>{{ deArea.deArea }}</td>
                         <td class="col-options">
@@ -51,6 +51,7 @@
                             <a ng-click="arribaDeArea(deArea.deAreaId)" class=""><span class="glyphicon glyphicon-arrow-up" style=""></span></a>
                             <a ng-click="seleccionarDeArea(deArea.deAreaId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarDeArea(deArea.deAreaId,deArea.deArea)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
+                            <a ng-click="exportarDeArea(deArea.deAreaId)" class=""><span class="glyphicon glyphicon-export" style=""></span></a>
                         </td>
                     </tr>
                 </tbody>
@@ -92,7 +93,7 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="especifica in especificas">
+                    <tr data-ng-repeat="especifica in especificas" ng-class="{'warning': especifica.especificaId == actualPadreNodo3Id}">
                         <td>{{ especifica.especificaId }}</td>
                         <td>{{ especifica.especifica }}</td>
                         <td class="col-options">

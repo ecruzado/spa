@@ -1,0 +1,34 @@
+﻿<div class="modal-header" style="padding-top:10px;padding-bottom:10px">
+    <a href="" class="close" data-ng-click="close()">&times;</a>
+    <h4 style="margin-top:5px">Propiedades de Area</h4>
+</div>
+<div class="modal-body" style="padding:0px">
+    <div class="well well-sm" style="margin:0px">
+        <form class="form-horizontal" name="areaForm" ng-submit="submitForm(areaForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Id </label>
+                    <div class="col-xs-2">
+                        <input class="form-control" type="text" ng-model="area.areaId" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Nombre </label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="text" ng-model="area.descripcion" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="nombreClase" class="control-label col-xs-4">Nombre Personalizado </label>
+                    <div class="col-xs-8">
+                        <input class="form-control" type="text" ng-model="area.nombreAlternativo" ng-maxlength="250" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer" style="padding-top:10px;padding-bottom:10px">
+    <button type="button" data-ng-click="guardarSeleccion()" class="btn btn-primary pull-right" ng-disabled="colegioForm.$invalid">Guardar</button>
+</div>
+

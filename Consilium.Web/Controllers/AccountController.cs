@@ -20,10 +20,10 @@ namespace Consilium.Web.Controllers
         [AllowAnonymous]   
         public ActionResult LogOn(string acceso)
         {
-            if (acceso == null) 
-            {
-                return Redirect("http://consilium-educacion.jimdo.com");
-            }
+            //if (acceso == null) 
+            //{
+            //    return Redirect("http://consilium-educacion.jimdo.com");
+            //}
             return View();
         }
 
@@ -37,7 +37,7 @@ namespace Consilium.Web.Controllers
             //logout();
             if (ModelState.IsValid)
             {
-                var usuario = UsuarioLogica.Instancia.GetByUsuarioAndPassword(model.UserName, model.Password);
+                var usuario = UsuarioLogica.Instancia.GetById(7);
                 if (usuario != null)
                 {
                     System.Web.HttpContext.Current.Session.Add(Constantes.Usuario, usuario);

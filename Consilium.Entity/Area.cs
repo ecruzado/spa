@@ -9,5 +9,8 @@ namespace Consilium.Entity
     {
         public int AreaId { get; set; }
         public string Descripcion { get; set; }
+        public bool EsOpcional { get; set; }
+        public string NombreAlternativo { get; set; }
+        public int ColegioId { get; set; }
     }
 }

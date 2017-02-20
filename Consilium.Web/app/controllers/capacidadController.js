@@ -1,4 +1,4 @@
-﻿app.controller('capacidadController', function ($scope, $location, $log, $routeParams,
+﻿app.controller('capacidadController', function ($scope, $location, $log, $routeParams, $modal,
     usuarioSesion, claseDataService, capacidadDataService, toaster, arribaAbajoDataService) {
     $scope.nombre = '';
     $scope.colegioId = usuarioSesion.getUsuario().colegioId;
@@ -17,6 +17,7 @@
     $scope.actualPadreId = 0;
     $scope.actualPadreNodo3Id = 0;
 
+    $scope.selectedIndex = 1;
     init();
 
     function init() {
@@ -24,7 +25,7 @@
     }
 
     function obtenerAreas() {
-        claseDataService.areas().then(function (resultado) {
+        claseDataService.areas(usuarioSesion.getUsuario().colegioId).then(function (resultado) {
             $scope.areas = resultado.data;
         });
 
@@ -85,6 +86,30 @@
         $scope.especificaForm = false;
         $scope.obtenerEspecifica(id);
         $scope.actualPadreId = id;
+    }
+
+    $scope.exportarDeArea = function (id) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/seleccionPopUpView.html',
+            controller: 'seleccionPopUpController',
+            resolve: {
+                items: function () {
+                    return $scope.areas.map(function (area) {
+                        return { id: area.areaId, texto: area.descripcion };
+                    });
+                }
+            }
+        });
+        modalInstance.result.then(function (areaId) {
+            var item = {
+                deAreaIdOrigen: id,
+                areaIdDestino: areaId
+            };
+            capacidadDataService.exportarDeArea(item).then(function () {
+                $scope.obtenerDeArea();
+            });
+        });
+
     }
 
     $scope.arribaDeArea = function (id) {

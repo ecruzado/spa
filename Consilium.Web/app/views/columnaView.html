@@ -52,7 +52,6 @@
                     <tr class="info">
                         <th>Id</th>
                         <th>Nombre</th>
-                        <!--<th>Orden</th>-->
                         <th></th>
                     </tr>
                 </thead>
@@ -62,10 +61,9 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="nodo in nodo1">
+                    <tr data-ng-repeat="nodo in nodo1" ng-class="{'warning': nodo.confColumnaColegioId == actualPadreId}">
                         <td>{{ nodo.confColumnaColegioId }}</td>
                         <td>{{ nodo.valor }}</td>
-                        <td>{{ nodo.orden }}</td>
                         <td class="col-options">
                             <a ng-click="seleccionarNodo1(nodo.confColumnaColegioId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarNodo1(nodo.confColumnaColegioId,nodo.valor)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
@@ -117,7 +115,6 @@
                     <tr class="info">
                         <th>Id</th>
                         <th>Nombre</th>
-                        <!--<th>Orden</th>-->
                         <th></th>
                     </tr>
                 </thead>
@@ -127,10 +124,9 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="nodo in nodo2">
+                    <tr data-ng-repeat="nodo in nodo2" ng-class="{'warning': nodo.confColumnaColegioId == actualPadreNodo3Id}">
                         <td>{{ nodo.confColumnaColegioId }}</td>
                         <td>{{ nodo.valor }}</td>
-                        <td>{{ nodo.orden }}</td>
                         <td class="col-options">
                             <a ng-click="seleccionarNodo2(nodo.confColumnaColegioId)" class=""><span class="glyphicon glyphicon-play" style=""></span></a>
                             <a ng-click="editarNodo2(nodo.confColumnaColegioId,nodo.valor)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
@@ -182,7 +178,6 @@
                     <tr data-ng-repeat="nodo in nodo3">
                         <td>{{ nodo.confColumnaColegioId }}</td>
                         <td>{{ nodo.valor }}</td>
-                        <td>{{ nodo.orden }}</td>
                         <td class="col-options">
                             <a ng-click="editarNodo3(nodo.confColumnaColegioId,nodo.valor)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
                             <!--<a ng-click="subirNodo3(nodo.confColumnaColegioId)" class=""><span class="glyphicon glyphicon-upload" style=""></span></a>

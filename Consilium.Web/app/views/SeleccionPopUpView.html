@@ -1,0 +1,21 @@
+﻿<div class="modal-header" style="padding-top:10px;padding-bottom:10px">
+    <a href="" class="close" data-ng-click="close()">&times;</a>
+    <h4 style="margin-top:5px">Propiedades de Area</h4>
+</div>
+<div class="modal-body" style="padding:0px">
+    <div class="well well-sm" style="margin:0px">
+        <form class="form-horizontal" novalidate>
+            <fieldset>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-xs-4">Id </label>
+                    <div class="col-xs-2">
+                        <select class="form-control" ng-model="selectedItem.item" ng-options="item.id as item.texto for item in items"></select>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer" style="padding-top:10px;padding-bottom:10px">
+    <button type="button" data-ng-click="guardarSeleccion()" class="btn btn-primary pull-right">Seleccionar</button>
+</div>

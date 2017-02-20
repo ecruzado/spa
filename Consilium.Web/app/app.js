@@ -56,7 +56,10 @@ app.config(function ($routeProvider) {
         controller: "comentarioController",
         templateUrl: baseUrl + "app/views/comentarioView.html?v=0.28"
     });
-
+    $routeProvider.when("/area", {
+        controller: "areaController",
+        templateUrl: baseUrl + "app/views/areaView.html?v=0.28"
+    });
     $routeProvider.otherwise({ redirectTo: "/comentario" });
 
 });

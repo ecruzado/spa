@@ -34,7 +34,7 @@
                             <div class="text-center text-warning"><strong>No se encontraron registros</strong></div>
                         </td>
                     </tr>
-                    <tr data-ng-repeat="valor in valores">
+                    <tr data-ng-repeat="valor in valores" ng-class="{'warning': valor.valorId == actualPadreId}">
                         <td>{{ valor.valorId }}</td>
                         <td>{{ valor.valorDsc }}</td>
                         <td class="col-options">

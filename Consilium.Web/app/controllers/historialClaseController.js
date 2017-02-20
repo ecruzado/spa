@@ -64,7 +64,7 @@
         });
     }
     function obtenerAreas() {
-        claseDataService.areas().then(function (resultado) {
+        claseDataService.areas(usuarioSesion.getUsuario().colegioId).then(function (resultado) {
             $scope.areas = resultado.data;
             $scope.areas.splice(0, 0, { areaId: 0, descripcion: '--Seleccionar Area--' });
         });

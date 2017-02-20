@@ -181,10 +181,27 @@
         );
     };
 
-    var _areas = function () {
-        return $http.get('/api/area/').then(function (results) {
+    var _areas = function (colegioId) {
+        return $http.get('/api/area/', { params: { colegioId: colegioId } }).then(function (results) {
             return results;
         });
+    };
+    var _areasByColegio = function (colegioId) {
+        console.log('servicio');
+        return $http.get('/api/areacolegio/', { params: { colegioId: colegioId } }).then(function (results) {
+            return results;
+        });
+    };
+
+    var _saveArea = function (area) {
+        return $http.post('/api/areacolegio/', area).then(
+            function (results) {
+                toaster.pop('success', "Guardado Satisfactoriamente", "Area guardada satisfactoriamente!");
+            },
+            function (results) {
+                return results;
+            }
+        );
     };
     var _usuarios = function (colegioId) {
         return $http.get('/api/usuario/', { params: { colegioId: colegioId } }).then(function (results) {
@@ -360,6 +377,9 @@
     claseDataFactory.saveClaseMatriz = _saveClaseMatriz;
 
     claseDataFactory.areas = _areas;
+    claseDataFactory.areasByColegio = _areasByColegio;
+    claseDataFactory.saveArea = _saveArea;
+
     claseDataFactory.usuarios = _usuarios;
 
     claseDataFactory.claseColumnas = _claseColumnas;

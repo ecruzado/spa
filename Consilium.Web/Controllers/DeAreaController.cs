@@ -30,5 +30,12 @@ namespace Consilium.Web.Controllers
         {
             CapacidadLogica.Instancia.DeleteDeArea(id); 
         }
+
+        // POST api/columna
+        [HttpPost]
+        public void Export([FromBody]CapacidadExportar capacidadExportar)
+        {
+            CapacidadLogica.Instancia.ExportarDeArea(capacidadExportar);
+        }
     }
 }

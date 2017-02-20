@@ -43,6 +43,12 @@ namespace Consilium.Logica
         {
             return capacidadData.ActualizarDeAreaOrden(deAreaId, arriba);
         }
+
+        public int ExportarDeArea(CapacidadExportar capacidadExportar)
+        {
+            return capacidadData.ExportarDeArea(capacidadExportar);
+        }
+
         #endregion
 
         #region especifica
