@@ -23,4 +23,22 @@
         });
     };
 
+    $scope.popUpExportar = function (seleccion) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/exportarColegioPopUpView.html',
+            controller: 'exportarColegioPopUpController',
+            resolve: {
+                colegioIdDestino: function () {
+                    return seleccion;
+                },
+                colegios: function () {
+                    return $scope.colegios;
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            init();
+        });
+    };
+
 });

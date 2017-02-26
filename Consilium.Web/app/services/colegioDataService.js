@@ -25,9 +25,22 @@
             }
         );
     };
+
+    var _exportar = function (exportar) {
+        return $http.post(serviceBase+'exportar/', exportar).then(
+            function (results) {
+                toaster.pop('success', "Se importo satisfactoriamente los datos", "Se importo satisfactoriamente los datos!");
+            },
+            function (results) {
+                toaster.pop('error', "Error", "No se pudo importar los registros!");
+                return results;
+            }
+        );
+    };
     colegioDataFactory.colegios = _colegios;
     colegioDataFactory.colegio = _colegio;
     colegioDataFactory.saveColegio = _saveColegio;
+    colegioDataFactory.exportar = _exportar;
 
     return colegioDataFactory;
 });

@@ -21,5 +21,13 @@ namespace Consilium.Entity
     {
         public int DeAreaIdOrigen { get; set; }
         public int AreaIdDestino { get; set; }
+
+        public int DeAreaIdDestino { get; set; }
+        public int EspecificaIdOrigen { get; set; }
+
+        public int EspecificaIdDestino { get; set; }
+        public int OperativaIdOrigen { get; set; }
+
+        public int OperativaIdDestino { get; set; }
     }
 }

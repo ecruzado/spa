@@ -25,7 +25,10 @@
                 <td>{{ colegio.nombre }}</td>
                 <td>{{ colegio.direccion }}</td>
                 <td>{{ colegio.telefono }}</td>
-                <td><a ng-click="popUpColegio(colegio.colegioId)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a></td>
+                <td class="col-options">
+                    <a ng-click="popUpColegio(colegio.colegioId)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a>
+                    <a ng-click="popUpExportar(colegio.colegioId)" class=""><span class="glyphicon glyphicon-import" style=""></span></a>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -37,7 +37,8 @@ namespace Consilium.Web.Controllers
             //logout();
             if (ModelState.IsValid)
             {
-                var usuario = UsuarioLogica.Instancia.GetById(7);
+                //var usuario = UsuarioLogica.Instancia.GetById(7);
+                var usuario = UsuarioLogica.Instancia.GetByUsuarioAndPassword(model.UserName, model.Password);
                 if (usuario != null)
                 {
                     System.Web.HttpContext.Current.Session.Add(Constantes.Usuario, usuario);

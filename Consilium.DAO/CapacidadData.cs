@@ -272,6 +272,39 @@ namespace Consilium.DAO
             }
         }
 
+        public int CombinarDeArea(CapacidadExportar capacidadExportar)
+        {
+            string spName = "clase.sp_dearea_combinar";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@dearea_id_origen", capacidadExportar.DeAreaIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@dearea_id_destino", capacidadExportar.DeAreaIdDestino, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+
         #endregion
 
         #region especifica
@@ -435,6 +468,70 @@ namespace Consilium.DAO
 
                         command.Parameters.Add(ObjSqlParameter("@especifica_id", especificaId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public int ExportarEspecifica(CapacidadExportar capacidadExportar)
+        {
+            string spName = "clase.sp_especifica_exportar";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@dearea_id_destino", capacidadExportar.DeAreaIdDestino, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@especifica_id_origen", capacidadExportar.EspecificaIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public int CombinarEspecifica(CapacidadExportar capacidadExportar)
+        {
+            string spName = "clase.sp_especifica_combinar";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@especifica_id_origen", capacidadExportar.EspecificaIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@especifica_id_destino", capacidadExportar.EspecificaIdDestino, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.CommandType = CommandType.StoredProcedure;
                         conn.Open();
                         retVal = command.ExecuteNonQuery();
@@ -616,6 +713,70 @@ namespace Consilium.DAO
 
                         command.Parameters.Add(ObjSqlParameter("@operativa_id", operativaId, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.Parameters.Add(ObjSqlParameter("@arriba", arriba, ParameterDirection.Input, System.Data.DbType.Boolean));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public int ExportarOperativa(CapacidadExportar capacidadExportar)
+        {
+            string spName = "clase.sp_operativa_exportar";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@operativa_id_origen", capacidadExportar.OperativaIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@especifica_id_destino", capacidadExportar.EspecificaIdDestino, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        retVal = command.ExecuteNonQuery();
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public int CombinarOperativa(CapacidadExportar capacidadExportar)
+        {
+            string spName = "clase.sp_operativa_combinar";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@operativa_id_origen", capacidadExportar.OperativaIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@operativa_id_destino", capacidadExportar.OperativaIdDestino, ParameterDirection.Input, System.Data.DbType.Int32));
                         command.CommandType = CommandType.StoredProcedure;
                         conn.Open();
                         retVal = command.ExecuteNonQuery();

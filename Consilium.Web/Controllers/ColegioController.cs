@@ -36,5 +36,10 @@ namespace Consilium.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public void Exportar([FromBody]ColegioExportar colegioExportar)
+        {
+            ColegioLogica.Instancia.Exportar(colegioExportar);
+        }
     }
 }

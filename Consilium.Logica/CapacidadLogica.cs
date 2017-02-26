@@ -49,6 +49,11 @@ namespace Consilium.Logica
             return capacidadData.ExportarDeArea(capacidadExportar);
         }
 
+        public int CombinarDeArea(CapacidadExportar capacidadCombinar)
+        {
+            return capacidadData.CombinarDeArea(capacidadCombinar);
+        }
+
         #endregion
 
         #region especifica
@@ -75,6 +80,14 @@ namespace Consilium.Logica
             return capacidadData.ActualizarEspecificaOrden(especificaId, arriba);
         }
 
+        public int ExportarEspecifica(CapacidadExportar capacidadExportar)
+        {
+            return capacidadData.ExportarEspecifica(capacidadExportar);
+        }
+        public int CombinarEspecifica(CapacidadExportar capacidadCombinar)
+        {
+            return capacidadData.CombinarEspecifica(capacidadCombinar);
+        }
         #endregion
 
         #region operativa
@@ -99,7 +112,15 @@ namespace Consilium.Logica
         {
             return capacidadData.ActualizarOperativaOrden(operativaId, arriba);
         }
-        
+
+        public int ExportarOperativa(CapacidadExportar capacidadExportar)
+        {
+            return capacidadData.ExportarOperativa(capacidadExportar);
+        }
+        public int CombinarOperativa(CapacidadExportar capacidadCombinar)
+        {
+            return capacidadData.CombinarOperativa(capacidadCombinar);
+        }
         #endregion
     }
 }

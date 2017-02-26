@@ -37,5 +37,12 @@ namespace Consilium.Web.Controllers
         {
             CapacidadLogica.Instancia.ExportarDeArea(capacidadExportar);
         }
+
+        [HttpPost]
+        public void Combinar([FromBody]CapacidadExportar capacidadCombinar)
+        {
+            CapacidadLogica.Instancia.CombinarDeArea(capacidadCombinar);
+        }
+
     }
 }

@@ -112,6 +112,33 @@
 
     }
 
+    $scope.combinarDeArea = function (id) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/seleccionPopUpView.html',
+            controller: 'seleccionPopUpController',
+            resolve: {
+                items: function () {
+                    return $scope.deAreas.map(function (deArea) {
+                        return { id: deArea.deAreaId, texto: deArea.deArea };
+                    }).filter(function (areaFilter) {
+                        return areaFilter.deAreaId !== id;
+                    });
+                }
+            }
+        });
+        modalInstance.result.then(function (deAreaId) {
+            var item = {
+                deAreaIdOrigen: deAreaId,
+                deAreaIdDestino: id
+            };
+            capacidadDataService.combinarDeArea(item).then(function () {
+                $scope.obtenerDeArea();
+            });
+        });
+
+    }
+
+
     $scope.arribaDeArea = function (id) {
         var item = {
             entidad: "DeArea",
@@ -210,6 +237,57 @@
         });
     }
 
+    $scope.exportarEspecifica = function (id) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/seleccionPopUpView.html',
+            controller: 'seleccionPopUpController',
+            resolve: {
+                items: function () {
+                    return $scope.deAreas.map(function (deArea) {
+                        return { id: deArea.deAreaId, texto: deArea.deArea };
+                    });
+                }
+            }
+        });
+        modalInstance.result.then(function (deAreaId) {
+            var item = {
+                especificaIdOrigen: id,
+                deAreaIdDestino: deAreaId
+            };
+            capacidadDataService.exportarEspecifica(item).then(function () {
+                $scope.obtenerDeArea();
+            });
+        });
+
+    }
+
+    $scope.combinarEspecifica = function (id) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/seleccionPopUpView.html',
+            controller: 'seleccionPopUpController',
+            resolve: {
+                items: function () {
+                    return $scope.especificas.map(function (especifica) {
+                        return { id: especifica.especificaId, texto: especifica.especifica };
+                    }).filter(function (especificaFilter) {
+                        return especificaFilter.id !== id;
+                    });
+                }
+            }
+        });
+        modalInstance.result.then(function (especificaId) {
+            var item = {
+                especificaIdOrigen: especificaId,
+                especificaIdDestino: id
+            };
+            capacidadDataService.combinarEspecifica(item).then(function () {
+                $scope.obtenerDeArea();
+            });
+        });
+
+    }
+
+
     $scope.obtenerOperativa = function (idPadre) {
         capacidadDataService.operativas(idPadre).then(function (resultado) {
             $scope.operativas = resultado.data;
@@ -272,4 +350,56 @@
             $scope.obtenerOperativa($scope.actualPadreNodo3Id);
         });
     }
+
+    $scope.exportarOperativa = function (id) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/seleccionPopUpView.html',
+            controller: 'seleccionPopUpController',
+            resolve: {
+                items: function () {
+                    return $scope.especificas.map(function (especifica) {
+                        return { id: especifica.especificaId, texto: especifica.especifica };
+                    });
+                }
+            }
+        });
+        modalInstance.result.then(function (especificaId) {
+            var item = {
+                operativaIdOrigen: id,
+                especificaIdDestino: especificaId
+            };
+            capacidadDataService.exportarOperativa(item).then(function () {
+                $scope.obtenerDeArea();
+            });
+        });
+
+    }
+
+    $scope.combinarOperativa = function (id) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/seleccionPopUpView.html',
+            controller: 'seleccionPopUpController',
+            resolve: {
+                items: function () {
+                    return $scope.operativas.map(function (operativa) {
+                        return { id: operativa.operativaId, texto: operativa.operativa };
+                    }).filter(function (operativoaFilter) {
+                        return operativoaFilter.id !== id;
+                    });
+                }
+            }
+        });
+        modalInstance.result.then(function (operativaId) {
+            var item = {
+                operativaIdOrigen: operativaId,
+                operativaIdDestino: id
+            };
+            capacidadDataService.combinarOperativa(item).then(function () {
+                $scope.obtenerDeArea();
+            });
+        });
+
+    }
+
+
 });

@@ -159,5 +159,41 @@ namespace Consilium.DAO
 
         }
 
+        public int Exportar(ColegioExportar colegioExportar)
+        {
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                string spName = "clase.sp_exportar_mantenimiento";
+                int retVal = 0;
+                try
+                {
+                    SqlCommand command = new SqlCommand(spName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(ObjSqlParameter("@colegio_id_origen", colegioExportar.ColegioIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@colegio_id_destino", colegioExportar.ColegioIdDestino, ParameterDirection.Input, System.Data.DbType.Int32));
+                    command.Parameters.Add(ObjSqlParameter("@capacidad", colegioExportar.Capacidad, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@contenido", colegioExportar.Contenido, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@valores", colegioExportar.Valores, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@metodologia", colegioExportar.Metodologia, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@columna1", colegioExportar.Columna1, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@columna2", colegioExportar.Columna2, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@columna3", colegioExportar.Columna3, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@columna4", colegioExportar.Columna4, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    conn.Open();
+                    retVal = command.ExecuteNonQuery();
+                    return retVal;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
     }
 }

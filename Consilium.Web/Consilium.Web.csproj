@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\exportarColegioPopUpController.js" />
     <Content Include="app\controllers\cambioPasswordController.js" />
     <Content Include="app\controllers\capacidadController.js" />
     <Content Include="app\controllers\areaController.js" />
@@ -229,6 +230,7 @@
     <Content Include="app\services\usuarioDataService.js" />
     <Content Include="app\services\usuarioSesion.js" />
     <Content Include="app\services\valorDataService.js" />
+    <Content Include="app\views\exportarColegioPopUpView.html" />
     <Content Include="app\views\cambioPasswordView.html" />
     <Content Include="app\views\capacidadView.html" />
     <Content Include="app\views\areaPopUpView.html" />
@@ -292,6 +294,9 @@
     <None Include="Properties\PublishProfiles\archivo.pubxml" />
     <None Include="Properties\PublishProfiles\consiliumtest.pubxml" />
     <None Include="Properties\PublishProfiles\consilium_ftp.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\edgarreva.pubxml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Properties\PublishProfiles\webhosting.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />

@@ -30,5 +30,11 @@ namespace Consilium.Logica
         {
             return colegioData.Update(colegio);
         }
-	}
+
+        public int Exportar(ColegioExportar colegioExportar)
+        {
+            return colegioData.Exportar(colegioExportar);
+        }
+
+    }
 }

@@ -30,5 +30,17 @@ namespace Consilium.Web.Controllers
         {
             CapacidadLogica.Instancia.DeleteOperativa(id);
         }
+
+        [HttpPost]
+        public void Export([FromBody]CapacidadExportar capacidadExportar)
+        {
+            CapacidadLogica.Instancia.ExportarOperativa(capacidadExportar);
+        }
+
+        [HttpPost]
+        public void Combinar([FromBody]CapacidadExportar capacidadExportar)
+        {
+            CapacidadLogica.Instancia.CombinarOperativa(capacidadExportar);
+        }
     }
 }
