@@ -208,6 +208,7 @@
     <Content Include="app\controllers\historialClaseController.js" />
     <Content Include="app\controllers\navigationController.js" />
     <Content Include="app\controllers\reporteController.js" />
+    <Content Include="app\controllers\copiarClasePopUpController.js" />
     <Content Include="app\controllers\seleccionPopUpController.js" />
     <Content Include="app\controllers\sesionController.js" />
     <Content Include="app\controllers\usuarioController.js" />
@@ -252,6 +253,7 @@
     <Content Include="app\views\claseView.html" />
     <Content Include="app\views\historialClaseView.html" />
     <Content Include="app\views\reporteView.html" />
+    <Content Include="app\views\copiarClasePopUpView.html" />
     <Content Include="app\views\seleccionPopUpView.html" />
     <Content Include="app\views\usuarioPopUpView.html" />
     <Content Include="app\views\usuarioView.html" />

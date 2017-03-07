@@ -117,6 +117,24 @@
         });
     };
 
+    $scope.copiarClase = function (claseId) {
+        var modalInstance = $modal.open({
+            templateUrl: '/app/views/copiarClasePopUpView.html',
+            controller: 'copiarClasePopUpController',
+            resolve: {
+            }
+        });
+        modalInstance.result.then(function (claseCopiar) {
+            var nuevaClaseCopiar = claseCopiar;
+            nuevaClaseCopiar.claseIdOrigen = claseId;
+            nuevaClaseCopiar.colegioId = usuarioSesion.getUsuario().colegioId;
+            nuevaClaseCopiar.usuario = usuarioSesion.getUsuario().codigo;
+            claseDataService.copiarClase(nuevaClaseCopiar).then(function () {
+                $scope.obtenerHistorialClase();
+            });
+        });
+    }
+
     //function helper
     function isEmpty(obj) {
         for (var prop in obj) {

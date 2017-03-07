@@ -71,6 +71,14 @@
             }
         );
     };
+    var _copiarClase = function (clase) {
+        return $http.post('/api/clase/copiar/', clase).then(function (resultado) {
+            toaster.pop('success', "Copiado Satisfactoriamente", "Clase copiada satisfactoriamente!");
+            return resultado;
+        }, function (error) {
+            alert('Error');
+        });
+    };
     var _claseContenidos = function (claseId) {
         return $http.get('/api/clasecontenido/', { params: { claseId: claseId } }).then(function (results) {
             return results;
@@ -353,6 +361,7 @@
     claseDataFactory.clase = _clase;
     claseDataFactory.saveClase = _saveClase;
     claseDataFactory.deleteClase = _deleteClase;
+    claseDataFactory.copiarClase = _copiarClase;
     
     claseDataFactory.claseCapacidades = _claseCapacidades;
     claseDataFactory.saveClaseCapacidad = _saveClaseCapacidad;

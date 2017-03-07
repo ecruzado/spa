@@ -45,5 +45,12 @@ namespace Consilium.Web.Controllers
         {
             ClaseLogica.Instancia.Delete(id);
         }
+
+        [HttpPost]
+        public void Copiar([FromBody]Clase value)
+        {
+            value.FechaRegistro = DateTime.UtcNow;
+            ClaseLogica.Instancia.Copiar(value);
+        }
     }
 }

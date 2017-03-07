@@ -1,0 +1,35 @@
+﻿<div class="modal-header" style="padding-top:10px;padding-bottom:10px">
+    <a href="" class="close" data-ng-click="close()">&times;</a>
+    <h4 style="margin-top:5px">Seleccionar nuevas fechas</h4>
+</div>
+<div class="modal-body" style="padding:0px">
+    <div class="well well-sm" style="margin:0px">
+        <form class="form-horizontal" novalidate>
+            <fieldset>
+                <div class="form-group form-group-sm">
+                    <label for="exampleInputPassword1" class="col-xs-4 control-label">Fecha Inicio</label>
+                    <div class="col-xs-8">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCopiar.fechaInicioFormato" is-open="openedFechaInicio" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-sm" ng-click="openFechaInicio($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <label for="exampleInputPassword1" class="col-xs-4 control-label">Fecha Fin</label>
+                    <div class="col-xs-8">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="claseCopiar.fechaFinFormato" is-open="openedFechaFin" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-sm" ng-click="openFechaFin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer" style="padding-top:10px;padding-bottom:10px">
+    <button type="button" data-ng-click="guardarSeleccion()" class="btn btn-primary pull-right" ng-disabled="!claseCopiar.fechaInicioFormato && !claseCopiar.fechaFinFormato">Copiar Clase</button>
+</div>

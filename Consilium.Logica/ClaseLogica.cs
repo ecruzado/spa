@@ -78,7 +78,11 @@ namespace Consilium.Logica
             return entidad;
         }
 
-
+        public int Copiar(Clase clase)
+        {
+            return claseData.Copiar(clase);
+        }
+        
         public List<ClaseCapacidad> ListClaseCapacidadByClase(int claseId)
         {
             return claseData.ListClaseCapacidadByClase(claseId);

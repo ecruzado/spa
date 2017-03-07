@@ -123,6 +123,7 @@ CREATE PROC [clase].sp_dearea_exportar
 	@area_id_destino int
 AS
 BEGIN
+/*
 DECLARE @dearea_id_nuevo int
 DECLARE @especificas_inserts table(especifica_id_origen int, especifica_id_destino int)
 
@@ -146,6 +147,33 @@ DECLARE @especificas_inserts table(especifica_id_origen int, especifica_id_desti
 	INSERT INTO [dbo].[operativa] ([operativa], [especifica_id], orden)
 	SELECT o.operativa, ei.especifica_id_destino, o.orden FROM [dbo].[operativa] o
 	INNER JOIN @especificas_inserts ei ON o.especifica_id = especifica_id_origen
+*/
+
+DECLARE @colegio_id int
+DECLARE @area_origen int
+DECLARE @dearea_destino_max int
+DECLARE @dearea_origen_actual int
+
+SELECT @colegio_id = colegio_id,
+	@dearea_origen_actual = orden,
+	@area_origen = area
+FROM dearea 
+WHERE dearea_id = @dearea_id_origen
+
+SELECT @dearea_destino_max = ISNULL(MAX(orden), 0) + 1
+FROM dearea
+WHERE colegio_id = @colegio_id and area = @area_id_destino
+
+UPDATE dearea
+set area = @area_id_destino,
+	orden = @dearea_destino_max
+WHERE dearea_id = @dearea_id_origen
+
+UPDATE dearea
+set orden = orden - 1
+WHERE colegio_id = @colegio_id 
+	and area = @area_origen
+	and orden >= @dearea_origen_actual
 
 END
 
@@ -375,6 +403,7 @@ CREATE PROC [clase].sp_especifica_exportar
 	@especifica_id_origen int
 AS
 BEGIN
+/*
 DECLARE @especifica_id_nuevo int
 
 	INSERT INTO [dbo].especifica(especifica, dearea_id, orden)
@@ -388,6 +417,31 @@ DECLARE @especifica_id_nuevo int
 	SELECT o.operativa, @especifica_id_nuevo, o.orden
 	FROM [dbo].[operativa] o
 	WHERE especifica_id = @especifica_id_origen
+*/
+
+DECLARE @dearea_origen int
+DECLARE @especifica_destino_max int
+DECLARE @especifica_origen_actual int
+
+SELECT
+	@especifica_origen_actual = orden,
+	@dearea_origen = dearea_id
+FROM especifica 
+WHERE especifica_id = @especifica_id_origen
+
+SELECT @especifica_destino_max = ISNULL(MAX(orden), 0) + 1
+FROM especifica
+WHERE dearea_id = @dearea_id_destino
+
+UPDATE especifica
+set dearea_id = @dearea_id_destino,
+	orden = @especifica_destino_max
+WHERE especifica_id = @especifica_id_origen
+
+UPDATE especifica
+set orden = orden - 1
+WHERE dearea_id = @dearea_origen
+	and orden >= @especifica_origen_actual
 
 END
 
@@ -407,11 +461,36 @@ CREATE PROC [clase].sp_operativa_exportar
 	@especifica_id_destino int
 AS
 BEGIN
-
+/*
 	INSERT INTO [dbo].[operativa] ([operativa], [especifica_id], orden)
 	SELECT o.operativa, @especifica_id_destino, o.orden
 	FROM [dbo].[operativa] o
 	WHERE operativa_id = @operativa_id_origen
+*/
+
+DECLARE @especifica_origen int
+DECLARE @operativa_destino_max int
+DECLARE @operativa_origen_actual int
+
+SELECT
+	@operativa_origen_actual = orden,
+	@especifica_origen = especifica_id
+FROM operativa 
+WHERE operativa_id = @operativa_id_origen
+
+SELECT @operativa_destino_max = ISNULL(MAX(orden), 0) + 1
+FROM operativa
+WHERE especifica_id = @especifica_id_destino
+
+UPDATE operativa
+set especifica_id = @especifica_id_destino,
+	orden = @operativa_destino_max
+WHERE operativa_id = @operativa_id_origen
+
+UPDATE operativa
+set orden = orden - 1
+WHERE especifica_id = @especifica_origen
+	and orden >= @operativa_origen_actual
 
 END
 
@@ -435,21 +514,37 @@ BEGIN
 
 DECLARE @deareaOrigen nvarchar(150)
 DECLARE @deareaDestino nvarchar(150)
+DECLARE @especifica_origen_max_orden int
+DECLARE @deareDetino_orden int
+DECLARE @colegio_id int
+DECLARE @area_id int
 
 SELECT @deareaOrigen = dearea
 FROM  [dbo].dearea 
 WHERE dearea_id = @dearea_id_origen
 
-SELECT @deareaDestino = dearea
+SELECT @deareaDestino = dearea, @deareDetino_orden = orden, 
+	@colegio_id = colegio_id, @area_id = area
 FROM  [dbo].dearea 
 WHERE dearea_id = @dearea_id_destino
+
+SELECT @especifica_origen_max_orden = ISNULL(MAX(orden), 1)
+FROM especifica
+WHERE dearea_id = @dearea_id_origen
 
 UPDATE dbo.dearea
 SET dearea = @deareaOrigen + ' ' + @deareaDestino
 WHERE dearea_id = @dearea_id_origen
 
+UPDATE dbo.dearea
+set orden = orden - 1
+WHERE colegio_id = @colegio_id and area = @area_id
+	AND orden >= @deareDetino_orden
+
 UPDATE dbo.especifica
-SET dearea_id = @dearea_id_origen
+SET dearea_id = @dearea_id_origen,
+	orden = @especifica_origen_max_orden,
+	@especifica_origen_max_orden = @especifica_origen_max_orden + 1 
 where dearea_id = @dearea_id_destino
 
 DELETE dbo.dearea
@@ -457,47 +552,6 @@ where dearea_id = @dearea_id_destino
 
 END
 
-
-GO
-
-
-IF EXISTS (
-	SELECT * FROM sys.objects o
-		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
-		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_dearea_combinar')
-   DROP PROCEDURE [clase].sp_dearea_combinar
-GO
-
--- sp_helptext 'clase.sp_dearea_exportar'
-CREATE PROC [clase].sp_dearea_combinar
-	@dearea_id_origen int,
-	@dearea_id_destino int
-AS
-BEGIN
-
-DECLARE @deareaOrigen nvarchar(150)
-DECLARE @deareaDestino nvarchar(150)
-
-SELECT @deareaOrigen = dearea
-FROM  [dbo].dearea 
-WHERE dearea_id = @dearea_id_origen
-
-SELECT @deareaDestino = dearea
-FROM  [dbo].dearea 
-WHERE dearea_id = @dearea_id_destino
-
-UPDATE dbo.dearea
-SET dearea = @deareaOrigen + ' ' + @deareaDestino
-WHERE dearea_id = @dearea_id_origen
-
-UPDATE dbo.especifica
-SET dearea_id = @dearea_id_origen
-where dearea_id = @dearea_id_destino
-
-DELETE dbo.dearea
-where dearea_id = @dearea_id_destino
-
-END
 
 GO
 
@@ -519,21 +573,37 @@ BEGIN
 
 DECLARE @especificaOrigen nvarchar(150)
 DECLARE @especificaDestino nvarchar(150)
+DECLARE @operativa_origen_max_orden int
+DECLARE @dearea_id int
+DECLARE @especifica_destino_orden int
 
 SELECT @especificaOrigen = especifica
 FROM  [dbo].especifica 
 WHERE especifica_id = @especifica_id_origen
 
-SELECT @especificaDestino = especifica
+SELECT @especificaDestino = especifica,
+	@dearea_id = dearea_id,
+	@especifica_destino_orden = orden
 FROM  [dbo].especifica 
 WHERE especifica_id = @especifica_id_destino
+
+SELECT @operativa_origen_max_orden = ISNULL(MAX(orden), 1)
+FROM operativa
+WHERE especifica_id = @especificaOrigen
 
 UPDATE dbo.especifica
 SET especifica = @especificaOrigen + ' ' + @especificaDestino
 WHERE especifica_id = @especifica_id_origen
 
+UPDATE dbo.especifica
+SET orden = orden -1
+WHERE dearea_id = @dearea_id
+	AND orden >= @especifica_destino_orden
+
 UPDATE dbo.operativa
-SET especifica_id = @especifica_id_origen
+SET especifica_id = @especifica_id_origen,
+	orden = @operativa_origen_max_orden,
+	@operativa_origen_max_orden = @operativa_origen_max_orden + 1
 where especifica_id = @especifica_id_destino
 
 DELETE dbo.especifica
@@ -561,18 +631,27 @@ BEGIN
 
 DECLARE @operativaOrigen nvarchar(150)
 DECLARE @operativaDestino nvarchar(150)
+DECLARE @especifica_id int;
+DECLARE @operativa_orden_destino int
 
 SELECT @operativaOrigen = operativa
 FROM  [dbo].operativa 
 WHERE operativa_id = @operativa_id_origen
 
-SELECT @operativaDestino = operativa
+SELECT @operativaDestino = operativa,
+	@especifica_id = especifica_id,
+	@operativa_orden_destino = orden
 FROM  [dbo].operativa 
 WHERE operativa_id = @operativa_id_destino
 
 UPDATE dbo.operativa
 SET operativa = @operativaOrigen + ' ' + @operativaDestino
 WHERE operativa_id = @operativa_id_origen
+
+UPDATE dbo.operativa
+SET orden = orden - 1
+where especifica_id = @especifica_id
+	and orden >= @operativa_orden_destino
 
 DELETE dbo.operativa
 where operativa_id = @operativa_id_destino
@@ -634,6 +713,68 @@ where a.esOpcional = 1 and c.colegio_id = @new_identity
 
 END
 
+GO
 
 
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_copiar')
+   DROP PROCEDURE [clase].sp_clase_copiar
+GO
+
+
+CREATE PROCEDURE clase.sp_clase_copiar
+	@clase_id_origen int 
+    ,@colegio_id int
+    ,@fecha_inicio nvarchar(10)
+    ,@fecha_fin nvarchar(10)
+    ,@fecha_reg datetime
+    ,@usuario nvarchar(50)
+	,@new_identity INT = NULL OUTPUT
+AS
+BEGIN
+	INSERT INTO [dbo].[clase] ([clase_titulo], [colegio_id], [area_id], [nivel_id], [grado_id],[fecha_inicio],
+		[fecha_fin], [fecha_reg], [usuario], [obs_clase], [obs_pruebas], [formato])
+	SELECT c.clase_titulo, @colegio_id, c.area_id, c.nivel_id, c.grado_id,CONVERT(Datetime, @fecha_inicio, 103),
+		CONVERT(Datetime, @fecha_fin, 103), @fecha_reg, @usuario, c.obs_clase, c.obs_pruebas, c.formato
+	FROM dbo.clase c WHERE c.clase_id = @clase_id_origen
+
+	SET @new_identity = SCOPE_IDENTITY();
+
+	INSERT INTO dbo.clase_actividad([actividades], [actividades_hora], [clase_id], [actividades1], [actividades_hora1],
+		[actividades2], [actividades_hora2])
+	SELECT [actividades], [actividades_hora], @new_identity, [actividades1], [actividades_hora1],
+		[actividades2], [actividades_hora2]
+	FROM dbo.clase_actividad WHERE clase_id = @clase_id_origen
+
+	INSERT INTO dbo.clase_capacidad([clase_id], [operativa_id])
+	SELECT @new_identity, operativa_id FROM dbo.clase_capacidad WHERE clase_id = @clase_id_origen
+
+	INSERT INTO [dbo].[clase_conf_col_colegio]([clase_id], [confcolcolegio_id])
+	SELECT @new_identity, confcolcolegio_id FROM dbo.[clase_conf_col_colegio] WHERE clase_id = @clase_id_origen
+
+	INSERT INTO [dbo].[clase_contenido](organi3_id, clase_id)
+	SELECT organi3_id, @new_identity FROM dbo.clase_contenido WHERE clase_id = @clase_id_origen
+
+	INSERT INTO [dbo].[clase_item_registro_reactivo]([item_reg_act_id], [clase_id])
+	SELECT clase_item_reg_act_id, @new_identity FROM [dbo].[clase_item_registro_reactivo] WHERE clase_id = @clase_id_origen
+
+	INSERT INTO [dbo].[clase_matriz]([formativa], [sumativa], [autoevaluativa], [coevaluativa], [heteroevaluacion],
+		[censal], [muestral], [indicador_logro], [clase_id], [pruebatxt], [obsclase])
+	SELECT formativa, sumativa, autoevaluativa, coevaluativa, heteroevaluacion,
+		censal, muestral, indicador_logro, @new_identity, pruebatxt, obsclase 
+	FROM [dbo].[clase_matriz] WHERE clase_id = @clase_id_origen
+	
+	INSERT INTO clase_metodo(metecnica_id, clase_id)
+	SELECT metecnica_id, @new_identity FROM clase_metodo WHERE clase_id = @clase_id_origen
+
+	INSERT INTO [dbo].[clase_tipo_conocimiento]( tipo_conocimiento_id, clase_id)
+	SELECT tipo_conocimiento_id, @new_identity FROM clase_tipo_conocimiento
+	WHERE clase_id = @clase_id_origen
+
+	INSERT INTO [dbo].[clase_valores] ([actitud_id], [clase_id])
+	SELECT actitud_id, @new_identity FROM dbo.clase_valores WHERE clase_id = @clase_id_origen
+END

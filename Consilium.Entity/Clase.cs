@@ -30,5 +30,7 @@ namespace Consilium.Entity
         public string FechaRegistroFormato { get; set; }
 
         public string Colegio { get; set; }
+
+        public int ClaseIdOrigen { get; set; }
     }
 }

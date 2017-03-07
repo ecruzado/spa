@@ -76,6 +76,7 @@
                     <th>Autor</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -96,6 +97,7 @@
                     <td>{{ clase.usuario}}</td>
                     <td><a ng-click="editarClase(clase.claseId)" class=""><span class="glyphicon glyphicon-pencil" style=""></span></a></td>
                     <td><a ng-click="eliminarClase(clase.claseId)"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    <td><a ng-click="copiarClase(clase.claseId)"><span class="glyphicon glyphicon-copy"></span></a></td>
                 </tr>
             </tbody>
         </table>

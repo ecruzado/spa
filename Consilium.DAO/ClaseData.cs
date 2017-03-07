@@ -299,6 +299,46 @@ namespace Consilium.DAO
 
         }
 
+        public int Copiar(Clase clase)
+        {
+            string spName = "clase.sp_clase_copiar";
+            int retVal = 0;
+
+            using (SqlConnection conn = new SqlConnection(CadenaConexion))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(spName, conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(ObjSqlParameter("@clase_id_origen", clase.ClaseIdOrigen, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@colegio_id", clase.ColegioId, ParameterDirection.Input, System.Data.DbType.Int32));
+                        command.Parameters.Add(ObjSqlParameter("@fecha_inicio", clase.FechaInicioFormato, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@fecha_fin", clase.FechaFinFormato, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add(ObjSqlParameter("@fecha_reg", clase.FechaRegistro, ParameterDirection.Input, System.Data.DbType.Date));
+                        command.Parameters.Add(ObjSqlParameter("@usuario", clase.Usuario, ParameterDirection.Input, System.Data.DbType.String));
+                        command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
+                        command.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                        retVal = Convert.ToInt32(command.Parameters["@new_identity"].Value);
+                    }
+                    return retVal;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+
+
         #region Capacidad
 
         /// <summary>
