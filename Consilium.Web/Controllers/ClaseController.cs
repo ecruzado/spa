@@ -47,10 +47,10 @@ namespace Consilium.Web.Controllers
         }
 
         [HttpPost]
-        public void Copiar([FromBody]Clase value)
+        public int Copiar([FromBody]Clase value)
         {
             value.FechaRegistro = DateTime.UtcNow;
-            ClaseLogica.Instancia.Copiar(value);
+            return ClaseLogica.Instancia.Copiar(value);
         }
     }
 }

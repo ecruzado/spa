@@ -129,8 +129,8 @@
             nuevaClaseCopiar.claseIdOrigen = claseId;
             nuevaClaseCopiar.colegioId = usuarioSesion.getUsuario().colegioId;
             nuevaClaseCopiar.usuario = usuarioSesion.getUsuario().codigo;
-            claseDataService.copiarClase(nuevaClaseCopiar).then(function () {
-                $scope.obtenerHistorialClase();
+            claseDataService.copiarClase(nuevaClaseCopiar).then(function (resultado) {
+                $location.path("/clase/" + resultado.data);
             });
         });
     }

@@ -123,6 +123,7 @@
     }
 
     $scope.obtenerNodo2 = function (idPadre) {
+        if (!idPadre || idPadre == 0 || idPadre == '') return;
         $scope.nodo3 = [];
         $scope.nodo2Botones = true;
         $scope.nodo2Form = false;
