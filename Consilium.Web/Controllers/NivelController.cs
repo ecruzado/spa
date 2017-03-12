@@ -16,7 +16,7 @@ namespace Consilium.Web.Controllers
         {
             var lista = NivelLogica.Instancia.List();
             if(lista != null)
-                lista.Insert(0,new Nivel{NivelId=0,NivelDesc="--Seleccionar Nivel--"});
+                lista.Insert(0,new Nivel{NivelId=0,NivelDesc="--todos los niveles--"});
             return lista;
         }
 

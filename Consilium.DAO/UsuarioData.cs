@@ -50,6 +50,7 @@ namespace Consilium.DAO
                             usuario.Reporte = dr.IsDBNull(dr.GetOrdinal("reporte")) ? false : dr.GetBoolean(dr.GetOrdinal("reporte"));
                             usuario.Mantenimiento = dr.IsDBNull(dr.GetOrdinal("mantenimiento")) ? false : dr.GetBoolean(dr.GetOrdinal("mantenimiento"));
                             usuario.Administrador = dr.IsDBNull(dr.GetOrdinal("administrador")) ? false : dr.GetBoolean(dr.GetOrdinal("administrador"));
+                            usuario.EliminarClase = dr.IsDBNull(dr.GetOrdinal("eliminarClase")) ? false : dr.GetBoolean(dr.GetOrdinal("eliminarClase"));
                             usuario.Colegio = dr.IsDBNull(dr.GetOrdinal("colegio")) ? "" : dr.GetString(dr.GetOrdinal("colegio"));
                             lista.Add(usuario);
                         }
@@ -105,6 +106,7 @@ namespace Consilium.DAO
                             usuario.Reporte = dr.IsDBNull(dr.GetOrdinal("reporte")) ? false : dr.GetBoolean(dr.GetOrdinal("reporte"));
                             usuario.Mantenimiento = dr.IsDBNull(dr.GetOrdinal("mantenimiento")) ? false : dr.GetBoolean(dr.GetOrdinal("mantenimiento"));
                             usuario.Administrador = dr.IsDBNull(dr.GetOrdinal("administrador")) ? false : dr.GetBoolean(dr.GetOrdinal("administrador"));
+                            usuario.EliminarClase = dr.IsDBNull(dr.GetOrdinal("eliminarClase")) ? false : dr.GetBoolean(dr.GetOrdinal("eliminarClase"));
                             usuario.Colegio = dr.IsDBNull(dr.GetOrdinal("colegio")) ? "" : dr.GetString(dr.GetOrdinal("colegio"));
                         }
 
@@ -158,6 +160,7 @@ namespace Consilium.DAO
                             usuario.Reporte = dr.IsDBNull(dr.GetOrdinal("reporte")) ? false : dr.GetBoolean(dr.GetOrdinal("reporte"));
                             usuario.Mantenimiento = dr.IsDBNull(dr.GetOrdinal("mantenimiento")) ? false : dr.GetBoolean(dr.GetOrdinal("mantenimiento"));
                             usuario.Administrador = dr.IsDBNull(dr.GetOrdinal("administrador")) ? false : dr.GetBoolean(dr.GetOrdinal("administrador"));
+                            usuario.EliminarClase = dr.IsDBNull(dr.GetOrdinal("eliminarClase")) ? false : dr.GetBoolean(dr.GetOrdinal("eliminarClase"));
                             usuario.Colegio = dr.IsDBNull(dr.GetOrdinal("colegio")) ? "" : dr.GetString(dr.GetOrdinal("colegio"));
                         }
 
@@ -202,6 +205,7 @@ namespace Consilium.DAO
                     command.Parameters.Add(ObjSqlParameter("@reporte", usuario.Reporte, ParameterDirection.Input, System.Data.DbType.Boolean));
                     command.Parameters.Add(ObjSqlParameter("@mantenimiento", usuario.Mantenimiento, ParameterDirection.Input, System.Data.DbType.Boolean));
                     command.Parameters.Add(ObjSqlParameter("@administrador", usuario.Administrador, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@eliminarClase", usuario.EliminarClase, ParameterDirection.Input, System.Data.DbType.Boolean));
                     command.Parameters.Add("@new_identity", SqlDbType.Int, 12).Direction = ParameterDirection.Output;
                     command.CommandType = CommandType.StoredProcedure;
                     conn.Open();
@@ -251,6 +255,7 @@ namespace Consilium.DAO
                     command.Parameters.Add(ObjSqlParameter("@reporte", usuario.Reporte, ParameterDirection.Input, System.Data.DbType.Boolean));
                     command.Parameters.Add(ObjSqlParameter("@mantenimiento", usuario.Mantenimiento, ParameterDirection.Input, System.Data.DbType.Boolean));
                     command.Parameters.Add(ObjSqlParameter("@administrador", usuario.Administrador, ParameterDirection.Input, System.Data.DbType.Boolean));
+                    command.Parameters.Add(ObjSqlParameter("@eliminarClase", usuario.EliminarClase, ParameterDirection.Input, System.Data.DbType.Boolean));
                     conn.Open();
                     retVal = command.ExecuteNonQuery();
                     return retVal;

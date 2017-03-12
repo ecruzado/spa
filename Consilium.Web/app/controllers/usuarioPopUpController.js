@@ -11,7 +11,8 @@
         historialClase: false,
         reporte: false,
         mantenimiento: false,
-        administrador: false
+        administrador: false,
+        eliminarClase: false,
     };
     $scope.colegios = [];
     $scope.disabledUsuario = true;

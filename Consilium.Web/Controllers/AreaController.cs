@@ -16,7 +16,7 @@ namespace Consilium.Web.Controllers
         {
             var lista = AreaLogica.Instancia.List(colegioId);
             /*if (lista != null)
-                lista.Insert(0, new Area { AreaId = 0, Descripcion = "--Seleccionar Area--" });*/
+                lista.Insert(0, new Area { AreaId = 0, Descripcion = "--todos las areas--" });*/
             return lista;
         }
 

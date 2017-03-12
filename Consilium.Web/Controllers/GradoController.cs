@@ -16,7 +16,7 @@ namespace Consilium.Web.Controllers
         {
             var lista = GradoLogica.Instancia.ListByNivel(nivelId);
             if(lista != null)
-                lista.Insert(0,new Grado{GradoId=0,GradoDesc="--Seleccionar Grado--"});
+                lista.Insert(0,new Grado{GradoId=0,GradoDesc="--todos los grados--"});
             return lista;
         }
 

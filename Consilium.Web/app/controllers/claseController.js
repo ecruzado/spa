@@ -82,7 +82,7 @@
     function obtenerUsuarios() {
         usuarioDataService.usuarios($scope.claseCabecera.colegioId).then(function (resultado) {
             $scope.usuarios = resultado.data;
-            $scope.usuarios.splice(0, 0, { codigo: '--Seleccionar Usuario--' });
+            $scope.usuarios.splice(0, 0, { codigo: '--todos los usuarios--' });
         });
     }
 

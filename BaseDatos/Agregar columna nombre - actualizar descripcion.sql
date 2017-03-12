@@ -589,7 +589,7 @@ WHERE especifica_id = @especifica_id_destino
 
 SELECT @operativa_origen_max_orden = ISNULL(MAX(orden), 1)
 FROM operativa
-WHERE especifica_id = @especificaOrigen
+WHERE especifica_id = @especifica_id_origen
 
 UPDATE dbo.especifica
 SET especifica = @especificaOrigen + ' ' + @especificaDestino
@@ -652,6 +652,10 @@ UPDATE dbo.operativa
 SET orden = orden - 1
 where especifica_id = @especifica_id
 	and orden >= @operativa_orden_destino
+
+UPDATE dbo.clase_capacidad
+SET operativa_id = @operativa_id_origen
+WHERE operativa_id = @operativa_id_destino
 
 DELETE dbo.operativa
 where operativa_id = @operativa_id_destino
@@ -778,3 +782,248 @@ BEGIN
 	INSERT INTO [dbo].[clase_valores] ([actitud_id], [clase_id])
 	SELECT actitud_id, @new_identity FROM dbo.clase_valores WHERE clase_id = @clase_id_origen
 END
+
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_clase_lstByFilto')
+   DROP PROCEDURE [clase].sp_clase_lstByFilto
+GO
+
+CREATE PROCEDURE [clase].sp_clase_lstByFilto
+	@colegio_id int,
+	@usuario nvarchar(50) = null,
+	@area int = null,
+	@nivelId int = null,
+	@gradoId int = null,
+	@fechaInicio nvarchar(10) = null,
+	@fechaFin nvarchar(10) = null
+AS
+BEGIN
+SELECT TOP 10000 c.clase_id, c.clase_titulo,a.area,n.nivel
+	,g.grado,c.fecha_inicio,c.fecha_fin,c.fecha_reg
+	,c.usuario,c.formato
+FROM [clase] as c
+	inner join area as a on c.area_id=a.area_id
+	inner join niveles as n on c.nivel_id=n.nivel_id
+	inner join grado as g on c.grado_id=g.grado_id
+where c.colegio_id=@colegio_id
+	AND CASE 
+		WHEN @usuario IS NULL THEN 1
+		WHEN c.usuario = @usuario THEN 1
+		ELSE 0
+	END = 1 
+	AND CASE
+		WHEN @area IS NULL THEN 1
+		WHEN C.area_id = @area THEN 1
+		ELSE 0
+	END = 1
+	AND CASE
+		WHEN @nivelId IS NULL THEN 1
+		WHEN c.nivel_id = @nivelId THEN 1
+		ELSE 0
+	END = 1
+	AND CASE
+		WHEN @gradoId IS NULL THEN 1
+		WHEN c.grado_id = @gradoId THEN 1
+		ELSE 0
+	END = 1
+	AND CASE
+		WHEN @fechaInicio IS NULL OR @fechaFin IS NULL THEN 1
+		WHEN c.fecha_reg BETWEEN  CONVERT(Datetime, @fechaInicio, 103) AND  CONVERT(Datetime, @fechaFin, 103) THEN 1
+		ELSE 0
+	END = 1
+ORDER BY c.clase_id DESC
+
+END
+
+GO
+
+ALTER TABLE [dbo].[usuarios]
+ADD eliminarClase bit
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_getByid')
+   DROP PROCEDURE [clase].sp_usuario_getByid
+GO
+
+CREATE PROCEDURE [clase].sp_usuario_getByid
+	@usuario_id int
+AS
+BEGIN
+
+SELECT [usuario_id],[usuario],[nombres],[apematerno]
+  ,[apepaterno],[pass],[correo],[colegio_id]
+  ,[estado],[diseno],[historia],[reporte]
+  ,[mantenimiento],[administrador], eliminarClase,
+  (select c.colegio_nombre from colegio c where c.colegio_id = u.colegio_id) colegio
+FROM  [usuarios] u
+where u.usuario_id = @usuario_id
+
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_lstByColegio')
+   DROP PROCEDURE [clase].sp_usuario_lstByColegio
+GO
+
+create PROCEDURE [clase].sp_usuario_lstByColegio
+	@colegio_id as int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+SELECT     [usuario_id]
+      ,tb1.[usuario]
+      ,tb1.[nombres]
+      ,tb1.[apematerno]
+      ,tb1.[apepaterno]
+      ,tb1.[correo]
+	  ,tb1.colegio_id
+      ,tb2.[colegio_nombre] colegio
+      ,tb1.[estado]
+      ,tb1.[diseno]
+      ,tb1.[historia]
+      ,tb1.[reporte]
+      ,tb1.[mantenimiento]
+      ,tb1.[administrador]
+	  ,tb1.eliminarClase
+FROM  [usuarios] as tb1
+inner join colegio as tb2 on tb1.colegio_id=tb2.colegio_id
+where tb1.colegio_id=@colegio_id  
+END
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_lstByUsuarioAndPass')
+   DROP PROCEDURE [clase].sp_usuario_lstByUsuarioAndPass
+GO
+
+CREATE PROCEDURE [clase].sp_usuario_lstByUsuarioAndPass
+	@usuario as nvarchar(50),
+	@pass as nvarchar(50)
+AS
+BEGIN
+
+SELECT [usuario_id],[usuario],[nombres],[apematerno]
+  ,[apepaterno],[pass],[correo],[colegio_id]
+  ,[estado],[diseno],[historia],[reporte]
+  ,[mantenimiento],[administrador], eliminarClase,
+  (select c.colegio_nombre from colegio c where c.colegio_id = u.colegio_id) colegio
+FROM  [usuarios] u
+where usuario =@usuario and PWDCOMPARE(@pass, pass)=1 and estado=1
+
+END
+
+
+GO
+
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_insert')
+   DROP PROCEDURE [clase].sp_usuario_insert
+GO
+
+
+CREATE PROCEDURE [clase].sp_usuario_insert
+	@usuario as nvarchar(50)
+	,@nombres  as nvarchar(250)
+	,@apematerno  as nvarchar(150)
+	,@apepaterno  as nvarchar(150)
+	,@pass  as nvarchar(150)
+	,@correo  as nvarchar(150)
+	,@colegio_id as int
+	,@estado as bit
+	,@diseno as bit
+	,@historia as bit
+	,@reporte as bit
+	,@mantenimiento as bit
+	,@administrador as bit
+	,@eliminarClase as bit
+	,@new_identity INT = NULL OUTPUT
+AS
+
+BEGIN
+
+INSERT INTO [usuarios]([usuario],[nombres],[apematerno],[apepaterno]
+	,[pass],[correo],[colegio_id],[estado]
+	,[diseno],[historia],[reporte],[mantenimiento]
+	,[administrador], [eliminarClase])
+VALUES(@usuario,@nombres,@apematerno,@apepaterno
+	,PWDENCRYPT(@pass),@correo,@colegio_id,@estado
+	,@diseno,@historia,@reporte,@mantenimiento
+	,@administrador, @eliminarClase)
+
+
+SET @new_identity = SCOPE_IDENTITY();
+   
+END
+
+GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects o
+		inner join sys.schemas s on o.[schema_id] = s.[schema_id] 
+		WHERE s.name = 'clase' and o.[type] = 'P' AND o.[name] = 'sp_usuario_update')
+   DROP PROCEDURE [clase].sp_usuario_update
+GO
+
+CREATE PROCEDURE [clase].sp_usuario_update
+	@usuario_id as int
+	,@usuario as nvarchar(50)
+	,@nombres  as nvarchar(250)
+	,@apematerno  as nvarchar(150)
+	,@apepaterno  as nvarchar(150)
+	,@correo  as nvarchar(150)
+	,@colegio_id as int
+	,@estado as bit
+	,@diseno as bit
+	,@historia as bit
+	,@reporte as bit
+	,@mantenimiento as bit
+	,@administrador as bit
+	,@eliminarClase as bit
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+UPDATE [usuarios]
+   SET [usuario] = @usuario
+      ,[nombres] = @nombres
+      ,[apematerno] = @apematerno
+      ,[apepaterno] = @apepaterno
+      --,[pass] = PWDENCRYPT('@pass')
+      ,[correo] = @correo
+      ,[colegio_id] = @colegio_id
+      ,[estado] = @estado
+      ,[diseno] = @diseno
+      ,[historia] = @historia
+      ,[reporte] = @reporte
+      ,[mantenimiento] = @mantenimiento
+      ,[administrador] = @administrador
+	  ,[eliminarClase] = @eliminarClase
+ WHERE usuario_id = @usuario_id 
+END
+
+
+GO
+
+

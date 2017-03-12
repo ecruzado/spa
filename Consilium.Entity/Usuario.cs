@@ -21,6 +21,7 @@ namespace Consilium.Entity
         public bool Reporte { get; set; }
         public bool Mantenimiento { get; set; }
         public bool Administrador { get; set; }
+        public bool EliminarClase { get; set; }
 
         public string Colegio { get; set; }
     }

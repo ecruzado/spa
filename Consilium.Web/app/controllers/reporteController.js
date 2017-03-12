@@ -10,7 +10,7 @@
     $scope.reportePruebas = false;
     $scope.areas = [];
     $scope.niveles = [];
-    $scope.grados = [{ gradoId: 0, gradoDesc: '--Seleccionar Grado--' }];
+    $scope.grados = [{ gradoId: 0, gradoDesc: '--todos los grados--' }];
     $scope.rubros = [{ rubro: 'CAPACIDAD' }, { rubro: 'CONTENIDO' }, { rubro: 'METODOLOGIAS' },
         { rubro: 'VALORES' }, { rubro: 'INDICADORES' }, { rubro: 'TIPO DE CONOCIMIENTO' },
         { rubro: 'PRUEBA' }];

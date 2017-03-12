@@ -7,15 +7,24 @@
         nivelId: 0,
         gradoId: 0
     };
-
     $scope.clases = [];
     $scope.areas = [];
     $scope.usuarios = [];
     $scope.niveles = [];
-    $scope.grados = [{gradoId:0,gradoDesc:'--Seleccionar Grado--'}];
+    $scope.grados = [{gradoId:0,gradoDesc:'--todos los grados--'}];
+    $scope.totalItems = 0;
+    $scope.currentPage = 1;
+    $scope.permitirEliminarClase = usuarioSesion.getUsuario().EliminarClase;
+
+    $scope.pageChanged = function () {
+        var inicio = 10 * ($scope.currentPage - 1);
+        $scope.clases = $scope.clasesSinPaginacion.slice(inicio, inicio + 10);
+
+    }
 
     $scope.obtenerGrados = function () {
-        claseDataService.grados($scope.claseBusqueda.nivelId).then(function (resultado) {
+        console.log('obtenerGrados');
+        return claseDataService.grados($scope.claseBusqueda.nivelId).then(function (resultado) {
             $scope.claseBusqueda.gradoId = 0;
             $scope.grados = resultado.data;
         });
@@ -27,9 +36,11 @@
             $scope.claseBusqueda.fechaInicioFormato = $filter('date')($scope.claseBusqueda.fechaInicioFormato, 'dd/MM/yyyy'),
             $scope.claseBusqueda.fechaFinFormato = $filter('date')($scope.claseBusqueda.fechaFinFormato, 'dd/MM/yyyy'),
             usuarioSesion.busqueda = $scope.claseBusqueda;
-
             claseDataService.clases($scope.claseBusqueda).then(function (results) {
-                $scope.clases = results.data;
+                $scope.totalItems = results.data.length;
+                $scope.clasesSinPaginacion = results.data;
+                var inicio = 10*($scope.currentPage -1);
+                $scope.clases = $scope.clasesSinPaginacion.slice(inicio, inicio + 10);
 
             }, function (error) {
                 alert(error.message);
@@ -42,8 +53,11 @@
 
     function init() {
         if (!isEmpty(usuarioSesion.busqueda)) {
+            var tempGradoId = usuarioSesion.busqueda.gradoId;
             $scope.claseBusqueda = usuarioSesion.busqueda;
-            $scope.obtenerGrados();
+            $scope.obtenerGrados().then(function () {
+                $scope.claseBusqueda.gradoId = tempGradoId;
+            });
             $scope.obtenerHistorialClase();
         }
         
@@ -60,22 +74,22 @@
     function obtenerUsuarios() {
         usuarioDataService.usuarios($scope.claseBusqueda.colegioId).then(function (resultado) {
             $scope.usuarios = resultado.data;
-            $scope.usuarios.splice(0,0,{ codigo: '--Seleccionar Usuario--' });
+            $scope.usuarios.splice(0,0,{ codigo: '--todos los usuarios--' });
         });
     }
     function obtenerAreas() {
         claseDataService.areas(usuarioSesion.getUsuario().colegioId).then(function (resultado) {
             $scope.areas = resultado.data;
-            $scope.areas.splice(0, 0, { areaId: 0, descripcion: '--Seleccionar Area--' });
+            $scope.areas.splice(0, 0, { areaId: 0, descripcion: '--todas las areas--' });
         });
     }
 
 
 
     $scope.limpiar = function () {
-        $scope.claseBusqueda.colegioId = 5;
+        $scope.claseBusqueda.colegioId = usuarioSesion.getUsuario().colegioId;
         $scope.claseBusqueda.areaId = 0;
-        $scope.claseBusqueda.usuario = '--Seleccionar Usuario--';
+        $scope.claseBusqueda.usuario = '--todos los usuarios--';
         $scope.claseBusqueda.nivelId = 0;
         $scope.claseBusqueda.gradoId = 0;
         $scope.claseBusqueda.fechaInicioFormato = '';
