@@ -17,7 +17,7 @@ namespace Consilium.Web.Controllers
     public class ArchivoController : ApiController
     {
         [HttpPost]
-        public Task<HttpResponseMessage> PostFormData()
+        public Task<HttpResponseMessage> Post()
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
